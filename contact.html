@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ellora Tours & Travels - Contact</title>
+    <script src="config.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -185,6 +186,17 @@
 </head>
 
 <body class="min-h-screen font-sans">
+
+    <script>
+        console.log('🔍 Checking config...');
+        console.log('window.APP_CONFIG exists?', window.APP_CONFIG ? 'YES' : 'NO');
+        if (window.APP_CONFIG) {
+            console.log('API URL:', window.APP_CONFIG.API_URL);
+        } else {
+            console.error('❌ APP_CONFIG is not defined! config.js not loaded');
+        }
+    </script>
+
     <!-- Navigation -->
     <nav
         class="sticky top-0 z-50 bg-primary/95 backdrop-blur-sm border-b border-gold/30 dark:bg-primary/95 dark:border-gold/30">
@@ -509,145 +521,85 @@
     </a>
 
     <script>
-        // Real-time validation functions
-        function validatePhoneNumber() {
-            const phoneInput = document.getElementById('phoneNumber');
-            const phoneError = document.getElementById('phoneError');
-            const phoneSuccess = document.getElementById('phoneSuccess');
-            const phoneValue = phoneInput.value;
+        // Wait for everything to load
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('📄 Page loaded');
+            console.log('🔍 APP_CONFIG:', window.APP_CONFIG);
 
-            // Remove non-digits and limit to 10 characters
-            let cleanedValue = phoneValue.replace(/[^0-9]/g, '').slice(0, 10);
-            phoneInput.value = cleanedValue;
-
-            // Show validation after user has typed at least 1 character
-            if (cleanedValue.length === 0) {
-                phoneError.classList.add('hidden');
-                phoneSuccess.classList.add('hidden');
-                phoneInput.classList.remove('invalid-input', 'valid-input');
+            const form = document.getElementById('enquiryForm');
+            if (!form) {
+                console.error('❌ Form not found!');
                 return;
             }
 
-            // Check if valid: starts with 7, 8, or 9 and exactly 10 digits
-            const phonePattern = /^[7-9][0-9]{9}$/;
-            const isValid = phonePattern.test(cleanedValue);
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                console.log('📤 Form submitted');
 
-            if (isValid) {
-                phoneError.classList.add('hidden');
-                phoneSuccess.classList.remove('hidden');
-                phoneInput.classList.remove('invalid-input');
-                phoneInput.classList.add('valid-input');
-            } else {
-                phoneError.classList.remove('hidden');
-                phoneSuccess.classList.add('hidden');
-                phoneInput.classList.remove('valid-input');
-                phoneInput.classList.add('invalid-input');
-            }
-        }
+                // Get API URL directly
+                const API_URL = 'https://ellora-1.onrender.com'; // HARDCODED for testing
+                console.log('🌐 Using API URL:', API_URL);
 
-        function validateEmail() {
-            const emailInput = document.getElementById('email');
-            const emailError = document.getElementById('emailError');
-            const emailSuccess = document.getElementById('emailSuccess');
-            const emailValue = emailInput.value;
+                // Get form values
+                const fullName = document.getElementById('fullName')?.value;
+                const phoneNumber = document.getElementById('phoneNumber')?.value;
+                const email = document.getElementById('email')?.value;
+                const message = document.getElementById('message')?.value;
 
-            // Show validation after user has typed at least 1 character
-            if (emailValue.length === 0) {
-                emailError.classList.add('hidden');
-                emailSuccess.classList.add('hidden');
-                emailInput.classList.remove('invalid-input', 'valid-input');
-                return;
-            }
-
-            // Check if email ends with @gmail.com
-            const isValid = emailValue.toLowerCase().endsWith('@gmail.com');
-
-            if (isValid) {
-                emailError.classList.add('hidden');
-                emailSuccess.classList.remove('hidden');
-                emailInput.classList.remove('invalid-input');
-                emailInput.classList.add('valid-input');
-            } else {
-                emailError.classList.remove('hidden');
-                emailSuccess.classList.add('hidden');
-                emailInput.classList.remove('valid-input');
-                emailInput.classList.add('invalid-input');
-            }
-        }
-
-        // Form submission handler
-        document.getElementById('enquiryForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            // Get form values
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            const email = document.getElementById('email').value;
-            const phoneError = document.getElementById('phoneError');
-            const emailError = document.getElementById('emailError');
-            const phoneSuccess = document.getElementById('phoneSuccess');
-            const emailSuccess = document.getElementById('emailSuccess');
-
-            // Run validation
-            validatePhoneNumber();
-            validateEmail();
-
-            // Check if validation passes
-            const phonePattern = /^[7-9][0-9]{9}$/;
-            const isPhoneValid = phonePattern.test(phoneNumber);
-            const isEmailValid = email.toLowerCase().endsWith('@gmail.com');
-
-            if (!isPhoneValid || !isEmailValid) {
-                if (!isPhoneValid && phoneError) phoneError.classList.remove('hidden');
-                if (!isEmailValid && emailError) emailError.classList.remove('hidden');
-                return;
-            }
-
-            const data = {
-                fullName: document.getElementById('fullName').value,
-                phoneNumber: phoneNumber,
-                email: email,
-                enquiryType: 'general',
-                message: document.getElementById('message').value
-            };
-
-            console.log('📤 Sending to backend:', data);
-            console.log('🌐 Using API URL:', window.APP_CONFIG.API_URL);
-
-            try {
-                // 🔴 FIXED: Using config URL instead of relative path
-                const response = await fetch(`${window.APP_CONFIG.API_URL}/api/enquiry`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                if (!fullName || !phoneNumber || !email || !message) {
+                    alert('Please fill all fields');
+                    return;
                 }
 
-                const result = await response.json();
-                console.log('📥 Backend response:', result);
-
-                if (result.success) {
-                    alert('✅ Enquiry saved successfully!');
-                    this.reset();
-                    // Reset validation states
-                    if (phoneError) phoneError.classList.add('hidden');
-                    if (phoneSuccess) phoneSuccess.classList.add('hidden');
-                    if (emailError) emailError.classList.add('hidden');
-                    if (emailSuccess) emailSuccess.classList.add('hidden');
-                    document.getElementById('phoneNumber').classList.remove('valid-input', 'invalid-input');
-                    document.getElementById('email').classList.remove('valid-input', 'invalid-input');
-                } else {
-                    alert('❌ Failed to save enquiry: ' + (result.error || 'Unknown error'));
+                // Simple validation
+                if (!/^[7-9][0-9]{9}$/.test(phoneNumber)) {
+                    alert('Invalid phone number');
+                    return;
                 }
-            } catch (error) {
-                console.error('❌ Error:', error);
-                alert('❌ Cannot connect to backend. Please check:\n' +
-                    '1. Backend URL: ' + window.APP_CONFIG.API_URL + '\n' +
-                    '2. Backend is running\n' +
-                    '3. Your internet connection');
-            }
+
+                if (!email.toLowerCase().endsWith('@gmail.com')) {
+                    alert('Email must end with @gmail.com');
+                    return;
+                }
+
+                const data = {
+                    fullName: fullName,
+                    phoneNumber: phoneNumber,
+                    email: email,
+                    enquiryType: 'general',
+                    message: message
+                };
+
+                console.log('📤 Data:', data);
+
+                try {
+                    // DIRECT URL - NO TEMPLATE LITERAL
+                    const response = await fetch('https://ellora-1.onrender.com/api/enquiry', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+
+                    console.log('📥 Response status:', response.status);
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    console.log('📥 Result:', result);
+
+                    if (result.success) {
+                        alert('✅ Success!');
+                        this.reset();
+                    } else {
+                        alert('❌ Failed: ' + (result.error || 'Unknown error'));
+                    }
+                } catch (error) {
+                    console.error('❌ Error:', error);
+                    alert('❌ Cannot connect to backend at: https://ellora-1.onrender.com');
+                }
+            });
         });
     </script>
 
