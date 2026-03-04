@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cancellation & Refund | Ellora Tours & Travels</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#1a2332',
+            secondary: '#0f1623',
+            gold: '#d4af37',
+            goldLight: '#f4e8c1',
+            lightBg: '#f8fafc',
+            lightPrimary: '#ffffff',
+            lightText: '#1e293b',
+            lightSecondary: '#f1f5f9',
+            lightCard: '#1e293b',
+            lightBorder: '#e2e8f0',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Same styles as privacy policy */
+    html.dark ::-webkit-scrollbar-track {
+      background: #0f1623;
+    }
+
+    html.dark ::-webkit-scrollbar-thumb {
+      background: #d4af37;
+      border-radius: 4px;
+    }
+
+    html.light ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    html.light ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+
+    html.light ::-webkit-scrollbar-thumb {
+      background: #b5942d;
+      border-radius: 4px;
+    }
+
+    .bg-pattern-dark {
+      background-color: #1a2332;
+      background-image: radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 20%), radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 20%);
+    }
+
+    .bg-pattern-light {
+      background-color: #f8fafc;
+      background-image: radial-gradient(circle at 10% 20%, rgba(181, 148, 45, 0.1) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(181, 148, 45, 0.1) 0%, transparent 20%), radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.02) 0%, transparent 20%);
+    }
+
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-5px);
+    }
+
+    html.dark .card-hover:hover {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    html.light .card-hover:hover {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    body,
+    nav,
+    section,
+    footer,
+    div,
+    a,
+    button,
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .theme-toggle {
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen font-sans">
+  <!-- Navigation (Same as privacy policy) -->
+  <nav
+    class="sticky top-0 z-50 bg-primary/95 backdrop-blur-sm border-b border-gold/30 dark:bg-primary/95 dark:border-gold/30">
+    <div class="container mx-auto px-4 py-4">
+      <div class="flex justify-between items-center">
+        <a href="home.html" class="flex items-center space-x-2">
+          <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+            <i class="fas fa-crown text-primary text-xl dark:text-primary"></i>
+          </div>
+          <span class="text-2xl font-bold tracking-wider text-white dark:text-white">ELLORA<span
+              class="text-gold">TAXI</span></span>
+        </a>
+
+        <div class="flex items-center space-x-6">
+          <button id="themeToggle"
+            class="theme-toggle w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gold hover:text-primary transition-colors duration-300 dark:bg-gray-800">
+            <i id="themeIcon" class="fas fa-moon text-gold dark:text-gold"></i>
+          </button>
+
+          <div class="hidden md:flex space-x-8">
+            <a href="home.html"
+              class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Home</a>
+            <a href="tour-packages.html"
+              class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Tour Packages</a>
+            <a href="photogallery.html"
+              class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Gallery</a>
+            <a href="contact.html"
+              class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Contact</a>
+          </div>
+
+          <button class="md:hidden text-gold" id="mobileMenuBtn">
+            <i class="fas fa-bars text-2xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-3 pb-4">
+        <a href="home.html"
+          class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Home</a>
+        <a href="tour-packages.html"
+          class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Tour
+          Packages</a>
+        <a href="photogallery.html"
+          class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Gallery</a>
+        <a href="contact.html"
+          class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative py-16 bg-gradient-to-r from-primary to-secondary dark:from-primary dark:to-secondary">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-white">Cancellation & <span class="text-gold">Refund
+          Policy</span></h1>
+      <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
+      <p class="text-lg text-gray-300 max-w-3xl mx-auto">Last Updated: March 2026</p>
+    </div>
+  </section>
+
+  <!-- Cancellation & Refund Content -->
+  <section class="py-12">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <div
+        class="bg-white rounded-xl border border-lightBorder p-8 md:p-10 card-hover dark:bg-gray-800/30 dark:border-gray-700">
+
+        <div class="prose prose-lg max-w-none dark:prose-invert">
+          <div class="mb-8 p-4 bg-gold/10 rounded-lg border-l-4 border-gold">
+            <p class="text-gray-700 dark:text-gray-300"><i class="fas fa-clock text-gold mr-2"></i> <strong>Cancellation
+                timelines matter.</strong> Refunds are processed based on when you cancel.</p>
+          </div>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-calendar-times mr-3"></i> Cancellation Timeline & Refund Amount
+          </h2>
+
+          <div class="overflow-x-auto mb-8">
+            <table class="min-w-full bg-gray-100 rounded-lg dark:bg-gray-900/50">
+              <thead>
+                <tr class="border-b border-gray-300 dark:border-gray-700">
+                  <th class="px-6 py-4 text-left text-gold font-bold">Cancellation Period</th>
+                  <th class="px-6 py-4 text-left text-gold font-bold">Refund Amount</th>
+                  <th class="px-6 py-4 text-left text-gold font-bold">Processing Time</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-300 dark:divide-gray-700">
+                <tr>
+                  <td class="px-6 py-4 text-gray-600 dark:text-gray-300">30+ days before tour</td>
+                  <td class="px-6 py-4"><span class="text-green-600 font-bold">90% refund</span></td>
+                  <td class="px-6 py-4 text-gray-600 dark:text-gray-300">5-7 working days</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 text-gray-600 dark:text-gray-300">15-29 days before tour</td>
+                  <td class="px-6 py-4"><span class="text-yellow-600 font-bold">75% refund</span></td>
+                  <td class="px-6 py-4 text-gray-600 dark:text-gray-300">5-7 working days</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 text-gray-600 dark:text-gray-300">7-14 days before tour</td>
+                  <td class="px-6 py-4"><span class="text-orange-600 font-bold">50% refund</span></td>
+                  <td class="px-6 py-4 text-gray-600 dark:text-gray-300">7-10 working days</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 text-gray-600 dark:text-gray-300">3-6 days before tour</td>
+                  <td class="px-6 py-4"><span class="text-red-600 font-bold">25% refund</span></td>
+                  <td class="px-6 py-4 text-gray-600 dark:text-gray-300">7-10 working days</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 text-gray-600 dark:text-gray-300">Less than 48 hours</td>
+                  <td class="px-6 py-4"><span class="text-red-600 font-bold">No refund</span></td>
+                  <td class="px-6 py-4 text-gray-600 dark:text-gray-300">-</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 text-gray-600 dark:text-gray-300">No-show</td>
+                  <td class="px-6 py-4"><span class="text-red-600 font-bold">No refund</span></td>
+                  <td class="px-6 py-4 text-gray-600 dark:text-gray-300">-</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mb-8 p-4 bg-blue-50 rounded-lg border border-blue-200 dark:bg-blue-900/20 dark:border-blue-800">
+            <p class="text-blue-800 dark:text-blue-300"><i class="fas fa-info-circle mr-2"></i> <strong>Note:</strong>
+              All refunds are processed to the original payment method (Razorpay, card, UPI, or net banking).</p>
+          </div>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-truck mr-3"></i> Vehicle Booking Cancellation
+          </h2>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li><strong class="text-gold">48+ hours before pickup:</strong> 100% refund (minus 5% transaction fee)</li>
+            <li><strong class="text-gold">24-48 hours before pickup:</strong> 50% refund</li>
+            <li><strong class="text-gold">Less than 24 hours:</strong> No refund</li>
+            <li><strong class="text-gold">Driver waiting time:</strong> First 30 minutes free, then ₹100-300 per hour
+            </li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-hotel mr-3"></i> Hotel Booking Cancellation
+          </h2>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li><strong class="text-gold">7+ days before check-in:</strong> 100% refund (minus 5% transaction fee)</li>
+            <li><strong class="text-gold">3-6 days before check-in:</strong> 50% refund</li>
+            <li><strong class="text-gold">Less than 48 hours:</strong> No refund</li>
+            <li><strong class="text-gold">Early check-out:</strong> No refund for unused nights</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-exclamation-triangle mr-3"></i> Non-Refundable Scenarios
+          </h2>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li>Peak season bookings (Diwali, New Year, Christmas, etc.)</li>
+            <li>Special event bookings (festivals, weddings, etc.)</li>
+            <li>Customized tour packages with special arrangements</li>
+            <li>Advance train/flight tickets purchased on your behalf</li>
+            <li>Entry fees to monuments and attractions</li>
+            <li>Permits for wildlife sanctuaries and national parks</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-cloud-rain mr-3"></i> Weather-Related Cancellations
+          </h2>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li>If we cancel due to extreme weather: <strong class="text-green-600">100% refund or reschedule</strong>
+            </li>
+            <li>If government issues travel advisory: <strong class="text-green-600">100% refund</strong></li>
+            <li>If natural calamity occurs: <strong class="text-green-600">100% refund</strong></li>
+            <li>If you cancel due to weather forecast: <strong class="text-red-600">Standard policy applies</strong>
+            </li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-ambulance mr-3"></i> Medical Emergency Cancellations
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">In case of medical emergencies (with valid medical
+            certificates):</p>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li>100% refund minus 10% processing fee if canceled before tour start</li>
+            <li>Valid medical certificate from registered practitioner required</li>
+            <li>Hospitalization proof may be requested</li>
+            <li>Refund processed within 7-10 working days</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-exchange-alt mr-3"></i> Date Changes / Rescheduling
+          </h2>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li><strong class="text-gold">Free reschedule:</strong> 15+ days before tour (once only)</li>
+            <li><strong class="text-gold">₹500 fee:</strong> 7-14 days before tour</li>
+            <li><strong class="text-gold">₹1000 fee:</strong> 3-6 days before tour</li>
+            <li><strong class="text-gold">Not allowed:</strong> Less than 48 hours before tour</li>
+            <li>Rescheduled date must be within 6 months of original booking</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-percentage mr-3"></i> Refund Processing Details
+          </h2>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li><strong class="text-gold">Razorpay (Card/UPI/NetBanking):</strong> 5-7 working days</li>
+            <li><strong class="text-gold">Credit Card:</strong> 7-10 working days (depends on bank)</li>
+            <li><strong class="text-gold">Debit Card:</strong> 7-10 working days</li>
+            <li><strong class="text-gold">UPI:</strong> 3-5 working days</li>
+            <li><strong class="text-gold">International Cards:</strong> 10-15 working days</li>
+          </ul>
+
+          <div
+            class="mb-8 p-4 bg-yellow-50 rounded-lg border border-yellow-200 dark:bg-yellow-900/20 dark:border-yellow-800">
+            <p class="text-yellow-800 dark:text-yellow-300"><i class="fas fa-exclamation-circle mr-2"></i>
+              <strong>Important:</strong> Transaction fees charged by payment gateways (Razorpay) are non-refundable
+              even in case of cancellations. This is typically 2-3% of the transaction amount.</p>
+          </div>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-phone-alt mr-3"></i> How to Request Cancellation
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">To cancel your booking, please contact us through any of
+            these channels:</p>
+          <div class="bg-gray-100 rounded-lg p-6 dark:bg-gray-900/50 mb-8">
+            <ul class="space-y-3">
+              <li class="flex items-center">
+                <i class="fas fa-envelope text-gold w-8"></i>
+                <span class="text-gray-600 dark:text-gray-300">Email: cancellations@ellorataxi.com (with booking
+                  ID)</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-phone text-gold w-8"></i>
+                <span class="text-gray-600 dark:text-gray-300">Call: +91 9730871481 (9 AM - 8 PM)</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fab fa-whatsapp text-gold w-8"></i>
+                <span class="text-gray-600 dark:text-gray-300">WhatsApp: +91 9325378864 (24x7)</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-user-check text-gold w-8"></i>
+                <span class="text-gray-600 dark:text-gray-300">Website: Login to "My Bookings" section</span>
+              </li>
+            </ul>
+          </div>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-file-alt mr-3"></i> Cancellation Request Requirements
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">Please provide the following information:</p>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li>Booking ID (found in confirmation email)</li>
+            <li>Registered email address and phone number</li>
+            <li>Reason for cancellation (optional but helpful)</li>
+            <li>Bank details for refund (if original payment method is unavailable)</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-headset mr-3"></i> Need Help?
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">Our customer support team is available to assist you with
+            cancellations and refunds:</p>
+          <div class="bg-gray-100 rounded-lg p-6 dark:bg-gray-900/50">
+            <ul class="space-y-2">
+              <li><span class="text-gold">📞 Phone:</span> +91 9730871481 (9 AM - 8 PM)</li>
+              <li><span class="text-gold">📧 Email:</span> support@ellorataxi.com</li>
+              <li><span class="text-gold">💬 WhatsApp:</span> +91 9325378864</li>
+              <li><span class="text-gold">⏰ Response Time:</span> Within 2 hours</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (Same as privacy policy) -->
+  <footer class="bg-lightPrimary border-t border-gold/30 mt-12 dark:bg-primary dark:border-gold/30">
+    <div class="container mx-auto px-4 py-12">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-6">
+            <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+              <i class="fas fa-crown text-primary text-xl dark:text-primary"></i>
+            </div>
+            <span class="text-2xl font-bold text-lightText dark:text-white">ELLORA<span
+                class="text-gold">TAXI</span></span>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400">Premium travel experiences across Maharashtra since 2010.</p>
+        </div>
+
+        <div>
+          <h4 class="text-xl font-bold mb-6 text-gold">Quick Links</h4>
+          <ul class="space-y-3">
+            <li><a href="home.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Home</a>
+            </li>
+            <li><a href="tour-packages.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Tour
+                Packages</a></li>
+            <li><a href="photogallery.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Gallery</a>
+            </li>
+            <li><a href="contact.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xl font-bold mb-6 text-gold">Legal</h4>
+          <ul class="space-y-3">
+            <li><a href="privacy-policy.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Privacy
+                Policy</a></li>
+            <li><a href="terms-conditions.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Terms &
+                Conditions</a></li>
+            <li><a href="cancellation-refund.html" class="text-gold font-semibold">Cancellation & Refund</a></li>
+            <li><a href="shipping-delivery.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Shipping
+                & Delivery</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xl font-bold mb-6 text-gold">Contact Info</h4>
+          <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+            <li class="flex items-start space-x-3">
+              <i class="fas fa-map-marker-alt text-gold mt-1"></i>
+              <span>Office in front of Ellora Heritage Resort, between Ellora Caves and Grishneshwar Temple, Chh.
+                Sambhajinagar, Maharashtra 431102</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i class="fas fa-phone text-gold"></i>
+              <span>+91 9730871481 <br> +91 9325378864</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i class="fas fa-envelope text-gold"></i>
+              <span>ellorataxi001@gmail.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        class="border-t border-gray-300 mt-8 pt-8 text-center text-gray-500 text-sm dark:border-gray-800 dark:text-gray-500">
+        <p>&copy; 2026 Ellora Tours & Travels. All rights reserved. | <a href="privacy-policy.html"
+            class="text-gold hover:underline">Privacy</a> | <a href="terms-conditions.html"
+            class="text-gold hover:underline">Terms</a> | <a href="cancellation-refund.html"
+            class="text-gold hover:underline">Refund</a> | <a href="shipping-delivery.html"
+            class="text-gold hover:underline">Delivery</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/919730871481" target="_blank"
+    class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-all duration-300 z-40">
+    <i class="fab fa-whatsapp text-2xl"></i>
+  </a>
+
+  <script>
+    // Theme toggle functionality (same as privacy policy)
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const htmlElement = document.documentElement;
+    const bodyElement = document.body;
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+
+    function applyTheme(theme) {
+      if (theme === 'light') {
+        htmlElement.classList.remove('dark');
+        htmlElement.classList.add('light');
+        bodyElement.classList.remove('bg-pattern-dark');
+        bodyElement.classList.add('bg-pattern-light');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+      } else {
+        htmlElement.classList.remove('light');
+        htmlElement.classList.add('dark');
+        bodyElement.classList.remove('bg-pattern-light');
+        bodyElement.classList.add('bg-pattern-dark');
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+      }
+    }
+
+    applyTheme(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      if (htmlElement.classList.contains('dark')) {
+        localStorage.setItem('theme', 'light');
+        applyTheme('light');
+      } else {
+        localStorage.setItem('theme', 'dark');
+        applyTheme('dark');
+      }
+    });
+
+    document.getElementById('mobileMenuBtn').addEventListener('click', function () {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+
+</html>

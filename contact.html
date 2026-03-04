@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ellora Tours & Travels - Contact</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a2332',
+                        secondary: '#0f1623',
+                        gold: '#d4af37',
+                        goldLight: '#f4e8c1',
+                        // Light theme colors
+                        lightBg: '#f8fafc',
+                        lightPrimary: '#ffffff',
+                        lightText: '#1e293b',
+                        lightSecondary: '#f1f5f9',
+                        lightCard: '#1e293b', // Dark color for cards in light theme
+                        lightBorder: '#e2e8f0',
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for dark theme */
+        html.dark ::-webkit-scrollbar-track {
+            background: #0f1623;
+        }
+
+        html.dark ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
+
+        /* Custom scrollbar for light theme */
+        html.light ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        html.light ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        html.light ::-webkit-scrollbar-thumb {
+            background: #b5942d;
+            border-radius: 4px;
+        }
+
+        /* Background pattern - Dark */
+        .bg-pattern-dark {
+            background-color: #1a2332;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 20%);
+        }
+
+        /* Background pattern - Light */
+        .bg-pattern-light {
+            background-color: #f8fafc;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(181, 148, 45, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(181, 148, 45, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.02) 0%, transparent 20%);
+        }
+
+        /* Card hover effects */
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+        }
+
+        html.dark .card-hover:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        html.light .card-hover:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Ensure images are responsive */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Smooth theme transition */
+        body,
+        nav,
+        section,
+        footer,
+        div,
+        a,
+        button,
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        input,
+        select,
+        textarea,
+        label {
+            transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        /* Theme toggle animation */
+        .theme-toggle {
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Form input styles for light theme */
+        html.light input,
+        html.light select,
+        html.light textarea {
+            color: #1e293b;
+            background-color: #ffffff;
+            border-color: #cbd5e1;
+        }
+
+        html.light input:focus,
+        html.light select:focus,
+        html.light textarea:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        html.light input::placeholder,
+        html.light textarea::placeholder {
+            color: #64748b;
+        }
+
+        /* Validation styles */
+        .valid-input {
+            border-color: #10b981 !important;
+        }
+
+        .invalid-input {
+            border-color: #ef4444 !important;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen font-sans">
+    <!-- Navigation -->
+    <nav
+        class="sticky top-0 z-50 bg-primary/95 backdrop-blur-sm border-b border-gold/30 dark:bg-primary/95 dark:border-gold/30">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="home.html" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+                        <i class="fas fa-crown text-primary text-xl dark:text-primary"></i>
+                    </div>
+                    <span class="text-2xl font-bold tracking-wider text-white dark:text-white">ELLORA<span
+                            class="text-gold">TAXI</span></span>
+                </a>
+
+                <div class="flex items-center space-x-6">
+                    <!-- Theme Toggle Button -->
+                    <button id="themeToggle"
+                        class="theme-toggle w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gold hover:text-primary transition-colors duration-300 dark:bg-gray-800">
+                        <i id="themeIcon" class="fas fa-moon text-gold dark:text-gold"></i>
+                    </button>
+
+                    <div class="hidden md:flex space-x-8">
+                        <a href="home.html"
+                            class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Home</a>
+                        <a href="tour-packages.html"
+                            class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Tour
+                            Packages</a>
+                        <a href="photogallery.html"
+                            class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Gallery</a>
+                        <a href="contact.html"
+                            class="text-gold font-semibold border-b-2 border-gold pb-1 dark:text-gold">Contact</a>
+                    </div>
+
+                    <button class="md:hidden text-gold" id="mobileMenuBtn">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-3 pb-4">
+                <a href="home.html"
+                    class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Home</a>
+                <a href="tour-packages.html"
+                    class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Tour
+                    Packages</a>
+                <a href="photogallery.html"
+                    class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Gallery</a>
+                <a href="contact.html" class="block text-gold font-semibold dark:text-gold">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Section -->
+    <section class="py-12">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="text-center mb-12">
+                <h1 class="text-5xl font-bold mb-6 text-lightText dark:text-white">Get In <span
+                        class="text-gold">Touch</span></h1>
+                <div class="w-24 h-1 bg-gold mx-auto mb-8"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto dark:text-gray-300">Have questions about our premium
+                    travel services? Reach out to our expert team for personalized assistance.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div
+                    class="bg-white rounded-xl border border-lightBorder p-6 md:p-8 card-hover dark:bg-gray-800/30 dark:border-gray-700">
+                    <h2 class="text-2xl font-bold mb-6 text-gold">Send Us a Message</h2>
+
+                    <form id="enquiryForm" class="space-y-6">
+                        <div>
+                            <label class="block text-gray-700 mb-2 dark:text-gray-300">Full Name *</label>
+                            <input id="fullName" name="fullName" type="text" required
+                                class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText placeholder-gray-500 dark:bg-gray-900/50 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+                                placeholder="Enter your full name">
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-700 mb-2 dark:text-gray-300">Phone Number *</label>
+                                <input id="phoneNumber" name="phoneNumber" type="text" required
+                                    class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText placeholder-gray-500 dark:bg-gray-900/50 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+                                    placeholder="Enter Your Phone Number" oninput="validatePhoneNumber()">
+                                <p id="phoneError" class="text-red-500 text-sm mt-1 hidden">
+                                    <i class="fas fa-exclamation-circle mr-1"></i>
+                                    Invalid Phone Number
+                                </p>
+                                <!-- <p id="phoneSuccess" class="text-green-500 text-sm mt-1 hidden">
+                                    <i class="fas fa-check-circle mr-1"></i>
+                                    Valid phone number format
+                                </p> -->
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-700 mb-2 dark:text-gray-300">Email Address *</label>
+                                <input id="email" name="email" type="email" required
+                                    class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText placeholder-gray-500 dark:bg-gray-900/50 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+                                    placeholder="Enter Your Email Address" oninput="validateEmail()">
+                                <p id="emailError" class="text-red-500 text-sm mt-1 hidden">
+                                    <i class="fas fa-exclamation-circle mr-1"></i>
+                                    Invalid Email Address
+                                </p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 mb-2 dark:text-gray-300">Subject *</label>
+                            <select id="subject" name="subject" required
+                                class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText dark:bg-gray-900/50 dark:border-gray-600 dark:text-white">
+                                <option value="" class="text-gray-500 dark:text-gray-400">Select a subject</option>
+                                <option class="text-lightText dark:text-white">Booking Inquiry</option>
+                                <option class="text-lightText dark:text-white">Tour Package Customization</option>
+                                <option class="text-lightText dark:text-white">Hotel Partnership</option>
+                                <option class="text-lightText dark:text-white">Fleet Services</option>
+                                <option class="text-lightText dark:text-white">Corporate Travel</option>
+                                <option class="text-lightText dark:text-white">Other</option>
+                            </select>
+                            <p id="subjectError" class="text-red-500 text-sm mt-1 hidden">
+                                <i class="fas fa-exclamation-circle mr-1"></i>
+                                Please select a subject
+                            </p>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-700 mb-2 dark:text-gray-300">Message</label>
+                            <textarea id="message" name="message" rows="5"
+                                class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText placeholder-gray-500 dark:bg-gray-900/50 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+                                placeholder="Tell us about your travel requirements"></textarea>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full bg-gold text-primary py-4 rounded-lg font-bold text-lg hover:bg-gold/90 transition-colors">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                <!-- Contact Information -->
+                <div>
+                    <div class="mb-8">
+                        <h2 class="text-2xl font-bold mb-6 text-gold">Contact Information</h2>
+                        <p class="text-gray-600 mb-8 dark:text-gray-400">Our team is available to assist you with
+                            premium travel planning and booking services.</p>
+
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div
+                                    class="w-12 h-12 bg-gold/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-map-marker-alt text-gold text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold mb-1 text-lightText dark:text-white">Head Office</h3>
+                                    <p class="text-gray-600 dark:text-gray-400">Office in front of Ellora Heritage
+                                        Resort, between Ellora Caves and Grishneshwar Temple, Chh. Sambhajinagar,
+                                        Maharashtra 431102</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4">
+                                <div
+                                    class="w-12 h-12 bg-gold/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-phone text-gold text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold mb-1 text-lightText dark:text-white">Phone Numbers</h3>
+                                    <p class="text-gray-600 dark:text-gray-400">
+                                        <span class="block">+91 9730871481</span>
+                                        <span class="block">+91 9325378864 </span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4">
+                                <div
+                                    class="w-12 h-12 bg-gold/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-envelope text-gold text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold mb-1 text-lightText dark:text-white">Email Addresses
+                                    </h3>
+                                    <p class="text-gray-600 dark:text-gray-400">
+                                        <span class="block">ellorataxi001@gmail.com</span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-4">
+                                <div
+                                    class="w-12 h-12 bg-gold/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-clock text-gold text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold mb-1 text-lightText dark:text-white">Business Hours
+                                    </h3>
+                                    <p class="text-gray-600 dark:text-gray-400">
+                                        <span class="block">Monday - Friday: 9:00 AM - 8:00 PM</span>
+                                        <span class="block">Saturday: 10:00 AM - 6:00 PM</span>
+                                        <span class="block">Sunday: 10:00 AM - 4:00 PM</span>
+                                        <span class="block text-gold mt-2">24/7 Emergency Support Available</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Map Placeholder -->
+                    <div
+                        class="bg-white rounded-xl border border-lightBorder p-6 card-hover dark:bg-gray-800/30 dark:border-gray-700">
+                        <h3 class="text-xl font-bold mb-4 text-gold">Find Us</h3>
+                        <div
+                            class="bg-gray-100 rounded-lg h-48 flex items-center justify-center border border-gray-300 dark:bg-gray-900/50 dark:border-gray-700">
+                            <div class="text-center">
+                                <i class="fas fa-map-marked-alt text-gold text-4xl mb-3"></i>
+                                <p class="text-gray-600 dark:text-gray-400">Chh.Sambhajinagar, Maharashtra</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-500">Interactive map location</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-lightPrimary border-t border-gold/30 mt-20 dark:bg-primary dark:border-gold/30">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+                            <i class="fas fa-crown text-primary text-xl dark:text-primary"></i>
+                        </div>
+                        <span class="text-2xl font-bold text-lightText dark:text-white">ELLORA<span
+                                class="text-gold">TAXI</span></span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400">Premium travel experiences across Maharashtra since
+                        2010.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/WasimShaikhElloraAjantaTours/"
+                            class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gold hover:text-primary transition-colors duration-300 dark:bg-gray-800 dark:hover:bg-gold dark:hover:text-primary">
+                            <i class="fab fa-facebook-f text-gray-700 dark:text-gray-300"></i>
+                        </a>
+                        <a href="https://www.instagram.com/ellorataxi?utm_source=qr&igsh=ZTh1d2R2cXFqYzRk"
+                            class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gold hover:text-primary transition-colors duration-300 dark:bg-gray-800 dark:hover:bg-gold dark:hover:text-primary">
+                            <i class="fab fa-instagram text-gray-700 dark:text-gray-300"></i>
+                        </a>
+                        <a href="https://wa.me/919730871481"
+                            class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gold hover:text-primary transition-colors duration-300 dark:bg-gray-800 dark:hover:bg-gold dark:hover:text-primary">
+                            <i class="fab fa-whatsapp text-gray-700 dark:text-gray-300"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-gold">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="home.html"
+                                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Home</a>
+                        </li>
+                        <li><a href="tour-packages.html"
+                                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Tour
+                                Packages</a></li>
+                        <li><a href="hotels.html"
+                                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Hotels</a>
+                        </li>
+                        <li><a href="contact.html"
+                                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-gold">Contact Info</h4>
+                    <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt text-gold mt-1"></i>
+                            <span>Office in front of Ellora Heritage Resort, between Ellora Caves and Grishneshwar
+                                Temple, Chh. Sambhajinagar, Maharashtra 431102</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-phone text-gold"></i>
+                            <span>+91 9730871481 <br> +91 9325378864 </span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-gold"></i>
+                            <span>ellorataxi001@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- In the footer grid, add this new column -->
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-gold">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="privacy-policy.html"
+                                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Privacy
+                                Policy</a></li>
+                        <li><a href="terms-conditions.html"
+                                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Terms
+                                & Conditions</a></li>
+                        <li><a href="cancellation-refund.html"
+                                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Cancellation
+                                & Refund</a></li>
+                        <li><a href="shipping-delivery.html"
+                                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Shipping
+                                & Delivery</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="border-t border-gray-300 mt-8 pt-8 text-center text-gray-500 text-sm dark:border-gray-800 dark:text-gray-500">
+                <p>&copy; 2026 Ellora Tours & Travels. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/919730871481" target="_blank"
+        class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-all duration-300 z-40">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <script>
+        // Real-time validation functions
+        function validatePhoneNumber() {
+            const phoneInput = document.getElementById('phoneNumber');
+            const phoneError = document.getElementById('phoneError');
+            const phoneSuccess = document.getElementById('phoneSuccess');
+            const phoneValue = phoneInput.value;
+
+            // Remove non-digits and limit to 10 characters
+            let cleanedValue = phoneValue.replace(/[^0-9]/g, '').slice(0, 10);
+            phoneInput.value = cleanedValue;
+
+            // Show validation after user has typed at least 1 character
+            if (cleanedValue.length === 0) {
+                phoneError.classList.add('hidden');
+                phoneSuccess.classList.add('hidden');
+                phoneInput.classList.remove('invalid-input', 'valid-input');
+                return;
+            }
+
+            // Check if valid: starts with 7, 8, or 9 and exactly 10 digits
+            const phonePattern = /^[7-9][0-9]{9}$/;
+            const isValid = phonePattern.test(cleanedValue);
+
+            if (isValid) {
+                phoneError.classList.add('hidden');
+                phoneSuccess.classList.remove('hidden');
+                phoneInput.classList.remove('invalid-input');
+                phoneInput.classList.add('valid-input');
+            } else {
+                phoneError.classList.remove('hidden');
+                phoneSuccess.classList.add('hidden');
+                phoneInput.classList.remove('valid-input');
+                phoneInput.classList.add('invalid-input');
+            }
+        }
+
+        function validateEmail() {
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const emailSuccess = document.getElementById('emailSuccess');
+            const emailValue = emailInput.value;
+
+            // Show validation after user has typed at least 1 character
+            if (emailValue.length === 0) {
+                emailError.classList.add('hidden');
+                emailSuccess.classList.add('hidden');
+                emailInput.classList.remove('invalid-input', 'valid-input');
+                return;
+            }
+
+            // Check if email ends with @gmail.com
+            const isValid = emailValue.toLowerCase().endsWith('@gmail.com');
+
+            if (isValid) {
+                emailError.classList.add('hidden');
+                emailSuccess.classList.remove('hidden');
+                emailInput.classList.remove('invalid-input');
+                emailInput.classList.add('valid-input');
+            } else {
+                emailError.classList.remove('hidden');
+                emailSuccess.classList.add('hidden');
+                emailInput.classList.remove('valid-input');
+                emailInput.classList.add('invalid-input');
+            }
+        }
+
+        // Form submission handler
+        document.getElementById('enquiryForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            // Get form values
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const email = document.getElementById('email').value;
+            const phoneError = document.getElementById('phoneError');
+            const emailError = document.getElementById('emailError');
+
+            // Run validation one more time before submitting
+            validatePhoneNumber();
+            validateEmail();
+
+            // Check if validation passes
+            const phonePattern = /^[7-9][0-9]{9}$/;
+            const isPhoneValid = phonePattern.test(phoneNumber);
+            const isEmailValid = email.toLowerCase().endsWith('@gmail.com');
+
+            // If validation fails, don't submit
+            if (!isPhoneValid || !isEmailValid) {
+                // Show error messages if they're hidden
+                if (!isPhoneValid) {
+                    phoneError.classList.remove('hidden');
+                }
+                if (!isEmailValid) {
+                    emailError.classList.remove('hidden');
+                }
+                return;
+            }
+
+            const data = {
+                fullName: document.getElementById('fullName').value,
+                phoneNumber: phoneNumber,
+                email: email,
+                enquiryType: 'general',
+                message: document.getElementById('message').value
+            };
+
+            console.log('📤 Sending to backend:', data);
+
+            try {
+                const response = await fetch('/api/enquiry', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                console.log('📥 Backend response:', result);
+
+                if (result.success) {
+                    alert('✅ Enquiry saved successfully!');
+                    this.reset();
+                    // Reset validation states
+                    document.getElementById('phoneError').classList.add('hidden');
+                    document.getElementById('phoneSuccess').classList.add('hidden');
+                    document.getElementById('emailError').classList.add('hidden');
+                    document.getElementById('emailSuccess').classList.add('hidden');
+                    document.getElementById('phoneNumber').classList.remove('valid-input');
+                    document.getElementById('email').classList.remove('valid-input');
+                } else {
+                    alert('❌ Failed to save enquiry');
+                }
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                alert('❌ Network error. Please try again.');
+            }
+        });
+    </script>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+        const bodyElement = document.body;
+
+        // Check for saved theme preference or default to dark
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+
+        // Apply saved theme
+        function applyTheme(theme) {
+            if (theme === 'light') {
+                htmlElement.classList.remove('dark');
+                htmlElement.classList.add('light');
+                bodyElement.classList.remove('bg-pattern-dark');
+                bodyElement.classList.add('bg-pattern-light');
+                bodyElement.classList.add('bg-lightBg');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                htmlElement.classList.remove('light');
+                htmlElement.classList.add('dark');
+                bodyElement.classList.remove('bg-pattern-light');
+                bodyElement.classList.add('bg-pattern-dark');
+                bodyElement.classList.remove('bg-lightBg');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        }
+
+        applyTheme(savedTheme);
+
+        // Toggle theme
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                // Switch to light theme
+                localStorage.setItem('theme', 'light');
+                applyTheme('light');
+            } else {
+                // Switch to dark theme
+                localStorage.setItem('theme', 'dark');
+                applyTheme('dark');
+            }
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function () {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobileMenu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // Form submission handler
+        async function submitForm(formData, endpoint) {
+            try {
+                const response = await fetch(`/api/${endpoint}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                return await response.json();
+            } catch (error) {
+                console.error('Network error:', error);
+                return {
+                    success: false,
+                    error: 'Network error. Please check if backend is running.'
+                };
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type = 'success') {
+            // Remove existing notifications
+            document.querySelectorAll('.notification').forEach(n => n.remove());
+
+            // Create notification
+            const notification = document.createElement('div');
+            notification.className = `notification fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 transform ${type === 'success'
+                ? 'bg-green-500 text-white border-l-4 border-green-700'
+                : 'bg-red-500 text-white border-l-4 border-red-700'
+                }`;
+            notification.innerHTML = `
+        <div class="flex items-center space-x-3">
+            <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} text-xl"></i>
+            <div>
+                <p class="font-bold">${type === 'success' ? 'Success!' : 'Error!'}</p>
+                <p>${message}</p>
+            </div>
+            <button onclick="this.parentElement.parentElement.remove()" class="ml-4 hover:opacity-80">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `;
+
+            document.body.appendChild(notification);
+
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.style.opacity = '0';
+                    setTimeout(() => notification.remove(), 500);
+                }
+            }, 5000);
+        }
+
+        // Contact form handler
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if backend is running
+            checkBackend();
+
+            // Contact Form
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+
+                    try {
+                        // Show loading state
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Sending...';
+                        submitBtn.disabled = true;
+
+                        // Collect form data
+                        const formData = {
+                            fullName: document.getElementById('fullName')?.value || '',
+                            phoneNumber: document.getElementById('phoneNumber')?.value || '',
+                            email: document.getElementById('email')?.value || '',
+                            subject: document.getElementById('subject')?.value || 'Contact Form',
+                            message: document.getElementById('message')?.value || ''
+                        };
+
+                        // Basic validation
+                        if (!formData.fullName || !formData.email || !formData.message) {
+                            showNotification('Please fill in all required fields.', 'error');
+                            return;
+                        }
+
+                        // Submit to backend
+                        const result = await submitForm(formData, 'contact');
+
+                        if (result.success) {
+                            showNotification(result.message || 'Message sent successfully!');
+                            contactForm.reset();
+
+                            // Show additional info
+                            console.log('✅ Form submitted successfully:', result);
+
+                        } else {
+                            showNotification(result.error || 'Failed to send message.', 'error');
+                        }
+                    } catch (error) {
+                        showNotification('An error occurred. Please try again.', 'error');
+                        console.error('Form error:', error);
+                    } finally {
+                        // Reset button
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+
+            // Enquiry form handler (if you have enquiry form)
+            const enquiryForm = document.getElementById('enquiryForm');
+            if (enquiryForm) {
+                enquiryForm.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+
+                    try {
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Submitting...';
+                        submitBtn.disabled = true;
+
+                        const formData = {
+                            enquiryType: document.getElementById('enquiryType')?.value || 'general',
+                            fullName: document.getElementById('fullName')?.value || '',
+                            phoneNumber: document.getElementById('phoneNumber')?.value || '',
+                            email: document.getElementById('email')?.value || '',
+                            preferredDate: document.getElementById('preferredDate')?.value || '',
+                            numberOfPersons: document.getElementById('numberOfPersons')?.value || 1,
+                            vehicleType: document.getElementById('vehicleType')?.value || '',
+                            tourPackage: document.getElementById('tourPackage')?.value || '',
+                            message: document.getElementById('message')?.value || ''
+                        };
+
+                        if (!formData.fullName || !formData.email || !formData.phoneNumber) {
+                            showNotification('Please fill in all required fields.', 'error');
+                            return;
+                        }
+
+                        const result = await submitForm(formData, 'enquiry');
+
+                        if (result.success) {
+                            showNotification(result.message || 'Enquiry submitted successfully!');
+                            enquiryForm.reset();
+                        } else {
+                            showNotification(result.error || 'Failed to submit enquiry.', 'error');
+                        }
+                    } catch (error) {
+                        showNotification('An error occurred. Please try again.', 'error');
+                        console.error('Enquiry error:', error);
+                    } finally {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+        });
+
+        // Check backend connection
+        async function checkBackend() {
+            try {
+                const response = await fetch('/api/health');
+                const data = await response.json();
+                console.log('✅ Backend connected:', data.message);
+
+                // Optional: Show small indicator
+                showBackendStatus(true);
+            } catch (error) {
+                console.warn('⚠️ Backend not connected:', error.message);
+                showBackendStatus(false);
+            }
+        }
+
+        // Show backend status indicator
+        function showBackendStatus(connected) {
+            const existingIndicator = document.querySelector('#backendStatus');
+            if (existingIndicator) existingIndicator.remove();
+
+            const indicator = document.createElement('div');
+            indicator.id = 'backendStatus';
+            indicator.className = `fixed bottom-4 right-4 z-40 px-3 py-1 rounded-full text-sm font-bold ${connected ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+                }`;
+            indicator.innerHTML = `
+        <i class="fas ${connected ? 'fa-check' : 'fa-exclamation-triangle'} mr-1"></i>
+        Backend ${connected ? 'Connected' : 'Not Connected'}
+    `;
+            indicator.title = connected ? 'Server is running properly' : 'Backend server may not be running';
+
+            document.body.appendChild(indicator);
+
+            // Auto-hide after 10 seconds if connected
+            if (connected) {
+                setTimeout(() => {
+                    indicator.style.opacity = '0.5';
+                }, 10000);
+            }
+        }
+    </script>
+
+
+
+</body>
+
+</html>

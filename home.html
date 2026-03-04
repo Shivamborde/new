@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ellora Tours & Travel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a2332',
+                        secondary: '#0f1623',
+                        gold: '#d4af37',
+                        goldLight: '#f4e8c1',
+                        // Light theme colors
+                        lightBg: '#f8fafc',
+                        lightPrimary: '#ffffff',
+                        lightText: '#1e293b',
+                        lightSecondary: '#f1f5f9',
+                        lightCard: '#1e293b', // Dark color for cards in light theme
+                        lightBorder: '#e2e8f0',
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for dark theme */
+        html.dark ::-webkit-scrollbar-track {
+            background: #0f1623;
+        }
+
+        html.dark ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
+
+        /* Custom scrollbar for light theme */
+        html.light ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        html.light ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        html.light ::-webkit-scrollbar-thumb {
+            background: #b5942d;
+            border-radius: 4px;
+        }
+
+        /* Background pattern - Dark */
+        .bg-pattern-dark {
+            background-color: #1a2332;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 20%);
+        }
+
+        /* Background pattern - Light */
+        .bg-pattern-light {
+            background-color: #f8fafc;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(181, 148, 45, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(181, 148, 45, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.02) 0%, transparent 20%);
+        }
+
+        /* Mobile menu animation */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+
+        .mobile-menu.active {
+            max-height: 300px;
+        }
+
+        /* Card hover effects */
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+        }
+
+        html.dark .card-hover:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        html.light .card-hover:hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Hero text animation */
+        .hero-text {
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Ensure images are responsive */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Smooth theme transition */
+        body,
+        nav,
+        section,
+        footer,
+        div,
+        a,
+        button,
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        /* Theme toggle animation */
+        .theme-toggle {
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen font-sans">
+    <!-- Navigation -->
+    <nav
+        class="sticky top-0 z-50 bg-primary/95 backdrop-blur-sm border-b border-gold/30 dark:bg-primary/95 dark:border-gold/30">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="home.html" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+                        <i class="fas fa-crown text-primary text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold tracking-wider text-white dark:text-white">ELLORA<span
+                            class="text-gold">TAXI</span>
+                </a>
+
+                <div class="flex items-center space-x-6">
+                    <!-- Theme Toggle Button -->
+                    <button id="themeToggle"
+                        class="theme-toggle w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gold hover:text-primary transition-colors duration-300">
+                        <i id="themeIcon" class="fas fa-moon text-gold"></i>
+                    </button>
+
+                    <div class="hidden md:flex space-x-8">
+                        <a href="home.html" class="text-gold font-semibold border-b-2 border-gold pb-1">Home</a>
+                        <a href="tour-packages.html"
+                            class="text-gray-300 hover:text-gold transition-colors duration-300">Tour Packages</a>
+                        <a href="photogallery.html"
+                            class="text-gray-300 hover:text-gold transition-colors duration-300">Gallery</a>
+                        <a href="contact.html#enquiry"
+                            class="block text-gray-300 hover:text-gold transition-colors duration-300">Contact</a>
+                    </div>
+
+                    <button class="md:hidden text-gold" id="mobileMenuBtn">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-3 pb-4">
+                <a href="home.html" class="block text-gold font-semibold">Home</a>
+                <a href="tour-packages.html"
+                    class="block text-gray-300 hover:text-gold transition-colors duration-300">Tour Packages</a>
+                <a href="photogallery.html"
+                    class="block text-gray-300 hover:text-gold transition-colors duration-300">Gallery</a>
+                <a href="contact.html"
+                    class="block text-gray-300 hover:text-gold transition-colors duration-300">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="relative h-[80vh] md:h-[70vh] overflow-hidden">
+        <!-- Animated background overlay -->
+        <div
+            class="absolute inset-0 bg-gradient-to-br from-primary via-transparent to-secondary z-0 dark:from-primary dark:via-transparent dark:to-secondary">
+        </div>
+
+        <!-- Animated background elements -->
+        <div class="absolute inset-0 overflow-hidden z-0">
+            <div class="absolute top-10 left-10 w-20 h-20 rounded-full bg-gold/10 animate-float"></div>
+            <div class="absolute top-1/3 right-20 w-32 h-32 rounded-full bg-gold/5 animate-float"
+                style="animation-delay: 1s;"></div>
+            <div class="absolute bottom-20 left-1/3 w-24 h-24 rounded-full bg-gold/10 animate-float"
+                style="animation-delay: 2s;"></div>
+        </div>
+
+        <!-- Hero image -->
+        <div class="absolute inset-0 z-10">
+            <img src="assets/images/home/bg-img.jpeg" alt="Travel Banner" class="w-full h-full object-cover">
+            <div
+                class="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70 md:bg-gradient-to-r from-primary/80 to-transparent dark:from-primary/90 dark:to-primary/70 dark:md:bg-gradient-to-r dark:from-primary/80 dark:to-transparent">
+            </div>
+        </div>
+
+        <!-- Hero content -->
+        <div class="absolute inset-0 flex items-center z-20 animate-fade-in">
+            <div class="container mx-auto px-4">
+                <div class="max-w-2xl animate-slide-up">
+                    <h1
+                        class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 hero-text text-white dark:text-white">
+                        Explore
+                        Maharashtra<br><span class="text-gold">With ELLORATAXI</span></h1>
+                    <p class="text-lg md:text-xl text-gray-300 dark:text-gray-300 mb-6 md:mb-8">Premium travel
+                        experiences with luxury
+                        fleet, curated tours, and exclusive accommodations across Maharashtra.</p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="tour-packages.html"
+                            class="bg-gold text-primary px-6 py-3 md:px-8 md:py-3 rounded-lg font-bold text-lg hover:bg-gold/90 transition-all duration-300 inline-flex items-center justify-center space-x-2">
+                            <span>Discover Tours</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="contact.html#enquiry"
+                            class="bg-transparent border-2 border-gold text-gold px-6 py-3 md:px-8 md:py-3 rounded-lg font-bold text-lg hover:bg-gold/10 transition-all duration-300 inline-flex items-center justify-center space-x-2">
+                            <span>Enquiry Form</span>
+                            <i class="fas fa-file-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Fleet Section -->
+    <section id="fleet" class="py-12 md:py-16 container mx-auto px-4">
+        <div class="text-center mb-10 md:mb-12 animate-slide-up">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-lightText dark:text-white">Premium Fleet <span
+                    class="text-gold">Cars</span></h2>
+            <div class="w-24 h-1 bg-gold mx-auto"></div>
+            <p class="text-gray-600 dark:text-gray-300 mt-6 max-w-2xl mx-auto">Travel in ultimate comfort with our
+                luxury vehicles,
+                equipped with modern amenities for your journey across Maharashtra.</p>
+        </div>
+
+        <!-- Fleet grid - responsive layout -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <!-- Car Card 1 -->
+            <div
+                class="bg-lightCard rounded-xl overflow-hidden border border-lightBorder hover:border-gold transition-all duration-300 card-hover dark:from-gray-800/50 dark:to-gray-900/50 dark:border-gray-700 dark:hover:border-gold">
+                <div class="relative overflow-hidden">
+                    <img src="assets/images/home/Swift-Dzire.png" alt="Swift-Dzire"
+                        class="w-full h-48 md:h-56 object-cover transition-transform duration-500 hover:scale-105">
+                    <div class="absolute top-4 right-4 bg-gold text-primary px-3 py-1 rounded-full text-sm font-bold">
+                        4 Seater
+                    </div>
+                </div>
+                <div class="p-5 md:p-6">
+                    <h3 class="text-xl font-bold mb-2 text-white dark:text-white">Swift-Dzire</h3>
+                    <p class="text-gray-400 mb-4 text-sm md:text-base dark:text-gray-400">Sedan • Chauffeur
+                        Driven</p>
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+                        <div>
+                            <span class="text-gold text-xl font-bold">₹3,600/day</span>
+                            <p class="text-gray-500 text-sm dark:text-gray-500"></p>
+                        </div>
+                        <button onclick="bookVehicle('Swift-Dzire')"
+                            class="bg-gold text-primary px-5 py-2.5 rounded-lg font-bold hover:bg-gold/90 transition-colors duration-300 w-full md:w-auto">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car Card 2 -->
+            <div
+                class="bg-lightCard rounded-xl overflow-hidden border border-lightBorder hover:border-gold transition-all duration-300 card-hover dark:from-gray-800/50 dark:to-gray-900/50 dark:border-gray-700 dark:hover:border-gold">
+                <div class="relative overflow-hidden">
+                    <img src="assets/images/home/Innova-Crysta.png" alt="Innova Crysta"
+                        class="w-full h-48 md:h-56 object-cover transition-transform duration-500 hover:scale-105">
+                    <div class="absolute top-4 right-4 bg-gold text-primary px-3 py-1 rounded-full text-sm font-bold">
+                        6 Seater
+                    </div>
+                </div>
+                <div class="p-5 md:p-6">
+                    <h3 class="text-xl font-bold mb-2 text-white dark:text-white">Innova Crysta</h3>
+                    <p class="text-gray-400 mb-4 text-sm md:text-base dark:text-gray-400">Executive Luxury •
+                        Refreshments
+                    </p>
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+                        <div>
+                            <span class="text-gold text-xl font-bold">₹5,400/day</span>
+                            <p class="text-gray-500 text-sm dark:text-gray-500"></p>
+                        </div>
+                        <button onclick="bookVehicle('Innova Crysta')"
+                            class="bg-gold text-primary px-5 py-2.5 rounded-lg font-bold hover:bg-gold/90 transition-colors duration-300 w-full md:w-auto">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car Card 3 -->
+            <div
+                class="bg-lightCard rounded-xl overflow-hidden border border-lightBorder hover:border-gold transition-all duration-300 card-hover dark:from-gray-800/50 dark:to-gray-900/50 dark:border-gray-700 dark:hover:border-gold">
+                <div class="relative overflow-hidden">
+                    <img src="assets/images/home/Toyota-Rumion.jpg" alt="Toyota Rumion"
+                        class="w-full h-48 md:h-56 object-cover transition-transform duration-500 hover:scale-105">
+                    <div class="absolute top-4 right-4 bg-gold text-primary px-3 py-1 rounded-full text-sm font-bold">
+                        7 Seater
+                    </div>
+                </div>
+                <div class="p-5 md:p-6">
+                    <h3 class="text-xl font-bold mb-2 text-white dark:text-white">Toyota-Rumion</h3>
+                    <p class="text-gray-400 mb-4 text-sm md:text-base dark:text-gray-400">Premium SUV • 7 Seater •
+                        Spacious</p>
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+                        <div>
+                            <span class="text-gold text-xl font-bold">₹5,400/day</span>
+                            <p class="text-gray-500 text-sm dark:text-gray-500"></p>
+                        </div>
+                        <button onclick="bookVehicle('Toyota-Rumion')"
+                            class="bg-gold text-primary px-5 py-2.5 rounded-lg font-bold hover:bg-gold/90 transition-colors duration-300 w-full md:w-auto">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car Card 4 -->
+            <div
+                class="bg-lightCard rounded-xl overflow-hidden border border-lightBorder hover:border-gold transition-all duration-300 card-hover dark:from-gray-800/50 dark:to-gray-900/50 dark:border-gray-700 dark:hover:border-gold">
+                <div class="relative overflow-hidden">
+                    <img src="assets/images/home/Kia-Carens.jpg" alt="Kia-Carens"
+                        class="w-full h-48 md:h-56 object-cover transition-transform duration-500 hover:scale-105">
+                    <div class="absolute top-4 right-4 bg-gold text-primary px-3 py-1 rounded-full text-sm font-bold">
+                        6 Seater
+                    </div>
+                </div>
+                <div class="p-5 md:p-6">
+                    <h3 class="text-xl font-bold mb-2 text-white dark:text-white">Kia-Carens</h3>
+                    <p class="text-gray-400 mb-4 text-sm md:text-base dark:text-gray-400">Family MUV • Spacious Comfort
+                        • Economical</p>
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+                        <div>
+                            <span class="text-gold text-xl font-bold">₹4,500/day</span>
+                            <p class="text-gray-500 text-sm dark:text-gray-500"></p>
+                        </div>
+                        <button onclick="bookVehicle('Kia-Carens')"
+                            class="bg-gold text-primary px-5 py-2.5 rounded-lg font-bold hover:bg-gold/90 transition-colors duration-300 w-full md:w-auto">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car Card 5 -->
+            <div
+                class="bg-lightCard rounded-xl overflow-hidden border border-lightBorder hover:border-gold transition-all duration-300 card-hover dark:from-gray-800/50 dark:to-gray-900/50 dark:border-gray-700 dark:hover:border-gold">
+                <div class="relative overflow-hidden">
+                    <img src="assets/images/home/Tempo-Traveller.jpg" alt="Tempo-Traveller"
+                        class="w-full h-48 md:h-56 object-cover transition-transform duration-500 hover:scale-105">
+                    <div class="absolute top-4 right-4 bg-gold text-primary px-3 py-1 rounded-full text-sm font-bold">
+                        17 Seater
+                    </div>
+                </div>
+                <div class="p-5 md:p-6">
+                    <h3 class="text-xl font-bold mb-2 text-white dark:text-white">Tempo Traveller</h3>
+                    <p class="text-gray-400 mb-4 text-sm md:text-base dark:text-gray-400">Air Conditioned • Veratile
+                        seating • Push Back Seats
+                        Premium</p>
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+                        <div>
+                            <span class="text-gold text-xl font-bold">₹8,300/day</span>
+                            <p class="text-gray-500 text-sm dark:text-gray-500"></p>
+                        </div>
+                        <button onclick="bookVehicle('Tempo Traveller')"
+                            class="bg-gold text-primary px-5 py-2.5 rounded-lg font-bold hover:bg-gold/90 transition-colors duration-300 w-full md:w-auto">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Car Card 6 -->
+            <div
+                class="bg-lightCard rounded-xl overflow-hidden border border-lightBorder hover:border-gold transition-all duration-300 card-hover dark:from-gray-800/50 dark:to-gray-900/50 dark:border-gray-700 dark:hover:border-gold">
+                <div class="relative overflow-hidden">
+                    <img src="assets/images/home/Force-Urbania.jpg" alt="Volvo XC90"
+                        class="w-full h-48 md:h-56 object-cover transition-transform duration-500 hover:scale-105">
+                    <div class="absolute top-4 right-4 bg-gold text-primary px-3 py-1 rounded-full text-sm font-bold">
+                        16 Seater
+                    </div>
+                </div>
+                <div class="p-5 md:p-6">
+                    <h3 class="text-xl font-bold mb-2 text-white dark:text-white">Force-Urbania</h3>
+                    <p class="text-gray-400 mb-4 text-sm md:text-base dark:text-gray-400">Safety Focused • Luxury Mini
+                        Bus • Family</p>
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+                        <div>
+                            <span class="text-gold text-xl font-bold">₹10,500/day</span>
+                            <p class="text-gray-500 text-sm dark:text-gray-500"></p>
+                        </div>
+                        <button onclick="bookVehicle('Force-Urbania')"
+                            class="bg-gold text-primary px-5 py-2.5 rounded-lg font-bold hover:bg-gold/90 transition-colors duration-300 w-full md:w-auto">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View all button -->
+        <div class="text-center mt-10 md:mt-12">
+            <a href="tour-packages.html"
+                class="inline-flex items-center space-x-2 text-gold hover:text-goldLight transition-colors duration-300 border border-gold px-6 py-3 rounded-lg">
+                <span>View All Packages</span>
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-12 md:py-16 bg-lightSecondary dark:bg-gradient-to-b dark:from-transparent dark:to-secondary/50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-10 md:mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-lightText dark:text-white">Why Choose <span
+                        class="text-gold">ELLORA TAXI</span>
+                </h2>
+                <div class="w-24 h-1 bg-gold mx-auto"></div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <div
+                    class="bg-white p-6 rounded-xl border border-lightBorder hover:border-gold/50 transition-all duration-300 text-center dark:bg-primary/50 dark:border-gray-800 dark:hover:border-gold/50">
+                    <div class="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-shield-alt text-gold text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-lightText dark:text-white">Safe & Secure</h3>
+                    <p class="text-gray-600 dark:text-gray-300">All vehicles are regularly sanitized and maintained with
+                        highest safety
+                        standards.</p>
+                </div>
+
+                <div
+                    class="bg-white p-6 rounded-xl border border-lightBorder hover:border-gold/50 transition-all duration-300 text-center dark:bg-primary/50 dark:border-gray-800 dark:hover:border-gold/50">
+                    <div class="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-headset text-gold text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-lightText dark:text-white">24/7 Support</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Round-the-clock customer support for any queries or
+                        assistance during your
+                        journey.</p>
+                </div>
+
+                <div
+                    class="bg-white p-6 rounded-xl border border-lightBorder hover:border-gold/50 transition-all duration-300 text-center dark:bg-primary/50 dark:border-gray-800 dark:hover:border-gold/50">
+                    <div class="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-map-marked-alt text-gold text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-lightText dark:text-white">Expert Guides</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Experienced chauffeurs and guides with extensive
+                        knowledge of Maharashtra.
+                    </p>
+                </div>
+
+                <div
+                    class="bg-white p-6 rounded-xl border border-lightBorder hover:border-gold/50 transition-all duration-300 text-center dark:bg-primary/50 dark:border-gray-800 dark:hover:border-gold/50">
+                    <div class="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-tag text-gold text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-lightText dark:text-white">Best Price Guarantee</h3>
+                    <p class="text-gray-600 dark:text-gray-300">We offer the most competitive prices for luxury travel
+                        experiences.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-12 md:py-16 container mx-auto px-4">
+        <div
+            class="bg-gradient-to-r from-gold/20 to-gold/10 border border-gold/30 rounded-2xl p-8 md:p-12 text-center dark:from-gold/20 dark:to-gold/10 dark:border-gold/30">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-lightText dark:text-white">Ready for a <span
+                    class="text-gold">Royal Experience</span>?
+            </h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">Book your luxury vehicle or tour package
+                today and
+                experience Maharashtra like never before.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="booking-payment.html"
+                    class="bg-gold text-primary px-8 py-3 rounded-lg font-bold text-lg hover:bg-gold/90 transition-colors duration-300 inline-flex items-center justify-center space-x-2">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Book Now</span>
+                </a>
+                <a href="contact.html"
+                    class="bg-transparent border-2 border-gold text-gold px-8 py-3 rounded-lg font-bold text-lg hover:bg-gold/10 transition-colors duration-300 inline-flex items-center justify-center space-x-2">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>Contact Us</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-lightPrimary border-t border-gold/30 dark:bg-primary dark:border-gold/30">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+                            <i class="fas fa-crown text-primary text-xl"></i>
+                        </div>
+                        <span class="text-2xl font-bold text-lightText dark:text-white">ELLORA<span
+                                class="text-gold">TAXI</span></span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 mb-6">Premium travel experiences across Maharashtra since
+                        2010.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://www.facebook.com/WasimShaikhElloraAjantaTours/"
+                            class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gold hover:text-primary transition-colors duration-300 dark:bg-gray-800 dark:hover:bg-gold dark:hover:text-primary">
+                            <i class="fab fa-facebook-f text-gray-700 dark:text-gray-300"></i>
+                        </a>
+                        <a href="https://www.instagram.com/ellorataxi?utm_source=qr&igsh=ZTh1d2R2cXFqYzRk"
+                            class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gold hover:text-primary transition-colors duration-300 dark:bg-gray-800 dark:hover:bg-gold dark:hover:text-primary">
+                            <i class="fab fa-instagram text-gray-700 dark:text-gray-300"></i>
+                        </a>
+                        <a href="https://wa.me/919730871481"
+                            class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gold hover:text-primary transition-colors duration-300 dark:bg-gray-800 dark:hover:bg-gold dark:hover:text-primary">
+                            <i class="fab fa-whatsapp text-gray-700 dark:text-gray-300"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-gold">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="home.html"
+                                class="text-gray-600 hover:text-gold transition-colors duration-300 flex items-center space-x-2 dark:text-gray-400 dark:hover:text-gold"><i
+                                    class="fas fa-chevron-right text-xs text-gold"></i><span>Home</span></a></li>
+                        <li><a href="tour-packages.html"
+                                class="text-gray-600 hover:text-gold transition-colors duration-300 flex items-center space-x-2 dark:text-gray-400 dark:hover:text-gold"><i
+                                    class="fas fa-chevron-right text-xs text-gold"></i><span>Tour Packages</span></a>
+                        </li>
+                        <li><a href="hotels.html"
+                                class="text-gray-600 hover:text-gold transition-colors duration-300 flex items-center space-x-2 dark:text-gray-400 dark:hover:text-gold"><i
+                                    class="fas fa-chevron-right text-xs text-gold"></i><span>Hotels</span></a></li>
+                        <li><a href="contact.html"
+                                class="text-gray-600 hover:text-gold transition-colors duration-300 flex items-center space-x-2 dark:text-gray-400 dark:hover:text-gold"><i
+                                    class="fas fa-chevron-right text-xs text-gold"></i><span>Contact</span></a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-gold">Contact Info</h4>
+                    <ul class="space-y-4 text-gray-600 dark:text-gray-400">
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt text-gold mt-1"></i>
+                            <span>Office in front of Ellora Heritage Resort, between Ellora Caves and Grishneshwar
+                                Temple, Chh. Sambhajinagar, Maharashtra 431102</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-phone text-gold"></i>
+                            <span>+91 9730871481 <br> +91 9325378864 </span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-gold"></i>
+                            <span>ellorataxi001@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- In the footer grid, add this new column -->
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-gold">Legal</h4>
+                    <ul class="space-y-3">
+                        <li><a href="privacy-policy.html"
+                                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Privacy
+                                Policy</a></li>
+                        <li><a href="terms-conditions.html"
+                                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Terms
+                                & Conditions</a></li>
+                        <li><a href="cancellation-refund.html"
+                                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Cancellation
+                                & Refund</a></li>
+                        <li><a href="shipping-delivery.html"
+                                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Shipping
+                                & Delivery</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="border-t border-gray-300 mt-8 pt-8 text-center text-gray-500 text-sm dark:border-gray-800 dark:text-gray-500">
+                <p>&copy; 2026 Ellora Tours & Travels. All rights reserved. | Designed with <i
+                        class="fas fa-heart text-red-500"></i> for luxury travel enthusiasts</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/919730871481" target="_blank"
+        class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-all duration-300 z-40">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+        const bodyElement = document.body;
+
+        // Check for saved theme preference or default to dark
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+
+        // Apply saved theme
+        function applyTheme(theme) {
+            if (theme === 'light') {
+                htmlElement.classList.remove('dark');
+                htmlElement.classList.add('light');
+                bodyElement.classList.remove('bg-pattern-dark');
+                bodyElement.classList.add('bg-pattern-light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                htmlElement.classList.remove('light');
+                htmlElement.classList.add('dark');
+                bodyElement.classList.remove('bg-pattern-light');
+                bodyElement.classList.add('bg-pattern-dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        }
+
+        applyTheme(savedTheme);
+
+        // Toggle theme
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                // Switch to light theme
+                localStorage.setItem('theme', 'light');
+                applyTheme('light');
+            } else {
+                // Switch to dark theme
+                localStorage.setItem('theme', 'dark');
+                applyTheme('dark');
+            }
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function () {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Book vehicle function
+        function bookVehicle(vehicleName) {
+            localStorage.setItem('selectedItem', vehicleName);
+            localStorage.setItem('itemType', 'vehicle');
+            window.location.href = 'booking-payment.html';
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobileMenu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // Add these validation functions to your existing JavaScript
+
+        function validatePhoneNumber() {
+            const phoneInput = document.getElementById('phoneNumber');
+            const phoneError = document.getElementById('phoneError');
+            const phoneSuccess = document.getElementById('phoneSuccess');
+            let phoneValue = phoneInput.value;
+
+            // Allow only digits and limit to 10
+            phoneValue = phoneValue.replace(/[^0-9]/g, '').slice(0, 10);
+            phoneInput.value = phoneValue;
+
+            if (phoneValue.length === 0) {
+                phoneError.classList.add('hidden');
+                phoneSuccess.classList.add('hidden');
+                return;
+            }
+
+            // Check if exactly 10 digits and starts with 7,8,9
+            const isValid = phoneValue.length === 10 && /^[7-9]/.test(phoneValue);
+
+            if (isValid) {
+                phoneError.classList.add('hidden');
+                phoneSuccess.classList.remove('hidden');
+            } else {
+                phoneError.classList.remove('hidden');
+                phoneSuccess.classList.add('hidden');
+            }
+        }
+
+        function validateEmail() {
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const emailValue = emailInput.value;
+
+            if (emailValue.length === 0) {
+                emailError.classList.add('hidden');
+                return;
+            }
+
+            // Check if email ends with @gmail.com
+            const isValid = emailValue.toLowerCase().endsWith('@gmail.com');
+
+            if (isValid) {
+                emailError.classList.add('hidden');
+            } else {
+                emailError.classList.remove('hidden');
+            }
+        }
+
+        // Update your existing form submission handler
+        document.getElementById('enquiryForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+
+            const phoneError = document.getElementById('phoneError');
+            const emailError = document.getElementById('emailError');
+            const subjectError = document.getElementById('subjectError');
+
+            // Reset errors
+            phoneError.classList.add('hidden');
+            emailError.classList.add('hidden');
+            subjectError.classList.add('hidden');
+
+            let isValid = true;
+
+            // Validate phone (exactly 10 digits, starts with 7,8,9)
+            if (phoneNumber.length !== 10 || !/^[7-9]/.test(phoneNumber)) {
+                phoneError.classList.remove('hidden');
+                isValid = false;
+            }
+
+            // Validate email (ends with @gmail.com)
+            if (!email.toLowerCase().endsWith('@gmail.com')) {
+                emailError.classList.remove('hidden');
+                isValid = false;
+            }
+
+            // Validate subject (not empty)
+            if (!subject) {
+                subjectError.classList.remove('hidden');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                return;
+            }
+
+            // Your existing form submission code here
+            // ... (keep your existing code)
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ellora Tours & Travel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a2332',
+                        secondary: '#0f1623',
+                        gold: '#d4af37',
+                        goldLight: '#f4e8c1',
+                        // Light theme colors
+                        lightBg: '#f8fafc',
+                        lightPrimary: '#ffffff',
+                        lightText: '#1e293b',
+                        lightSecondary: '#f1f5f9',
+                        lightCard: '#ffffff',
+                        lightBorder: '#e2e8f0',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for dark theme */
+        html.dark ::-webkit-scrollbar-track {
+            background: #0f1623;
+        }
+
+        html.dark ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
+
+        /* Custom scrollbar for light theme */
+        html.light ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        html.light ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        html.light ::-webkit-scrollbar-thumb {
+            background: #b5942d;
+            border-radius: 4px;
+        }
+
+        /* Background pattern - Dark */
+        .bg-pattern-dark {
+            background-color: #1a2332;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 20%);
+        }
+
+        /* Background pattern - Light */
+        .bg-pattern-light {
+            background-color: #f8fafc;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(181, 148, 45, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(181, 148, 45, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.02) 0%, transparent 20%);
+        }
+
+        /* Smooth theme transition */
+        body, nav, section, footer, div, a, button, p, h1, h2, h3, h4, h5, h6 {
+            transition: background-color 0.3s ease, 
+                       color 0.3s ease, 
+                       border-color 0.3s ease,
+                       box-shadow 0.3s ease;
+        }
+
+        /* Theme toggle animation */
+        .theme-toggle {
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Gallery card hover effect */
+        .gallery-card {
+            transition: all 0.3s ease;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        html.dark .gallery-card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body class="min-h-screen font-sans">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-primary/95 backdrop-blur-sm border-b border-gold/30 dark:bg-primary/95 dark:border-gold/30">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="home.html" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+                        <i class="fas fa-crown text-primary text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold tracking-wider text-white dark:text-white">ELLORA<span class="text-gold">TAXI</span></span>
+                </a>
+                
+                <div class="flex items-center space-x-6">
+                    <!-- Theme Toggle Button -->
+                    <button id="themeToggle" class="theme-toggle w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gold hover:text-primary transition-colors duration-300">
+                        <i id="themeIcon" class="fas fa-moon text-gold"></i>
+                    </button>
+                    
+                    <div class="hidden md:flex space-x-8">
+                        <a href="home.html" class="text-gray-300 hover:text-gold transition-colors duration-300">Home</a>
+                        <a href="tour-packages.html" class="text-gray-300 hover:text-gold transition-colors duration-300">Tour Packages</a>
+                        <a href="photogallery.html" class="text-gold font-semibold border-b-2 border-gold pb-1">Gallery</a>
+                        <a href="contact.html" class="text-gray-300 hover:text-gold transition-colors duration-300">Contact</a>
+                    </div>
+                    
+                    <button class="md:hidden text-gold" id="mobileMenuBtn">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-3 pb-4">
+                <a href="home.html" class="block text-gray-300 hover:text-gold transition-colors duration-300">Home</a>
+                <a href="tour-packages.html" class="block text-gray-300 hover:text-gold transition-colors duration-300">Tour Packages</a>
+                <a href="photogallery.html" class="block text-gold font-semibold">Gallery</a>
+                <a href="contact.html" class="block text-gray-300 hover:text-gold transition-colors duration-300">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative py-20 bg-gradient-to-r from-primary to-secondary dark:bg-gradient-to-r dark:from-primary dark:to-secondary">
+        <div class="container mx-auto px-4 text-center animate-fade-in">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white dark:text-white">Travel <span class="text-gold">Gallery</span></h1>
+            <div class="w-24 h-1 bg-gold mx-auto mb-8"></div>
+            <p class="text-lg md:text-xl text-gray-300 dark:text-gray-300 max-w-3xl mx-auto">Memorable moments captured from our travelers' journeys across Maharashtra. See the smiles, experiences, and beautiful memories created with Royal Tours.</p>
+        </div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section class="py-12 md:py-20 bg-gradient-to-r from-lightSecondary to-lightBg dark:bg-gradient-to-r dark:from-gray-900 dark:to-secondary">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Photo 1 -->
+                <div class="gallery-card group relative overflow-hidden rounded-xl border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <img src="assets/images/gallery/img1.jpeg" 
+                         alt="Group at Ajanta Caves" 
+                         class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <h3 class="text-xl font-bold mb-2 text-white">Group at Ellora Caves</h3>
+                            <p class="text-gray-200 dark:text-gray-300 text-sm">Travel that connects cultures. Exploring heritage, history, and timeless architecture together.</p>
+                            <div class="flex items-center mt-3 space-x-4">
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-users mr-1"></i> 12 People
+                                </span>
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-calendar mr-1"></i> March 2024
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo 2 -->
+                <div class="gallery-card group relative overflow-hidden rounded-xl border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <img src="assets/images/gallery/img2.jpeg" 
+                         alt="Beach group photo in Alibaug" 
+                         class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <h3 class="text-xl font-bold mb-2 text-white">Scenic Hill Viewpoint Group</h3>
+                            <p class="text-gray-200 dark:text-gray-300 text-sm">Nature, views, and unforgettable moments. Journeys that feel peaceful and inspiring.</p>
+                            <div class="flex items-center mt-3 space-x-4">
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-users mr-1"></i> 16 People
+                                </span>
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-calendar mr-1"></i> February 2024
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo 3 -->
+                <div class="gallery-card group relative overflow-hidden rounded-xl border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <img src="assets/images/gallery/img3.jpeg" 
+                         alt="Trekking group in Mahabaleshwar" 
+                         class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <h3 class="text-xl font-bold mb-2 text-white">Small Travel Group Outdoors</h3>
+                            <p class="text-gray-200 dark:text-gray-300 text-sm">Smiles captured on the road. Personalized travel experiences with great company.</p>
+                            <div class="flex items-center mt-3 space-x-4">
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-users mr-1"></i> 5 People
+                                </span>
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-calendar mr-1"></i> January 2024
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo 4 -->
+                <div class="gallery-card group relative overflow-hidden rounded-xl border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <img src="assets/images/gallery/img4.jpeg" 
+                         alt="Group at Shirdi Temple" 
+                         class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <h3 class="text-xl font-bold mb-2 text-white">Group Tour vehicle</h3>
+                            <p class="text-gray-200 dark:text-gray-300 text-sm">Comfort meets reliability. Our premium fleet ensures safe and smooth rides.</p>
+                            <div class="flex items-center mt-3 space-x-4">
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-users mr-1"></i> 1 Vehicle
+                                </span>
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-calendar mr-1"></i> December 2023
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo 5 -->
+                <div class="gallery-card group relative overflow-hidden rounded-xl border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <img src="assets/images/gallery/img5.jpeg" 
+                         alt="Tadoba Safari group" 
+                         class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <h3 class="text-xl font-bold mb-2 text-white">Travelers With Car</h3>
+                            <p class="text-gray-200 dark:text-gray-300 text-sm">Trusted transport for every destination. Road trips powered by comfort and care.</p>
+                            <div class="flex items-center mt-3 space-x-4">
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-users mr-1"></i> 3 People
+                                </span>
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-calendar mr-1"></i> November 2023
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo 6 -->
+                <div class="gallery-card group relative overflow-hidden rounded-xl border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <img src="assets/images/gallery/img6.jpeg" 
+                         alt="Beach volleyball in Alibaug" 
+                         class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <h3 class="text-xl font-bold mb-2 text-white">Happy Travelers With Local Guide</h3>
+                            <p class="text-gray-200 dark:text-gray-300 text-sm">Where every traveler feels welcome. Guided tours made fun, safe, and memorable</p>
+                            <div class="flex items-center mt-3 space-x-4">
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-users mr-1"></i> 4 People
+                                </span>
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-calendar mr-1"></i> October 2023
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo 7 -->
+                <div class="gallery-card group relative overflow-hidden rounded-xl border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <img src="assets/images/gallery/img7.jpeg" 
+                         alt="Lonavala waterfall group" 
+                         class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <h3 class="text-xl font-bold mb-2 text-white">Local Guide With International Guests</h3>
+                            <p class="text-gray-200 dark:text-gray-300 text-sm">Bridging destinations and friendships. Travel that brings people closer.</p>
+                            <div class="flex items-center mt-3 space-x-4">
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-users mr-1"></i> 3 People
+                                </span>
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-calendar mr-1"></i> September 2023
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo 8 -->
+                <div class="gallery-card group relative overflow-hidden rounded-xl border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <img src="assets/images/gallery/img8.jpeg" 
+                         alt="Mumbai city tour group" 
+                         class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <h3 class="text-xl font-bold mb-2 text-white">Individual Traveler Moments</h3>
+                            <p class="text-gray-200 dark:text-gray-300 text-sm">Every journey tells a story. Memories created one destination at a time</p>
+                            <div class="flex items-center mt-3 space-x-4">
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-users mr-1"></i> 3 People
+                                </span>
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-calendar mr-1"></i> August 2023
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo 9 -->
+                <div class="gallery-card group relative overflow-hidden rounded-xl border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <img src="assets/images/gallery/img9.jpeg" 
+                         alt="Pachgani strawberry farm" 
+                         class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <h3 class="text-xl font-bold mb-2 text-white">Travelers Trio at Heritage Site</h3>
+                            <p class="text-gray-200 dark:text-gray-300 text-sm">Travel beyond boundaries. Exploring ancient marvels with expert local guidance and global friends.</p>
+                            <div class="flex items-center mt-3 space-x-4">
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-users mr-1"></i> 3 People
+                                </span>
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-calendar mr-1"></i> July 2023
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo 10 -->
+                <div class="gallery-card group relative overflow-hidden rounded-xl border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <img src="assets/images/gallery/img10.jpeg" 
+                         alt="Ellora Caves group photo" 
+                         class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <h3 class="text-xl font-bold mb-2 text-white">Majestic Snow-Covered Mountains & BRO Point</h3>
+                            <p class="text-gray-200 dark:text-gray-300 text-sm">Touch the chill of adventure. Witnessing breathtaking peaks where nature meets thrilling roads</p>
+                            <div class="flex items-center mt-3 space-x-4">
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-users mr-1"></i> 12 People
+                                </span>
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-calendar mr-1"></i> June 2023
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo 11 -->
+                <div class="gallery-card group relative overflow-hidden rounded-xl border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <img src="assets/images/gallery/img11.jpeg" 
+                         alt="Ashtvinayak temple tour" 
+                         class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <h3 class="text-xl font-bold mb-2 text-white">Gurudwara Reflection Pool View</h3>
+                            <p class="text-gray-200 dark:text-gray-300 text-sm">Serenity in every journey. Experiencing spiritual peace, culture, and togetherness at sacred destinations.</p>
+                            <div class="flex items-center mt-3 space-x-4">
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-users mr-1"></i> 9 People
+                                </span>
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-calendar mr-1"></i> May 2023
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo 12 -->
+                <div class="gallery-card group relative overflow-hidden rounded-xl border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <img src="assets/images/gallery/img12.jpeg" 
+                         alt="Corporate retreat group" 
+                         class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute bottom-0 left-0 right-0 p-6">
+                            <h3 class="text-xl font-bold mb-2 text-white">Kerala Backwater Houseboat</h3>
+                            <p class="text-gray-200 dark:text-gray-300 text-sm">Cruising through calm waters. Discovering scenic backwaters, fresh breeze, and authentic travel vibes.</p>
+                            <div class="flex items-center mt-3 space-x-4">
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-users mr-1"></i> 10 People
+                                </span>
+                                <span class="text-sm text-gray-300 dark:text-gray-400">
+                                    <i class="fas fa-calendar mr-1"></i> April 2023
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-12 md:py-16 container mx-auto px-4">
+        <div class="bg-gradient-to-r from-gold/20 to-gold/10 border border-gold/30 rounded-2xl p-8 md:p-12 text-center dark:from-gold/20 dark:to-gold/10 dark:border-gold/30">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-lightText dark:text-white">Create Your Own Memories</h2>
+            <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">Join our satisfied travelers and create beautiful memories that will last a lifetime.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="tour-packages.html" 
+                   class="bg-gold text-primary px-8 py-3 rounded-lg font-bold text-lg hover:bg-gold/90 transition-colors duration-300 inline-flex items-center justify-center space-x-2">
+                    <span>Explore Tours</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="contact.html" 
+                   class="bg-transparent border-2 border-gold text-gold px-8 py-3 rounded-lg font-bold text-lg hover:bg-gold/10 transition-colors duration-300 inline-flex items-center justify-center space-x-2">
+                    <span>Contact Us</span>
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-lightPrimary border-t border-gold/30 dark:bg-primary dark:border-gold/30">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+                            <i class="fas fa-crown text-primary text-xl"></i>
+                        </div>
+                        <span class="text-2xl font-bold text-lightText dark:text-white">ELLORA<span class="text-gold">TAXI</span></span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400">Premium travel experiences across Maharashtra since 2010.</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-gold">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="home.html" class="text-gray-600 hover:text-gold transition-colors duration-300 dark:text-gray-400 dark:hover:text-gold">Home</a></li>
+                        <li><a href="tour-packages.html" class="text-gray-600 hover:text-gold transition-colors duration-300 dark:text-gray-400 dark:hover:text-gold">Tour Packages</a></li>
+                        <li><a href="photogallery.html" class="text-gray-600 hover:text-gold transition-colors duration-300 dark:text-gray-400 dark:hover:text-gold">Gallery</a></li>
+                        <li><a href="contact.html" class="text-gray-600 hover:text-gold transition-colors duration-300 dark:text-gray-400 dark:hover:text-gold">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-gold">Contact Info</h4>
+                    <ul class="space-y-4 text-gray-600 dark:text-gray-400">
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt text-gold mt-1"></i>
+                            <span>Office in front of Ellora Heritage Resort, between Ellora Caves and Grishneshwar Temple, Chh. Sambhajinagar, Maharashtra 431102</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-phone text-gold"></i>
+                            <span>+91 9730871481 <br> +91 9325378864</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-gold"></i>
+                            <span>ellorataxi001@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-gold">Business Hours</h4>
+                    <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+                        <li class="flex justify-between">
+                            <span>Mon - Fri:</span>
+                            <span class="text-goldLight dark:text-goldLight">9:00 AM - 8:00 PM</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Saturday:</span>
+                            <span class="text-goldLight dark:text-goldLight">10:00 AM - 6:00 PM</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Sunday:</span>
+                            <span class="text-goldLight dark:text-goldLight">10:00 AM - 4:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-300 mt-8 pt-8 text-center text-gray-500 text-sm dark:border-gray-800 dark:text-gray-500">
+                <p>&copy; 2026 Ellora Tours & Travels. All rights reserved. | Designed with <i class="fas fa-heart text-red-500"></i> for luxury travel enthusiasts</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+        const bodyElement = document.body;
+
+        // Check for saved theme preference or default to dark
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        
+        // Apply saved theme
+        function applyTheme(theme) {
+            if (theme === 'light') {
+                htmlElement.classList.remove('dark');
+                htmlElement.classList.add('light');
+                bodyElement.classList.remove('bg-pattern-dark');
+                bodyElement.classList.add('bg-pattern-light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                htmlElement.classList.remove('light');
+                htmlElement.classList.add('dark');
+                bodyElement.classList.remove('bg-pattern-light');
+                bodyElement.classList.add('bg-pattern-dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        }
+        
+        applyTheme(savedTheme);
+
+        // Toggle theme
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                // Switch to light theme
+                localStorage.setItem('theme', 'light');
+                applyTheme('light');
+            } else {
+                // Switch to dark theme
+                localStorage.setItem('theme', 'dark');
+                applyTheme('dark');
+            }
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

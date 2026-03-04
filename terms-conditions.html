@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms & Conditions | Ellora Tours & Travels</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#1a2332',
+            secondary: '#0f1623',
+            gold: '#d4af37',
+            goldLight: '#f4e8c1',
+            lightBg: '#f8fafc',
+            lightPrimary: '#ffffff',
+            lightText: '#1e293b',
+            lightSecondary: '#f1f5f9',
+            lightCard: '#1e293b',
+            lightBorder: '#e2e8f0',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Same styles as privacy policy */
+    html.dark ::-webkit-scrollbar-track {
+      background: #0f1623;
+    }
+
+    html.dark ::-webkit-scrollbar-thumb {
+      background: #d4af37;
+      border-radius: 4px;
+    }
+
+    html.light ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    html.light ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+
+    html.light ::-webkit-scrollbar-thumb {
+      background: #b5942d;
+      border-radius: 4px;
+    }
+
+    .bg-pattern-dark {
+      background-color: #1a2332;
+      background-image: radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 20%), radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 20%);
+    }
+
+    .bg-pattern-light {
+      background-color: #f8fafc;
+      background-image: radial-gradient(circle at 10% 20%, rgba(181, 148, 45, 0.1) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(181, 148, 45, 0.1) 0%, transparent 20%), radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.02) 0%, transparent 20%);
+    }
+
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-5px);
+    }
+
+    html.dark .card-hover:hover {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    html.light .card-hover:hover {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    body,
+    nav,
+    section,
+    footer,
+    div,
+    a,
+    button,
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .theme-toggle {
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen font-sans">
+  <!-- Navigation (Same as privacy policy) -->
+  <nav
+    class="sticky top-0 z-50 bg-primary/95 backdrop-blur-sm border-b border-gold/30 dark:bg-primary/95 dark:border-gold/30">
+    <div class="container mx-auto px-4 py-4">
+      <div class="flex justify-between items-center">
+        <a href="home.html" class="flex items-center space-x-2">
+          <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+            <i class="fas fa-crown text-primary text-xl dark:text-primary"></i>
+          </div>
+          <span class="text-2xl font-bold tracking-wider text-white dark:text-white">ELLORA<span
+              class="text-gold">TAXI</span></span>
+        </a>
+
+        <div class="flex items-center space-x-6">
+          <button id="themeToggle"
+            class="theme-toggle w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gold hover:text-primary transition-colors duration-300 dark:bg-gray-800">
+            <i id="themeIcon" class="fas fa-moon text-gold dark:text-gold"></i>
+          </button>
+
+          <div class="hidden md:flex space-x-8">
+            <a href="home.html"
+              class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Home</a>
+            <a href="tour-packages.html"
+              class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Tour Packages</a>
+            <a href="photogallery.html"
+              class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Gallery</a>
+            <a href="contact.html"
+              class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Contact</a>
+          </div>
+
+          <button class="md:hidden text-gold" id="mobileMenuBtn">
+            <i class="fas fa-bars text-2xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-3 pb-4">
+        <a href="home.html"
+          class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Home</a>
+        <a href="tour-packages.html"
+          class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Tour
+          Packages</a>
+        <a href="photogallery.html"
+          class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Gallery</a>
+        <a href="contact.html"
+          class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative py-16 bg-gradient-to-r from-primary to-secondary dark:from-primary dark:to-secondary">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-white">Terms & <span class="text-gold">Conditions</span></h1>
+      <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
+      <p class="text-lg text-gray-300 max-w-3xl mx-auto">Last Updated: March 2026</p>
+    </div>
+  </section>
+
+  <!-- Terms & Conditions Content -->
+  <section class="py-12">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <div
+        class="bg-white rounded-xl border border-lightBorder p-8 md:p-10 card-hover dark:bg-gray-800/30 dark:border-gray-700">
+
+        <div class="prose prose-lg max-w-none dark:prose-invert">
+          <div class="mb-8 p-4 bg-gold/10 rounded-lg border-l-4 border-gold">
+            <p class="text-gray-700 dark:text-gray-300"><i class="fas fa-gavel text-gold mr-2"></i> <strong>By using our
+                services, you agree to these terms.</strong> Please read them carefully before booking.</p>
+          </div>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-file-contract mr-3"></i> 1. Booking and Payment
+          </h2>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li>All bookings are confirmed only after successful payment through Razorpay.</li>
+            <li>Prices listed are per person and include GST unless specified otherwise.</li>
+            <li>50% advance payment is required at the time of booking for all tours.</li>
+            <li>Remaining 50% must be paid 7 days before the tour start date.</li>
+            <li>For last-minute bookings (within 7 days), full payment is required immediately.</li>
+            <li>Payment receipts and booking confirmations will be sent to your email.</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-clock mr-3"></i> 2. Check-in and Check-out
+          </h2>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li>Vehicle check-in: 30 minutes before scheduled departure time.</li>
+            <li>Hotel check-in: 12:00 PM (early check-in subject to availability).</li>
+            <li>Hotel check-out: 10:00 AM (late check-out may incur additional charges).</li>
+            <li>Tour packages start at designated meeting points as mentioned in itinerary.</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-car mr-3"></i> 3. Vehicle Usage Terms
+          </h2>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li>Vehicles are provided with a professional chauffeur.</li>
+            <li>Fuel, tolls, and state taxes are included in the package price.</li>
+            <li>Driver's accommodation and meals are included for multi-day tours.</li>
+            <li>Inter-state permits are included for tours crossing state borders.</li>
+            <li>Maximum 8 hours of usage per day (for local packages). Extra hours charged at ₹200-500/hour depending on
+              vehicle.</li>
+            <li>Night charges apply for usage between 10 PM and 6 AM.</li>
+            <li>Smoking and alcohol are strictly prohibited in all vehicles.</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-umbrella-beach mr-3"></i> 4. Tour Package Terms
+          </h2>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li>Itineraries are subject to change based on weather conditions and local circumstances.</li>
+            <li>Entry fees to monuments and attractions are included only when specified.</li>
+            <li>Meals included are mentioned in the package details (breakfast, lunch, dinner).</li>
+            <li>Accommodation is in 3-star or equivalent hotels unless upgraded package is chosen.</li>
+            <li>Single occupancy requires additional charges.</li>
+            <li>Children below 5 years: complimentary (without extra bed).</li>
+            <li>Children 5-12 years: 50% of package price (with extra bed).</li>
+            <li>Children above 12 years: full package price.</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-ban mr-3"></i> 5. Prohibited Activities
+          </h2>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li>Carrying illegal substances or weapons in vehicles.</li>
+            <li>Damaging vehicle interiors or hotel property.</li>
+            <li>Smoking in vehicles or non-smoking hotel rooms.</li>
+            <li>Consumption of alcohol during safari or pilgrimage tours.</li>
+            <li>Any activity that endangers the safety of the driver or other passengers.</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-train mr-3"></i> 6. Transportation Delays
+          </h2>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li>We are not liable for delays caused by weather, traffic, or government regulations.</li>
+            <li>In case of vehicle breakdown, alternative arrangements will be made as soon as possible.</li>
+            <li>No refunds for delayed flights/trains resulting in missed tour components.</li>
+            <li>We recommend travel insurance to cover unforeseen circumstances.</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-heartbeat mr-3"></i> 7. Health and Safety
+          </h2>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li>Customers must inform us of any pre-existing medical conditions.</li>
+            <li>Pregnant women should consult their doctor before booking adventure tours.</li>
+            <li>Senior citizens may require accompanying family members for pilgrimage tours.</li>
+            <li>First aid kits are available in all vehicles but please carry personal medications.</li>
+            <li>Travel insurance is strongly recommended for all tours.</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-balance-scale mr-3"></i> 8. Liability Limitation
+          </h2>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li>Our liability is limited to the total amount paid for the booking.</li>
+            <li>We are not responsible for loss of personal belongings during the tour.</li>
+            <li>We are not liable for injuries caused by customer negligence.</li>
+            <li>Any disputes are subject to the jurisdiction of courts in Chh. Sambhajinagar, Maharashtra.</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-gavel mr-3"></i> 9. Governing Law
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-8">These terms shall be governed by and construed in accordance
+            with the laws of India. Any disputes arising under these terms shall be subject to the exclusive
+            jurisdiction of the courts in Chh. Sambhajinagar, Maharashtra.</p>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-check-circle mr-3"></i> 10. Acceptance of Terms
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-8">By checking the "I agree to Terms & Conditions" box during
+            booking, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer (Same as privacy policy) -->
+  <footer class="bg-lightPrimary border-t border-gold/30 mt-12 dark:bg-primary dark:border-gold/30">
+    <div class="container mx-auto px-4 py-12">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-6">
+            <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+              <i class="fas fa-crown text-primary text-xl dark:text-primary"></i>
+            </div>
+            <span class="text-2xl font-bold text-lightText dark:text-white">ELLORA<span
+                class="text-gold">TAXI</span></span>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400">Premium travel experiences across Maharashtra since 2010.</p>
+        </div>
+
+        <div>
+          <h4 class="text-xl font-bold mb-6 text-gold">Quick Links</h4>
+          <ul class="space-y-3">
+            <li><a href="home.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Home</a>
+            </li>
+            <li><a href="tour-packages.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Tour
+                Packages</a></li>
+            <li><a href="photogallery.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Gallery</a>
+            </li>
+            <li><a href="contact.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xl font-bold mb-6 text-gold">Legal</h4>
+          <ul class="space-y-3">
+            <li><a href="privacy-policy.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Privacy
+                Policy</a></li>
+            <li><a href="terms-conditions.html" class="text-gold font-semibold">Terms & Conditions</a></li>
+            <li><a href="cancellation-refund.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Cancellation
+                & Refund</a></li>
+            <li><a href="shipping-delivery.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Shipping
+                & Delivery</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xl font-bold mb-6 text-gold">Contact Info</h4>
+          <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+            <li class="flex items-start space-x-3">
+              <i class="fas fa-map-marker-alt text-gold mt-1"></i>
+              <span>Office in front of Ellora Heritage Resort, between Ellora Caves and Grishneshwar Temple, Chh.
+                Sambhajinagar, Maharashtra 431102</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i class="fas fa-phone text-gold"></i>
+              <span>+91 9730871481 <br> +91 9325378864</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i class="fas fa-envelope text-gold"></i>
+              <span>ellorataxi001@gmail.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        class="border-t border-gray-300 mt-8 pt-8 text-center text-gray-500 text-sm dark:border-gray-800 dark:text-gray-500">
+        <p>&copy; 2026 Ellora Tours & Travels. All rights reserved. | <a href="privacy-policy.html"
+            class="text-gold hover:underline">Privacy</a> | <a href="terms-conditions.html"
+            class="text-gold hover:underline">Terms</a> | <a href="cancellation-refund.html"
+            class="text-gold hover:underline">Refund</a> | <a href="shipping-delivery.html"
+            class="text-gold hover:underline">Delivery</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/919730871481" target="_blank"
+    class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-all duration-300 z-40">
+    <i class="fab fa-whatsapp text-2xl"></i>
+  </a>
+
+  <script>
+    // Theme toggle functionality (same as privacy policy)
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const htmlElement = document.documentElement;
+    const bodyElement = document.body;
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+
+    function applyTheme(theme) {
+      if (theme === 'light') {
+        htmlElement.classList.remove('dark');
+        htmlElement.classList.add('light');
+        bodyElement.classList.remove('bg-pattern-dark');
+        bodyElement.classList.add('bg-pattern-light');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+      } else {
+        htmlElement.classList.remove('light');
+        htmlElement.classList.add('dark');
+        bodyElement.classList.remove('bg-pattern-light');
+        bodyElement.classList.add('bg-pattern-dark');
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+      }
+    }
+
+    applyTheme(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      if (htmlElement.classList.contains('dark')) {
+        localStorage.setItem('theme', 'light');
+        applyTheme('light');
+      } else {
+        localStorage.setItem('theme', 'dark');
+        applyTheme('dark');
+      }
+    });
+
+    document.getElementById('mobileMenuBtn').addEventListener('click', function () {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+
+</html>

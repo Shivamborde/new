@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | Ellora Tours & Travels</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#1a2332',
+            secondary: '#0f1623',
+            gold: '#d4af37',
+            goldLight: '#f4e8c1',
+            lightBg: '#f8fafc',
+            lightPrimary: '#ffffff',
+            lightText: '#1e293b',
+            lightSecondary: '#f1f5f9',
+            lightCard: '#1e293b',
+            lightBorder: '#e2e8f0',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html.dark ::-webkit-scrollbar-track {
+      background: #0f1623;
+    }
+
+    html.dark ::-webkit-scrollbar-thumb {
+      background: #d4af37;
+      border-radius: 4px;
+    }
+
+    html.light ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    html.light ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+
+    html.light ::-webkit-scrollbar-thumb {
+      background: #b5942d;
+      border-radius: 4px;
+    }
+
+    .bg-pattern-dark {
+      background-color: #1a2332;
+      background-image: radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 20%), radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 20%);
+    }
+
+    .bg-pattern-light {
+      background-color: #f8fafc;
+      background-image: radial-gradient(circle at 10% 20%, rgba(181, 148, 45, 0.1) 0%, transparent 20%), radial-gradient(circle at 90% 80%, rgba(181, 148, 45, 0.1) 0%, transparent 20%), radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.02) 0%, transparent 20%);
+    }
+
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-hover:hover {
+      transform: translateY(-5px);
+    }
+
+    html.dark .card-hover:hover {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    html.light .card-hover:hover {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    body,
+    nav,
+    section,
+    footer,
+    div,
+    a,
+    button,
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .theme-toggle {
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen font-sans">
+  <!-- Navigation -->
+  <nav
+    class="sticky top-0 z-50 bg-primary/95 backdrop-blur-sm border-b border-gold/30 dark:bg-primary/95 dark:border-gold/30">
+    <div class="container mx-auto px-4 py-4">
+      <div class="flex justify-between items-center">
+        <a href="home.html" class="flex items-center space-x-2">
+          <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+            <i class="fas fa-crown text-primary text-xl dark:text-primary"></i>
+          </div>
+          <span class="text-2xl font-bold tracking-wider text-white dark:text-white">ELLORA<span
+              class="text-gold">TAXI</span></span>
+        </a>
+
+        <div class="flex items-center space-x-6">
+          <button id="themeToggle"
+            class="theme-toggle w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gold hover:text-primary transition-colors duration-300 dark:bg-gray-800">
+            <i id="themeIcon" class="fas fa-moon text-gold dark:text-gold"></i>
+          </button>
+
+          <div class="hidden md:flex space-x-8">
+            <a href="home.html"
+              class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Home</a>
+            <a href="tour-packages.html"
+              class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Tour Packages</a>
+            <a href="photogallery.html"
+              class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Gallery</a>
+            <a href="contact.html"
+              class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Contact</a>
+          </div>
+
+          <button class="md:hidden text-gold" id="mobileMenuBtn">
+            <i class="fas fa-bars text-2xl"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-3 pb-4">
+        <a href="home.html"
+          class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Home</a>
+        <a href="tour-packages.html"
+          class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Tour
+          Packages</a>
+        <a href="photogallery.html"
+          class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Gallery</a>
+        <a href="contact.html"
+          class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative py-16 bg-gradient-to-r from-primary to-secondary dark:from-primary dark:to-secondary">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-white">Privacy <span class="text-gold">Policy</span></h1>
+      <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
+      <p class="text-lg text-gray-300 max-w-3xl mx-auto">Last Updated: March 2026</p>
+    </div>
+  </section>
+
+  <!-- Privacy Policy Content -->
+  <section class="py-12">
+    <div class="container mx-auto px-4 max-w-4xl">
+      <div
+        class="bg-white rounded-xl border border-lightBorder p-8 md:p-10 card-hover dark:bg-gray-800/30 dark:border-gray-700">
+
+        <div class="prose prose-lg max-w-none dark:prose-invert">
+          <div class="mb-8 p-4 bg-gold/10 rounded-lg border-l-4 border-gold">
+            <p class="text-gray-700 dark:text-gray-300"><i class="fas fa-shield-alt text-gold mr-2"></i> <strong>Your
+                privacy is important to us.</strong> This policy explains how we collect, use, and protect your personal
+              information.</p>
+          </div>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-database mr-3"></i> Information We Collect
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-6">When you use our services, we may collect the following types
+            of information:</p>
+          <ul class="list-none space-y-3 mb-8">
+            <li class="flex items-start">
+              <i class="fas fa-user text-gold mt-1 mr-3"></i>
+              <span class="text-gray-600 dark:text-gray-300"><strong class="text-lightText dark:text-white">Personal
+                  Information:</strong> Name, email address, phone number, and postal address.</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-credit-card text-gold mt-1 mr-3"></i>
+              <span class="text-gray-600 dark:text-gray-300"><strong class="text-lightText dark:text-white">Payment
+                  Information:</strong> Credit/debit card details, UPI IDs, and billing information (processed securely
+                through Razorpay).</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-map-marked-alt text-gold mt-1 mr-3"></i>
+              <span class="text-gray-600 dark:text-gray-300"><strong class="text-lightText dark:text-white">Travel
+                  Preferences:</strong> Tour packages, vehicle preferences, special requests, and travel dates.</span>
+            </li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-credit-card mr-3"></i> Payment Information Security
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">We use <strong class="text-gold">Razorpay</strong> as our
+            payment gateway partner. All payment information is:</p>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li>Encrypted using 256-bit SSL technology</li>
+            <li>Stored securely on Razorpay's PCI-DSS compliant servers</li>
+            <li>Never stored on our servers</li>
+            <li>Processed in compliance with RBI guidelines</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-share-alt mr-3"></i> How We Use Your Information
+          </h2>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li>Process your bookings and payments</li>
+            <li>Send booking confirmations and updates</li>
+            <li>Provide customer support</li>
+            <li>Improve our services and website</li>
+            <li>Comply with legal obligations</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-lock mr-3"></i> Data Protection
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">We implement the following security measures:</p>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li>256-bit SSL encryption for all data transmission</li>
+            <li>Regular security audits and updates</li>
+            <li>Limited employee access to personal data</li>
+            <li>Secure servers with firewall protection</li>
+            <li>Two-factor authentication for admin accounts</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-handshake mr-3"></i> Third-Party Services
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-4">We use the following third-party services:</p>
+          <ul class="list-disc pl-6 space-y-2 mb-8 text-gray-600 dark:text-gray-300">
+            <li><strong class="text-gold">Razorpay:</strong> Payment processing</li>
+            <li><strong class="text-gold">MongoDB Atlas:</strong> Database hosting</li>
+            <li><strong class="text-gold">WhatsApp API:</strong> Customer communication</li>
+          </ul>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-user-clock mr-3"></i> Data Retention
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-8">We retain your personal information for as long as necessary
+            to provide services and comply with legal obligations. Booking records are kept for 7 years as required by
+            tax laws.</p>
+
+          <p class="text-gray-600 dark:text-gray-300 mb-8">To exercise these rights, contact us at <span
+              class="text-gold">ellorataxi001@gmail.com</span></p>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-sync-alt mr-3"></i> Policy Updates
+          </h2>
+          <p class="text-gray-600 dark:text-gray-300 mb-8">We may update this Privacy Policy periodically. Changes will
+            be posted on this page with an updated revision date. Significant changes will be notified via email.</p>
+
+          <h2 class="text-2xl font-bold mb-4 text-gold flex items-center">
+            <i class="fas fa-envelope mr-3"></i> Contact Us
+          </h2>
+          <div class="bg-gray-100 rounded-lg p-6 dark:bg-gray-900/50">
+            <p class="text-gray-600 dark:text-gray-300 mb-4">For privacy-related questions:</p>
+            <ul class="space-y-3">
+              <li class="flex items-center">
+                <i class="fas fa-envelope text-gold w-8"></i>
+                <span class="text-gray-600 dark:text-gray-300">ellorataxi001@gmail.com</span>
+              </li>
+              <li class="flex items-center">
+                <i class="fas fa-phone text-gold w-8"></i>
+                <span class="text-gray-600 dark:text-gray-300">+91 9730871481</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fas fa-map-marker-alt text-gold w-8 mt-1"></i>
+                <span class="text-gray-600 dark:text-gray-300">Office in front of Ellora Heritage Resort, between Ellora
+                  Caves and Grishneshwar Temple, Chh. Sambhajinagar, Maharashtra 431102</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-lightPrimary border-t border-gold/30 mt-12 dark:bg-primary dark:border-gold/30">
+    <div class="container mx-auto px-4 py-12">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <div class="flex items-center space-x-2 mb-6">
+            <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+              <i class="fas fa-crown text-primary text-xl dark:text-primary"></i>
+            </div>
+            <span class="text-2xl font-bold text-lightText dark:text-white">ELLORA<span
+                class="text-gold">TAXI</span></span>
+          </div>
+          <p class="text-gray-600 dark:text-gray-400">Premium travel experiences across Maharashtra since 2010.</p>
+        </div>
+
+        <div>
+          <h4 class="text-xl font-bold mb-6 text-gold">Quick Links</h4>
+          <ul class="space-y-3">
+            <li><a href="home.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Home</a>
+            </li>
+            <li><a href="tour-packages.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Tour
+                Packages</a></li>
+            <li><a href="photogallery.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Gallery</a>
+            </li>
+            <li><a href="contact.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xl font-bold mb-6 text-gold">Legal</h4>
+          <ul class="space-y-3">
+            <li><a href="privacy-policy.html" class="text-gold font-semibold">Privacy Policy</a></li>
+            <li><a href="terms-conditions.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Terms &
+                Conditions</a></li>
+            <li><a href="cancellation-refund.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Cancellation
+                & Refund</a></li>
+            <li><a href="shipping-delivery.html"
+                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Shipping
+                & Delivery</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xl font-bold mb-6 text-gold">Contact Info</h4>
+          <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+            <li class="flex items-start space-x-3">
+              <i class="fas fa-map-marker-alt text-gold mt-1"></i>
+              <span>Office in front of Ellora Heritage Resort, between Ellora Caves and Grishneshwar Temple, Chh.
+                Sambhajinagar, Maharashtra 431102</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i class="fas fa-phone text-gold"></i>
+              <span>+91 9730871481 <br> +91 9325378864</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i class="fas fa-envelope text-gold"></i>
+              <span>ellorataxi001@gmail.com</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div
+        class="border-t border-gray-300 mt-8 pt-8 text-center text-gray-500 text-sm dark:border-gray-800 dark:text-gray-500">
+        <p>&copy; 2026 Ellora Tours & Travels. All rights reserved. | <a href="privacy-policy.html"
+            class="text-gold hover:underline">Privacy</a> | <a href="terms-conditions.html"
+            class="text-gold hover:underline">Terms</a> | <a href="cancellation-refund.html"
+            class="text-gold hover:underline">Refund</a> | <a href="shipping-delivery.html"
+            class="text-gold hover:underline">Delivery</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/919730871481" target="_blank"
+    class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-all duration-300 z-40">
+    <i class="fab fa-whatsapp text-2xl"></i>
+  </a>
+
+  <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const htmlElement = document.documentElement;
+    const bodyElement = document.body;
+
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+
+    function applyTheme(theme) {
+      if (theme === 'light') {
+        htmlElement.classList.remove('dark');
+        htmlElement.classList.add('light');
+        bodyElement.classList.remove('bg-pattern-dark');
+        bodyElement.classList.add('bg-pattern-light');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+      } else {
+        htmlElement.classList.remove('light');
+        htmlElement.classList.add('dark');
+        bodyElement.classList.remove('bg-pattern-light');
+        bodyElement.classList.add('bg-pattern-dark');
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+      }
+    }
+
+    applyTheme(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      if (htmlElement.classList.contains('dark')) {
+        localStorage.setItem('theme', 'light');
+        applyTheme('light');
+      } else {
+        localStorage.setItem('theme', 'dark');
+        applyTheme('dark');
+      }
+    });
+
+    document.getElementById('mobileMenuBtn').addEventListener('click', function () {
+      const mobileMenu = document.getElementById('mobileMenu');
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</body>
+
+</html>

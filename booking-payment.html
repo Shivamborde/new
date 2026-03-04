@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ellora Tours & Travels - Booking & Payment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a2332',
+                        secondary: '#0f1623',
+                        gold: '#d4af37',
+                        goldLight: '#f4e8c1',
+                        lightBg: '#f8fafc',
+                        lightPrimary: '#ffffff',
+                        lightText: '#1e293b',
+                        lightSecondary: '#f1f5f9',
+                        lightCard: '#1e293b',
+                        lightBorder: '#e2e8f0',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for dark theme */
+        html.dark ::-webkit-scrollbar-track {
+            background: #0f1623;
+        }
+
+        html.dark ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
+
+        /* Custom scrollbar for light theme */
+        html.light ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        html.light ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        html.light ::-webkit-scrollbar-thumb {
+            background: #b5942d;
+            border-radius: 4px;
+        }
+
+        /* Background pattern - Dark */
+        .bg-pattern-dark {
+            background-color: #1a2332;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 20%);
+        }
+
+        /* Background pattern - Light */
+        .bg-pattern-light {
+            background-color: #f8fafc;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(181, 148, 45, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(181, 148, 45, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.02) 0%, transparent 20%);
+        }
+
+        /* Card hover effects */
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+        }
+
+        html.dark .card-hover:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        html.light .card-hover:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Smooth theme transition */
+        body,
+        nav,
+        section,
+        footer,
+        div,
+        a,
+        button,
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        input,
+        select,
+        textarea,
+        label {
+            transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        /* Theme toggle animation */
+        .theme-toggle {
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Form input styles for light theme */
+        html.light input,
+        html.light select,
+        html.light textarea {
+            color: #1e293b;
+            background-color: #ffffff;
+            border-color: #cbd5e1;
+        }
+
+        html.light input:focus,
+        html.light select:focus,
+        html.light textarea:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        html.light input::placeholder,
+        html.light textarea::placeholder {
+            color: #64748b;
+        }
+
+        /* Error message styles */
+        .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+
+        .input-error {
+            border-color: #ef4444 !important;
+        }
+
+        .input-error:focus {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+        }
+
+        .success-message {
+            color: #10b981;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen font-sans">
+    <!-- Navigation -->
+    <nav
+        class="sticky top-0 z-50 bg-primary/95 backdrop-blur-sm border-b border-gold/30 dark:bg-primary/95 dark:border-gold/30">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="home.html" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+                        <i class="fas fa-crown text-primary text-xl dark:text-primary"></i>
+                    </div>
+                    <span class="text-2xl font-bold tracking-wider text-lightText dark:text-white">ELLORA<span
+                            class="text-gold">TAXI</span></span>
+                </a>
+
+                <div class="flex items-center space-x-6">
+                    <!-- Theme Toggle Button -->
+                    <button id="themeToggle"
+                        class="theme-toggle w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gold hover:text-primary transition-colors duration-300 dark:bg-gray-800">
+                        <i id="themeIcon" class="fas fa-moon text-gold dark:text-gold"></i>
+                    </button>
+
+                    <div class="hidden md:flex space-x-8">
+                        <a href="home.html"
+                            class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Home</a>
+                        <a href="tour-packages.html"
+                            class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Tour
+                            Packages</a>
+                        <a href="photogallery.html"
+                            class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Gallery</a>
+                        <a href="contact.html"
+                            class="text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Contact</a>
+                    </div>
+
+                    <button class="md:hidden text-gold" id="mobileMenuBtn">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-3 pb-4">
+                <a href="home.html"
+                    class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Home</a>
+                <a href="tour-packages.html"
+                    class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Tour
+                    Packages</a>
+                <a href="photogallery.html"
+                    class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Gallery</a>
+                <a href="contact.html"
+                    class="block text-gray-300 hover:text-gold transition-colors duration-300 dark:text-gray-300">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Booking Form -->
+    <section class="py-12">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold mb-4 text-lightText dark:text-white">Complete Your <span
+                        class="text-gold">Booking</span></h1>
+                <div class="w-24 h-1 bg-gold mx-auto mb-6"></div>
+                <p class="text-gray-600 dark:text-gray-400">Fill in the details below to confirm your premium travel
+                    experience</p>
+            </div>
+
+            <div
+                class="bg-white rounded-xl border border-lightBorder p-6 md:p-8 card-hover dark:bg-gray-800/30 dark:border-gray-700">
+                <!-- Selected Item Display -->
+                <div id="selectedItemDisplay"
+                    class="mb-8 p-4 bg-gray-100 rounded-lg border border-gold/30 dark:bg-gray-900/50 dark:border-gold/30">
+                    <h3 class="text-xl font-bold text-gold mb-2">Selected Item</h3>
+                    <p id="selectedItemText" class="text-lg text-lightText dark:text-white">No item selected</p>
+                </div>
+
+                <form id="bookingForm" class="space-y-6">
+                    <!-- Location Details -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 mb-2 dark:text-gray-300">Pickup Location *</label>
+                            <input type="text" id="pickupLocation" required
+                                class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText placeholder-gray-500 dark:bg-gray-900/50 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+                                placeholder="Enter pickup address">
+                            <span id="pickupError" class="error-message hidden"></span>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2 dark:text-gray-300">Drop Location *</label>
+                            <input type="text" id="dropLocation" required
+                                class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText placeholder-gray-500 dark:bg-gray-900/50 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+                                placeholder="Enter drop address">
+                            <span id="dropError" class="error-message hidden"></span>
+                        </div>
+                    </div>
+
+                    <!-- Date Selection -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 mb-2 dark:text-gray-300">Start Date *</label>
+                            <input type="date" id="startDate" required
+                                class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText dark:bg-gray-900/50 dark:border-gray-600 dark:text-white">
+                            <span id="startDateError" class="error-message hidden"></span>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2 dark:text-gray-300">End Date *</label>
+                            <input type="date" id="endDate" required
+                                class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText dark:bg-gray-900/50 dark:border-gray-600 dark:text-white">
+                            <span id="endDateError" class="error-message hidden"></span>
+                        </div>
+                    </div>
+
+                    <!-- Person Count & Contact -->
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 mb-2 dark:text-gray-300">Number of Persons *</label>
+                            <select id="persons" required
+                                class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText dark:bg-gray-900/50 dark:border-gray-600 dark:text-white">
+                                <option value="" class="text-gray-500 dark:text-gray-400">Select count</option>
+                                <option value="1" class="text-lightText dark:text-white">1 Person</option>
+                                <option value="2" class="text-lightText dark:text-white">2 Persons</option>
+                                <option value="3" class="text-lightText dark:text-white">3 Persons</option>
+                                <option value="4" class="text-lightText dark:text-white">4 Persons</option>
+                                <option value="5" class="text-lightText dark:text-white">5 Persons</option>
+                                <option value="6" class="text-lightText dark:text-white">6+ Persons</option>
+                            </select>
+                            <span id="personsError" class="error-message hidden"></span>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2 dark:text-gray-300">Phone Number *</label>
+                            <input type="tel" id="phoneNumber" required
+                                class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText placeholder-gray-500 dark:bg-gray-900/50 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+                                placeholder="10 digit mobile number" maxlength="10">
+                            <span id="phoneError" class="error-message hidden"></span>
+                            <span id="phoneSuccess" class="success-message hidden">✓ Valid phone number</span>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label class="block text-gray-700 mb-2 dark:text-gray-300">Email Address *</label>
+                        <input type="email" id="email" required
+                            class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText placeholder-gray-500 dark:bg-gray-900/50 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+                            placeholder="your.email@gmail.com">
+                        <span id="emailError" class="error-message hidden"></span>
+                    </div>
+
+                    <!-- Special Requests -->
+                    <div>
+                        <label class="block text-gray-700 mb-2 dark:text-gray-300">Special Requests</label>
+                        <textarea id="specialRequests" rows="4"
+                            class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText placeholder-gray-500 dark:bg-gray-900/50 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+                            placeholder="Any special requirements or additional notes..."></textarea>
+                    </div>
+
+                    <!-- Terms -->
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" id="terms" required
+                            class="mt-1 bg-white border border-gray-300 rounded focus:ring-gold focus:ring-2 dark:bg-gray-900/50 dark:border-gray-600">
+                        <label class="text-gray-600 text-sm dark:text-gray-400">
+                            I agree to the <a href="#" class="text-gold hover:underline">Terms & Conditions</a> and
+                            <a href="#" class="text-gold hover:underline">Privacy Policy</a> of Ellora Taxi
+                        </label>
+                    </div>
+                    <span id="termsError" class="error-message hidden"></span>
+
+                    <!-- Payment Button -->
+                    <div class="pt-6 border-t border-gray-300 dark:border-gray-700">
+                        <button type="button" onclick="processPayment()"
+                            class="w-full bg-gold text-primary py-4 rounded-lg font-bold text-lg hover:bg-gold/90 transition-colors flex items-center justify-center space-x-3">
+                            <i class="fas fa-lock"></i>
+                            <span>Pay Securely with Razorpay</span>
+                        </button>
+                        <p class="text-center text-gray-600 text-sm mt-4 dark:text-gray-400">
+                            <i class="fas fa-shield-alt text-gold mr-2"></i>
+                            Your payment is secured with 256-bit SSL encryption
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Confirmation Modal (Hidden by default) -->
+    <div id="confirmationModal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl border border-gold max-w-md w-full mx-4 card-hover dark:bg-gray-900">
+            <div class="p-8 text-center">
+                <div class="w-20 h-20 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-check text-gold text-4xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 text-lightText dark:text-white">Booking Confirmed!</h3>
+                <p class="text-gray-600 mb-6 dark:text-gray-300" id="confirmationMessage">
+                    Your booking has been successfully processed. We've sent confirmation details to your email.
+                </p>
+                <div class="space-y-3 text-left bg-gray-100 p-4 rounded-lg mb-6 dark:bg-gray-800/50">
+                    <p class="text-lightText dark:text-white"><span class="text-gold font-semibold">Reference ID:</span>
+                        RT-<span id="refId">0000</span></p>
+                    <p class="text-lightText dark:text-white"><span class="text-gold font-semibold">Booked Item:</span>
+                        <span id="bookedItemText"></span>
+                    </p>
+                    <p class="text-lightText dark:text-white"><span class="text-gold font-semibold">Status:</span> <span
+                            class="text-green-600 font-semibold dark:text-green-400">Confirmed</span></p>
+                </div>
+                <button onclick="closeModal()"
+                    class="bg-gold text-primary px-8 py-3 rounded-lg font-bold hover:bg-gold/90 transition-colors">
+                    Return to Home
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-lightPrimary border-t border-gold/30 mt-20 dark:bg-primary dark:border-gold/30">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+                            <i class="fas fa-crown text-primary text-xl dark:text-primary"></i>
+                        </div>
+                        <span class="text-2xl font-bold text-lightText dark:text-white">ELLORA<span
+                                class="text-gold">TAXI</span></span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400">Premium travel experiences across Maharashtra since
+                        2010.</p>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-gold">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="home.html"
+                                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Home</a>
+                        </li>
+                        <li><a href="tour-packages.html"
+                                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Tour
+                                Packages</a></li>
+                        <li><a href="hotels.html"
+                                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Hotels</a>
+                        </li>
+                        <li><a href="contact.html"
+                                class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-gold">Contact Info</h4>
+                    <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+                        <li class="flex items-start space-x-3">
+                            <i class="fas fa-map-marker-alt text-gold mt-1"></i>
+                            <span>Office in front of Ellora Heritage Resort, between Ellora Caves and Grishneshwar
+                                Temple, Chh. Sambhajinagar, Maharashtra 431102</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-phone text-gold"></i>
+                            <span>+91 9730871481 <br> +91 9325378864 </span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-gold"></i>
+                            <span>ellorataxi001@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-gold">Business Hours</h4>
+                    <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+                        <li>Mon - Fri: 9:00 AM - 8:00 PM</li>
+                        <li>Saturday: 10:00 AM - 6:00 PM</li>
+                        <li>Sunday: 10:00 AM - 4:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="border-t border-gray-300 mt-8 pt-8 text-center text-gray-500 text-sm dark:border-gray-800 dark:text-gray-500">
+                <p>&copy; 2026 Ellora Tours & Travels. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/919730871481" target="_blank"
+        class="fixed bottom-6 right-6 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:bg-green-600 transition-all duration-300 z-40">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+        const bodyElement = document.body;
+
+        // Check for saved theme preference or default to dark
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+
+        // Apply saved theme
+        function applyTheme(theme) {
+            if (theme === 'light') {
+                htmlElement.classList.remove('dark');
+                htmlElement.classList.add('light');
+                bodyElement.classList.remove('bg-pattern-dark');
+                bodyElement.classList.add('bg-pattern-light');
+                bodyElement.classList.add('bg-lightBg');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                htmlElement.classList.remove('light');
+                htmlElement.classList.add('dark');
+                bodyElement.classList.remove('bg-pattern-light');
+                bodyElement.classList.add('bg-pattern-dark');
+                bodyElement.classList.remove('bg-lightBg');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        }
+
+        applyTheme(savedTheme);
+
+        // Toggle theme
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                localStorage.setItem('theme', 'light');
+                applyTheme('light');
+            } else {
+                localStorage.setItem('theme', 'dark');
+                applyTheme('dark');
+            }
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function () {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Set date constraints: today and max 6 months from today
+        const today = new Date();
+        const sixMonthsLater = new Date(today);
+        sixMonthsLater.setMonth(today.getMonth() + 6);
+
+        const year = sixMonthsLater.getFullYear();
+        const month = String(sixMonthsLater.getMonth() + 1).padStart(2, '0');
+        const day = String(sixMonthsLater.getDate()).padStart(2, '0');
+        const maxFuture = `${year}-${month}-${day}`;
+        const todayStr = today.toISOString().split('T')[0];
+
+        const startDateInput = document.getElementById('startDate');
+        const endDateInput = document.getElementById('endDate');
+
+        startDateInput.setAttribute('min', todayStr);
+        startDateInput.setAttribute('max', maxFuture);
+        endDateInput.setAttribute('min', todayStr);
+        endDateInput.setAttribute('max', maxFuture);
+
+        // Load selected item from localStorage
+        document.addEventListener('DOMContentLoaded', function () {
+            const selectedItem = localStorage.getItem('selectedItem');
+            const itemType = localStorage.getItem('itemType');
+
+            if (selectedItem) {
+                document.getElementById('selectedItemText').textContent = selectedItem;
+                document.getElementById('bookedItemText').textContent = selectedItem;
+
+                // Set appropriate placeholder based on item type
+                const pickupInput = document.getElementById('pickupLocation');
+                const dropInput = document.getElementById('dropLocation');
+
+                if (itemType === 'vehicle') {
+                    pickupInput.placeholder = "Enter vehicle pickup address";
+                    dropInput.placeholder = "Enter vehicle drop address";
+                } else if (itemType === 'tour') {
+                    pickupInput.placeholder = "Enter tour starting point";
+                    dropInput.placeholder = "Enter tour ending point";
+                } else if (itemType === 'hotel') {
+                    pickupInput.placeholder = "Enter hotel check-in location";
+                    dropInput.placeholder = "Enter hotel check-out location";
+                }
+            }
+
+            // Add event listeners for real-time validation
+            const phoneInput = document.getElementById('phoneNumber');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', validatePhoneNumber);
+            }
+
+            const emailInput = document.getElementById('email');
+            if (emailInput) {
+                emailInput.addEventListener('input', validateEmail);
+            }
+        });
+
+        // Helper functions for validation
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.classList.remove('hidden');
+            }
+        }
+
+        function hideError(elementId) {
+            const errorElement = document.getElementById(elementId);
+            if (errorElement) {
+                errorElement.classList.add('hidden');
+            }
+        }
+
+        function markInvalid(element) {
+            if (element) {
+                element.classList.add('input-error');
+            }
+        }
+
+        function markValid(element) {
+            if (element) {
+                element.classList.remove('input-error');
+            }
+        }
+
+        // Phone number validation
+        function validatePhoneNumber() {
+            const phoneInput = document.getElementById('phoneNumber');
+            const phoneError = document.getElementById('phoneError');
+            const phoneSuccess = document.getElementById('phoneSuccess');
+
+            if (!phoneInput) return;
+
+            let phoneValue = phoneInput.value;
+
+            // Allow only digits and limit to 10
+            phoneValue = phoneValue.replace(/[^0-9]/g, '').slice(0, 10);
+            phoneInput.value = phoneValue;
+
+            if (phoneValue.length === 0) {
+                phoneError.classList.add('hidden');
+                phoneSuccess.classList.add('hidden');
+                markValid(phoneInput);
+                return;
+            }
+
+            // Check if exactly 10 digits and starts with 7,8,9
+            const isValid = phoneValue.length === 10 && /^[7-9]/.test(phoneValue);
+
+            if (isValid) {
+                phoneError.classList.add('hidden');
+                phoneSuccess.classList.remove('hidden');
+                markValid(phoneInput);
+            } else {
+                phoneError.classList.remove('hidden');
+                phoneSuccess.classList.add('hidden');
+                markInvalid(phoneInput);
+            }
+        }
+
+        // Email validation
+        function validateEmail() {
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+
+            if (!emailInput) return;
+
+            const emailValue = emailInput.value;
+
+            if (emailValue.length === 0) {
+                emailError.classList.add('hidden');
+                markValid(emailInput);
+                return;
+            }
+
+            // Check if email ends with @gmail.com
+            const isValid = emailValue.toLowerCase().endsWith('@gmail.com');
+
+            if (isValid) {
+                emailError.classList.add('hidden');
+                markValid(emailInput);
+            } else {
+                emailError.classList.remove('hidden');
+                markInvalid(emailInput);
+            }
+        }
+
+        // Date validation
+        startDateInput.addEventListener('change', function () {
+            if (this.value) {
+                endDateInput.min = this.value;
+                // If end date is before start date, update it
+                if (endDateInput.value && new Date(endDateInput.value) < new Date(this.value)) {
+                    endDateInput.value = this.value;
+                }
+            }
+        });
+
+        function validateForm() {
+            // Get form elements
+            const pickupLocation = document.getElementById('pickupLocation');
+            const dropLocation = document.getElementById('dropLocation');
+            const startDate = document.getElementById('startDate');
+            const endDate = document.getElementById('endDate');
+            const persons = document.getElementById('persons');
+            const phoneNumber = document.getElementById('phoneNumber');
+            const email = document.getElementById('email');
+            const terms = document.getElementById('terms');
+
+            // Reset all errors
+            document.querySelectorAll('.error-message').forEach(e => e.classList.add('hidden'));
+            document.querySelectorAll('input, select, textarea').forEach(e => e.classList.remove('input-error'));
+
+            let isValid = true;
+
+            // 1. Pickup Location validation (only letters and spaces)
+            const pickupVal = pickupLocation.value.trim();
+            if (!pickupVal) {
+                showError('pickupError', 'Pickup location is required');
+                markInvalid(pickupLocation);
+                isValid = false;
+            } else if (!/^[a-zA-Z\s]+$/.test(pickupVal)) {
+                showError('pickupError', 'Enter valid Pickup Location');
+                markInvalid(pickupLocation);
+                isValid = false;
+            }
+
+            // 2. Drop Location validation (only letters and spaces)
+            const dropVal = dropLocation.value.trim();
+            if (!dropVal) {
+                showError('dropError', 'Drop location is required');
+                markInvalid(dropLocation);
+                isValid = false;
+            } else if (!/^[a-zA-Z\s]+$/.test(dropVal)) {
+                showError('dropError', 'Enter valid Drop Location');
+                markInvalid(dropLocation);
+                isValid = false;
+            }
+
+            // 3. Pickup and Drop cannot be same
+            if (pickupVal && dropVal && pickupVal.toLowerCase() === dropVal.toLowerCase()) {
+                showError('dropError', 'Pickup and drop locations cannot be the same');
+                markInvalid(dropLocation);
+                isValid = false;
+            }
+
+            // 4. Start Date validation
+            const startDateVal = startDate.value;
+            if (!startDateVal) {
+                showError('startDateError', 'Start date is required');
+                markInvalid(startDate);
+                isValid = false;
+            } else {
+                const sd = new Date(startDateVal);
+                const todayDate = new Date(todayStr);
+                const maxDate = new Date(maxFuture);
+
+                if (sd < todayDate) {
+                    showError('startDateError', 'Start date cannot be in the past');
+                    markInvalid(startDate);
+                    isValid = false;
+                } else if (sd > maxDate) {
+                    showError('startDateError', 'Start date must be within 6 months from today');
+                    markInvalid(startDate);
+                    isValid = false;
+                }
+            }
+
+            // 5. End Date validation
+            const endDateVal = endDate.value;
+            if (!endDateVal) {
+                showError('endDateError', 'End date is required');
+                markInvalid(endDate);
+                isValid = false;
+            } else {
+                const ed = new Date(endDateVal);
+                const sd = new Date(startDateVal);
+                const maxDate = new Date(maxFuture);
+
+                if (ed < sd) {
+                    showError('endDateError', 'End date cannot be before start date');
+                    markInvalid(endDate);
+                    isValid = false;
+                } else if (ed > maxDate) {
+                    showError('endDateError', 'End date must be within 6 months from today');
+                    markInvalid(endDate);
+                    isValid = false;
+                }
+            }
+
+            // 6. Persons validation
+            if (!persons.value) {
+                showError('personsError', 'Please select number of persons');
+                markInvalid(persons);
+                isValid = false;
+            }
+
+            // 7. Phone Number validation
+            const phoneVal = phoneNumber.value.trim();
+            if (!phoneVal) {
+                showError('phoneError', 'Phone number is required');
+                markInvalid(phoneNumber);
+                isValid = false;
+            } else if (!/^[7-9]\d{9}$/.test(phoneVal)) {
+                showError('phoneError', 'Enter valid phone number');
+                markInvalid(phoneNumber);
+                isValid = false;
+            } else {
+                // Hide phone error and show success
+                document.getElementById('phoneError').classList.add('hidden');
+                document.getElementById('phoneSuccess').classList.remove('hidden');
+            }
+
+            // 8. Email validation
+            const emailVal = email.value.trim();
+            if (!emailVal) {
+                showError('emailError', 'Email is required');
+                markInvalid(email);
+                isValid = false;
+            } else if (!emailVal.toLowerCase().endsWith('@gmail.com')) {
+                showError('emailError', 'Enter valid Email Address');
+                markInvalid(email);
+                isValid = false;
+            }
+
+            // 9. Terms checkbox
+            if (!terms.checked) {
+                showError('termsError', 'You must agree to the Terms & Conditions');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function processPayment() {
+            if (!validateForm()) {
+                return;
+            }
+
+            // Generate random reference ID
+            const refId = Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('refId').textContent = refId;
+
+            // Show confirmation modal
+            document.getElementById('confirmationModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('confirmationModal').classList.add('hidden');
+            window.location.href = 'home.html';
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobileMenu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

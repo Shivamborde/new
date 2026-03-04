@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ellora Tours & Travels</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a2332',
+                        secondary: '#0f1623',
+                        gold: '#d4af37',
+                        goldLight: '#f4e8c1',
+                        // Light theme colors
+                        lightBg: '#f8fafc',
+                        lightPrimary: '#ffffff',
+                        lightText: '#1e293b',
+                        lightSecondary: '#f1f5f9',
+                        lightCard: '#1e293b',
+                        lightBorder: '#e2e8f0',
+                        darkGold: '#b5942d',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for dark theme */
+        html.dark ::-webkit-scrollbar-track {
+            background: #0f1623;
+        }
+
+        html.dark ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
+
+        /* Custom scrollbar for light theme */
+        html.light ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        html.light ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        html.light ::-webkit-scrollbar-thumb {
+            background: #b5942d;
+            border-radius: 4px;
+        }
+
+        /* Background pattern - Dark */
+        .bg-pattern-dark {
+            background-color: #1a2332;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 20%);
+        }
+
+        /* Background pattern - Light */
+        .bg-pattern-light {
+            background-color: #f8fafc;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(181, 148, 45, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(181, 148, 45, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.02) 0%, transparent 20%);
+        }
+
+        /* Smooth theme transition */
+        body,
+        nav,
+        section,
+        footer,
+        div,
+        a,
+        button,
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        span,
+        li,
+        ul {
+            transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        /* Theme toggle animation */
+        .theme-toggle {
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen font-sans">
+
+    <!-- Navigation -->
+    <nav
+        class="sticky top-0 z-50 bg-primary/95 backdrop-blur-sm border-b border-gold/30 dark:bg-primary/95 dark:border-gold/30">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="home.html" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+                        <i class="fas fa-crown text-primary text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold tracking-wider text-white dark:text-white">ELLORA<span
+                            class="text-gold">TAXI</span>
+                </a>
+
+                <div class="flex items-center space-x-6">
+                    <!-- THEME TOGGLE BUTTON -->
+                    <button id="themeToggle"
+                        class="theme-toggle w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gold hover:text-primary transition-colors duration-300">
+                        <i id="themeIcon" class="fas fa-moon text-gold"></i>
+                    </button>
+
+                    <div class="hidden md:flex space-x-8">
+                        <a href="home.html"
+                            class="text-gray-600 hover:text-gold transition-colors duration-300 dark:text-gray-300 dark:hover:text-gold">Home</a>
+                        <a href="tour-packages.html"
+                            class="text-gray-600 hover:text-gold transition-colors duration-300 dark:text-gray-300 dark:hover:text-gold">Tour
+                            Packages</a>
+                        <a href="photogallery.html"
+                            class="text-gray-600 hover:text-gold transition-colors duration-300 dark:text-gray-300 dark:hover:text-gold">Gallery</a>
+                        <a href="contact.html"
+                            class="text-gray-600 hover:text-gold transition-colors duration-300 dark:text-gray-300 dark:hover:text-gold">Contact</a>
+                    </div>
+
+                    <button class="md:hidden text-gold" id="mobileMenuBtn">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-3 pb-4">
+                <a href="home.html"
+                    class="block text-gray-600 hover:text-gold transition-colors duration-300 dark:text-gray-300 dark:hover:text-gold">Home</a>
+                <a href="tour-packages.html"
+                    class="block text-gray-600 hover:text-gold transition-colors duration-300 dark:text-gray-300 dark:hover:text-gold">Tour
+                    Packages</a>
+                <a href="photogallery.html"
+                    class="block text-gray-600 hover:text-gold transition-colors duration-300 dark:text-gray-300 dark:hover:text-gold">Gallery</a>
+                <a href="contact.html"
+                    class="block text-gray-600 hover:text-gold transition-colors duration-300 dark:text-gray-300 dark:hover:text-gold">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dynamic Content Section -->
+    <div id="packageDetails" class="pb-20">
+        <!-- Loading placeholder -->
+        <div id="loading" class="container mx-auto px-4 py-12 text-center">
+            <p class="text-gray-600 dark:text-gray-400">Loading package details...</p>
+        </div>
+
+        <!-- Actual content (hidden by default) -->
+        <div id="content" class="hidden">
+            <!-- Top Banner Image -->
+            <section class="relative h-[60vh] md:h-[70vh] overflow-hidden">
+                <img id="packageImage" alt="Tour Destination" class="w-full h-full object-cover">
+                <div
+                    class="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent dark:from-primary dark:via-primary/50 dark:to-transparent">
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 p-8">
+                    <div class="container mx-auto">
+                        <h1 id="packageTitle" class="text-4xl md:text-6xl font-bold mb-4 text-white dark:text-white">
+                        </h1>
+                        <div class="flex flex-wrap items-center gap-4">
+                            <span id="packageDuration"
+                                class="bg-gold text-primary px-4 py-2 rounded-lg font-bold"></span>
+                            <span id="packagePrice" class="text-2xl font-bold text-gold"></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Package Highlights -->
+            <section class="py-12">
+                <div class="container mx-auto px-4 max-w-6xl">
+                    <div
+                        class="bg-white rounded-xl border border-lightBorder p-6 md:p-8 dark:bg-gray-800/30 dark:border-gray-700">
+                        <h2 class="text-3xl font-bold mb-8 pb-4 border-b border-gold/30 text-gold">
+                            <i class="fas fa-star mr-3"></i>Package Highlights
+                        </h2>
+                        <div id="highlightsList" class="grid md:grid-cols-2 gap-6">
+                            <!-- Highlights will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Package Information -->
+            <section class="py-12">
+                <div class="container mx-auto px-4 max-w-6xl">
+                    <div
+                        class="bg-white rounded-xl border border-lightBorder p-6 md:p-8 dark:bg-gray-800/30 dark:border-gray-700">
+                        <h2 class="text-3xl font-bold mb-8 pb-4 border-b border-gold/30 text-gold">
+                            <i class="fas fa-info-circle mr-3"></i>Package Information
+                        </h2>
+
+                        <!-- Detailed Description -->
+                        <div class="mb-10">
+                            <h3 class="text-2xl font-bold mb-4 text-lightText dark:text-white">Overview</h3>
+                            <p id="packageDescription"
+                                class="text-lg leading-relaxed text-gray-600 mb-6 dark:text-gray-300"></p>
+                        </div>
+
+                        <!-- Detailed Itinerary -->
+                        <div class="mb-10">
+                            <h3 class="text-2xl font-bold mb-6 text-lightText dark:text-white">Detailed Itinerary</h3>
+                            <div id="itineraryList" class="space-y-6">
+                                <!-- Itinerary will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- Hotel Stay Details -->
+                        <div class="mb-10">
+                            <h3 class="text-2xl font-bold mb-6 text-lightText dark:text-white">Accommodation Details
+                            </h3>
+                            <div class="bg-gray-100 rounded-lg p-6 dark:bg-gray-900/50">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="text-xl font-bold mb-3 text-gold">Hotel Stay</h4>
+                                        <ul id="hotelDetails" class="space-y-2 text-gray-600 dark:text-gray-300">
+                                            <!-- Hotel details will be populated -->
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-bold mb-3 text-gold">Food & Dining</h4>
+                                        <ul id="foodDetails" class="space-y-2 text-gray-600 dark:text-gray-300">
+                                            <!-- Food details will be populated -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Transport Details -->
+                        <div class="mb-10">
+                            <h3 class="text-2xl font-bold mb-6 text-lightText dark:text-white">Travel & Transport</h3>
+                            <div class="bg-gray-100 rounded-lg p-6 dark:bg-gray-900/50">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="text-xl font-bold mb-3 text-gold">Inclusions</h4>
+                                        <ul id="inclusionsList" class="space-y-2 text-gray-600 dark:text-gray-300">
+                                            <!-- Inclusions will be populated -->
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xl font-bold mb-3 text-gold">Exclusions</h4>
+                                        <ul id="exclusionsList" class="space-y-2 text-gray-600 dark:text-gray-300">
+                                            <!-- Exclusions will be populated -->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Terms & Conditions -->
+                        <div class="mb-10">
+                            <h3 class="text-2xl font-bold mb-6 text-lightText dark:text-white">Terms & Conditions</h3>
+                            <div class="bg-gray-100 rounded-lg p-6 dark:bg-gray-900/50">
+                                <ul id="termsList" class="space-y-3 text-gray-600 dark:text-gray-300">
+                                    <!-- Terms will be populated -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Contact & Confirmation -->
+                        <div class="mt-12 pt-8 border-t border-gray-300 dark:border-gray-700">
+                            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                                <div>
+                                    <h4 class="text-xl font-bold mb-2 text-gold">Need Assistance?</h4>
+                                    <p class="text-gray-600 dark:text-gray-300">Contact our travel experts for
+                                        personalized guidance</p>
+                                    <div class="mt-3 space-y-2">
+                                        <p class="flex items-center text-gray-600 dark:text-gray-400">
+                                            <i class="fas fa-phone text-gold mr-3 w-5"></i>
+                                            +91 98765 43210
+                                        </p>
+                                        <p class="flex items-center text-gray-600 dark:text-gray-400">
+                                            <i class="fas fa-envelope text-gold mr-3 w-5"></i>
+                                            ellorataxi001@gmail.com
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <p class="text-gray-600 mb-4 dark:text-gray-400">Ready to book this experience?</p>
+                                    <button id="bookNowBtn"
+                                        class="bg-gold text-primary px-8 py-4 rounded-lg font-bold text-lg hover:bg-gold/90 transition-colors inline-flex items-center space-x-3">
+                                        <span>Book Now</span>
+                                        <i class="fas fa-arrow-right"></i>
+                                    </button>
+                                    <p class="text-sm text-gray-500 mt-3 dark:text-gray-500">Confirmation within 2 hours
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-lightPrimary border-t border-gold/30 dark:bg-primary dark:border-gold/30">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6">
+                        <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+                            <i class="fas fa-crown text-primary text-xl"></i>
+                        </div>
+                        <span class="text-2xl font-bold text-lightText dark:text-white">ELLORA<span
+                                class="text-gold">TAXI</span></span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400">Premium travel experiences across Maharashtra since
+                        2010.</p>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-gold">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="home.html"
+                                class="text-gray-600 hover:text-gold transition-colors duration-300 dark:text-gray-400 dark:hover:text-gold">Home</a>
+                        </li>
+                        <li><a href="tour-packages.html"
+                                class="text-gray-600 hover:text-gold transition-colors duration-300 dark:text-gray-400 dark:hover:text-gold">Tour
+                                Packages</a></li>
+                        <li><a href="contact.html"
+                                class="text-gray-600 hover:text-gold transition-colors duration-300 dark:text-gray-400 dark:hover:text-gold">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-gold">Contact Info</h4>
+                    <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-map-marker-alt text-gold"></i>
+                            <span>Office in front of Ellora Heritage Resort, between Ellora Caves and Grishneshwar
+                                Temple, Chh. Sambhajinagar, Maharashtra 431102</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-phone text-gold"></i>
+                            <span>+91 9730871481 <br> +91 9325378864 </span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fas fa-envelope text-gold"></i>
+                            <span>ellorataxi001@gmail.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xl font-bold mb-6 text-gold">Business Hours</h4>
+                    <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+                        <li>Mon - Fri: 9:00 AM - 8:00 PM</li>
+                        <li>Saturday: 10:00 AM - 6:00 PM</li>
+                        <li>Sunday: 10:00 AM - 4:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="border-t border-gray-300 mt-8 pt-8 text-center text-gray-500 text-sm dark:border-gray-800 dark:text-gray-500">
+                <p>&copy; 2026 Ellora Tours & Travels. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+        const bodyElement = document.body;
+
+        // Check for saved theme preference or default to dark
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+
+        // Apply saved theme
+        function applyTheme(theme) {
+            if (theme === 'light') {
+                htmlElement.classList.remove('dark');
+                htmlElement.classList.add('light');
+                bodyElement.classList.remove('bg-pattern-dark');
+                bodyElement.classList.add('bg-pattern-light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                htmlElement.classList.remove('light');
+                htmlElement.classList.add('dark');
+                bodyElement.classList.remove('bg-pattern-light');
+                bodyElement.classList.add('bg-pattern-dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+
+            // Store theme preference
+            localStorage.setItem('theme', theme);
+        }
+
+        applyTheme(savedTheme);
+
+        // Toggle theme
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                // Switch to light theme
+                applyTheme('light');
+            } else {
+                // Switch to dark theme
+                applyTheme('dark');
+            }
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function () {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Package data mapping for all 9 packages
+        const packageData = {
+            // 1. Ajanta Caves Tour
+            'Ajanta Caves Tour': {
+                title: 'Ajanta Caves Tour',
+                duration: '2N3D',
+                price: '₹12,500 per person',
+                image: "/assets/images/Tour-package/Ajanta.jpg",
+                description: 'Discover the ancient Buddhist rock-cut cave monuments with exquisite paintings dating back to 2nd century BCE. A UNESCO World Heritage site that showcases masterpieces of Buddhist religious art.',
+                highlights: [
+                    '2 Nights / 3 Days historical exploration',
+                    'Guided tour of all 30 Ajanta caves',
+                    'Expert art historian guide included',
+                    'All meals (vegetarian) provided',
+                    'Comfortable AC transport throughout',
+                    'Entrance fees and camera charges covered',
+                    'Hotel stay near Sambhajinagar'
+                ],
+                itinerary: [
+                    {
+                        day: 'Day 1: Arrival in Sabhajinagar',
+                        details: 'Arrive at Sambhajinagar airport/railway station. Transfer to hotel. Evening orientation and briefing about the tour. Dinner and overnight stay.'
+                    },
+                    {
+                        day: 'Day 2: Ajanta Caves Exploration',
+                        details: 'Early morning drive to Ajanta. Full day exploration of all caves with detailed commentary. Lunch at nearby restaurant. Return to hotel. Evening documentary screening about Ajanta history.'
+                    },
+                    {
+                        day: 'Day 3: Departure',
+                        details: 'Morning visit to local museum. After breakfast, check-out from hotel. Transfer to airport/railway station for departure.'
+                    }
+                ],
+                hotel: [
+                    '2 Nights stay at 3-star hotel in Sambhajinagar',
+                    'AC rooms with modern amenities',
+                    'Complimentary WiFi access',
+                    '24-hour room service',
+                    'Swimming pool facility available'
+                ],
+                food: [
+                    'Daily buffet breakfast',
+                    '2 vegetarian lunches',
+                    '2 special dinners',
+                    'Welcome drink on arrival',
+                    'Evening tea/coffee with snacks'
+                ],
+                inclusions: [
+                    'Accommodation for 2 nights',
+                    'All meals as per itinerary',
+                    'AC vehicle for all transfers',
+                    'All entrance fees to monuments',
+                    'Expert guide services',
+                    'Mineral water during travel',
+                    'All applicable taxes'
+                ],
+                exclusions: [
+                    'Air/rail fare to/from Sambhajinagar',
+                    'Personal expenses and shopping',
+                    'Tips to guide and driver',
+                    'Any activity not mentioned',
+                    'Travel insurance',
+                    'Video camera charges'
+                ],
+                terms: [
+                    '50% advance required for booking',
+                    'Full payment 10 days before travel',
+                    'Cancellation 15+ days: 80% refund',
+                    'Cancellation 7-14 days: 50% refund',
+                    'Cancellation less than 7 days: no refund',
+                    'Children below 5 years free',
+                    'Children 5-12 years: 60% of package price'
+                ]
+            },
+
+            // 2. Ellora Caves Tour
+            'Ellora Caves Tour': {
+                title: 'Ellora Caves Tour',
+                duration: '2N3D',
+                price: '₹11,800 per person',
+                image: "/assets/images/Tour-package/Ellora Caves.jpg",
+                description: 'Explore the UNESCO World Heritage site featuring Buddhist, Hindu, and Jain rock-cut temples from 600-1000 CE. Witness the magnificent Kailasa Temple carved from a single rock.',
+                highlights: [
+                    '2 Nights / 3 Days cultural journey',
+                    'Visit to all 34 Ellora caves',
+                    'Kailasa Temple detailed exploration',
+                    'Multi-cuisine meals included',
+                    'AC transport with experienced driver',
+                    'All monument entry fees covered',
+                    'Comfortable accommodation'
+                ],
+                itinerary: [
+                    {
+                        day: 'Day 1: Arrival & Local Sightseeing',
+                        details: 'Arrive at Sambhajinagar. Check into hotel. Visit Bibi Ka Maqbara (Mini Taj). Evening free for relaxation. Dinner and overnight stay.'
+                    },
+                    {
+                        day: 'Day 2: Ellora Caves Discovery',
+                        details: 'Full day exploration of Ellora caves. Visit Buddhist caves (1-12), Hindu caves (13-29), and Jain caves (30-34). Special focus on Kailasa Temple. Lunch break. Return to hotel.'
+                    },
+                    {
+                        day: 'Day 3: Daulatabad Fort & Departure',
+                        details: 'Morning visit to Daulatabad Fort. After lunch, check-out from hotel. Transfer to airport/railway station for departure.'
+                    }
+                ],
+                hotel: [
+                    '2 Nights at heritage-style hotel',
+                    'Well-appointed AC rooms',
+                    'Garden view rooms available',
+                    'Traditional architecture experience',
+                    'Basic amenities provided'
+                ],
+                food: [
+                    'Daily breakfast buffet',
+                    '3 vegetarian meals',
+                    'Local Marathi cuisine dinner',
+                    'Evening snacks and beverages',
+                    'Mineral water bottles daily'
+                ],
+                inclusions: [
+                    '2 nights hotel accommodation',
+                    'All meals as specified',
+                    'AC vehicle for sightseeing',
+                    'All entry tickets to monuments',
+                    'Professional guide services',
+                    'Parking and toll charges',
+                    'Government taxes'
+                ],
+                exclusions: [
+                    'Transport to/from Sambhajinagar',
+                    'Personal shopping expenses',
+                    'Additional food orders',
+                    'Tips to staff and guides',
+                    'Any services not mentioned'
+                ],
+                terms: [
+                    'Minimum 2 persons required',
+                    'Advance booking 15 days prior',
+                    'Cancellation 10+ days: 75% refund',
+                    'Cancellation 5-9 days: 40% refund',
+                    'No refund for last-minute cancellation',
+                    'Valid ID proof required',
+                    'Group discounts available'
+                ]
+            },
+
+            // 3. Mahabaleshwar Tour
+            'Mahabaleshwar Tour': {
+                title: 'Mahabaleshwar Tour',
+                duration: '3N4D',
+                price: '₹14,500 per person',
+                image: "/assets/images/Tour-package/Mahabaleshwar.jpg",
+                description: 'Experience the Queen of hill stations known for strawberries, waterfalls, and panoramic viewpoints of Western Ghats. Perfect getaway for nature lovers and families.',
+                highlights: [
+                    '3 Nights / 4 Days hill station vacation',
+                    'Visit to 12+ major viewpoints',
+                    'Strawberry farm experience included',
+                    'All meals with local delicacies',
+                    'AC transport for all sightseeing',
+                    'Hotel with valley view rooms',
+                    'Mapro Garden visit with tasting'
+                ],
+                itinerary: [
+                    {
+                        day: 'Day 1: Arrival & Sunset Points',
+                        details: 'Arrive at Mahabaleshwar. Check into hotel. Visit Arthur\'s Seat, Tiger Point, and Kate\'s Point for sunset views. Dinner and overnight stay.'
+                    },
+                    {
+                        day: 'Day 2: Viewpoints & Fort',
+                        details: 'Morning visit to Wilson Point (sunrise point). After breakfast, explore Pratapgad Fort. Post lunch, visit Lodwick Point, Elephant\'s Head Point. Evening at leisure.'
+                    },
+                    {
+                        day: 'Day 3: Venna Lake & Strawberry Farms',
+                        details: 'Morning boating at Venna Lake. Visit Mapro Garden for strawberry products tasting. Explore local strawberry farms. Evening visit to Bombay Point for sunset.'
+                    },
+                    {
+                        day: 'Day 4: Lingmala Falls & Departure',
+                        details: 'Morning visit to Lingmala Waterfall. After breakfast, check-out from hotel. Depart with beautiful memories.'
+                    }
+                ],
+                hotel: [
+                    '3 Nights at premium hill resort',
+                    'Valley view rooms with balcony',
+                    'Bonfire arrangement (weather permitting)',
+                    'Indoor games and activities',
+                    'Complimentary breakfast'
+                ],
+                food: [
+                    'Daily buffet breakfast',
+                    '4 vegetarian lunches',
+                    '3 special dinners',
+                    'Strawberry-based desserts',
+                    'Evening snacks and tea'
+                ],
+                inclusions: [
+                    '3 nights accommodation',
+                    'All meals as specified',
+                    'AC transport throughout',
+                    'Boating charges at Venna Lake',
+                    'All entry fees to attractions',
+                    'Mapro Garden entry and tasting',
+                    'Guide charges'
+                ],
+                exclusions: [
+                    'Travel to/from Mahabaleshwar',
+                    'Personal shopping and souvenirs',
+                    'Additional activities',
+                    'Tips to driver and guide',
+                    'Any items not mentioned'
+                ],
+                terms: [
+                    'Advance booking recommended',
+                    'Best season: October to June',
+                    'Weather-dependent activities',
+                    'Room check-in: 12 PM, check-out: 11 AM',
+                    'Children policy applicable',
+                    'Couple and family packages available'
+                ]
+            },
+
+            // 4. Mumbai City Tour
+            'Mumbai City Tour': {
+                title: 'Mumbai City Tour',
+                duration: '3N4D',
+                price: '₹16,800 per person',
+                image: "/assets/images/Tour-package/Mumbai.jpeg",
+                description: 'Experience the Maximum City - from colonial heritage to Bollywood glamour, street food delights, and modern architecture. A perfect blend of history, culture, and entertainment.',
+                highlights: [
+                    '3 Nights / 4 Days metropolitan experience',
+                    'Bollywood studio visit (subject to availability)',
+                    'Street food tour with local guide',
+                    'All meals including fine dining',
+                    'Luxury AC transport throughout',
+                    'Hotel in South Mumbai location',
+                    'All monument entry fees covered'
+                ],
+                itinerary: [
+                    {
+                        day: 'Day 1: Arrival & Gateway of India',
+                        details: 'Arrive in Mumbai. Check into hotel. Visit Gateway of India, Taj Mahal Palace, and Colaba Causeway. Evening at Marine Drive. Dinner at famous restaurant.'
+                    },
+                    {
+                        day: 'Day 2: Historical Mumbai',
+                        details: 'Visit Chhatrapati Shivaji Terminus (UNESCO), Crawford Market, Flora Fountain. After lunch, explore Kala Ghoda art district. Evening visit to Haji Ali Dargah.'
+                    },
+                    {
+                        day: 'Day 3: Bollywood & Modern Mumbai',
+                        details: 'Morning Bollywood studio tour. Visit Bandra-Worli Sea Link. Afternoon at Juhu Beach. Evening street food tour at Chowpatty.'
+                    },
+                    {
+                        day: 'Day 4: Elephanta Caves & Departure',
+                        details: 'Morning ferry to Elephanta Caves. Explore rock-cut temples. Return and check-out from hotel. Transfer to airport/railway station.'
+                    }
+                ],
+                hotel: [
+                    '3 Nights at 4-star hotel',
+                    'South Mumbai prime location',
+                    'Sea view rooms available',
+                    'Modern amenities included',
+                    '24-hour concierge service'
+                ],
+                food: [
+                    'Daily breakfast buffet',
+                    'Multi-cuisine lunches',
+                    '3 special dinners',
+                    'Street food tasting tour',
+                    'Welcome drink on arrival'
+                ],
+                inclusions: [
+                    '3 nights accommodation',
+                    'All meals as per itinerary',
+                    'AC vehicle with driver',
+                    'All monument entry fees',
+                    'Elephanta Caves ferry tickets',
+                    'Professional guide services',
+                    'All applicable taxes'
+                ],
+                exclusions: [
+                    'Air/rail fare to/from Mumbai',
+                    'Personal shopping expenses',
+                    'Additional food and drinks',
+                    'Tips to guides and drivers',
+                    'Any optional activities'
+                ],
+                terms: [
+                    'Advance booking mandatory',
+                    'Bollywood tour subject to availability',
+                    'Traffic delays possible in Mumbai',
+                    'Valid photo ID required',
+                    'Security checks at all monuments',
+                    'Group discounts available'
+                ]
+            },
+
+            // 5. Lonavala Getaway Tour
+            'Lonavala Getaway Tour': {
+                title: 'Lonavala Getaway Tour',
+                duration: '2N3D',
+                price: '₹9,800 per person',
+                image: "/assets/images/Tour-package/Lonavala.jpg",
+                description: 'Monsoon paradise with waterfalls, dams, and misty mountains. Perfect weekend escape from Mumbai/Pune offering scenic beauty and adventure activities.',
+                highlights: [
+                    '2 Nights / 3 Days monsoon special',
+                    'Visit to major waterfalls and dams',
+                    'Cave exploration included',
+                    'All meals covered',
+                    'AC transport throughout',
+                    'Resort stay with valley view',
+                    'All entry fees included'
+                ],
+                itinerary: [
+                    {
+                        day: 'Day 1: Arrival & Local Points',
+                        details: 'Arrive at Lonavala. Check into resort. Visit Tiger\'s Leap, Duke\'s Nose, and Lion\'s Point for sunset views. Dinner at resort.'
+                    },
+                    {
+                        day: 'Day 2: Waterfalls & Caves',
+                        details: 'Morning visit to Bhushi Dam and waterfall. Explore Karla and Bhaja caves. After lunch, visit Tungarli Lake. Evening shopping at local market.'
+                    },
+                    {
+                        day: 'Day 3: Ryewood Park & Departure',
+                        details: 'Morning visit to Ryewood Park and Bushi Dam viewpoint. After breakfast, check-out from resort. Depart with memorable experiences.'
+                    }
+                ],
+                hotel: [
+                    '2 Nights at hill resort',
+                    'Valley view cottages',
+                    'Swimming pool access',
+                    'Bonfire arrangement',
+                    'Indoor games facility'
+                ],
+                food: [
+                    'Daily buffet breakfast',
+                    '3 vegetarian lunches',
+                    '2 special dinners',
+                    'Local delicacies included',
+                    'Evening tea with snacks'
+                ],
+                inclusions: [
+                    '2 nights resort accommodation',
+                    'All meals as specified',
+                    'AC vehicle for sightseeing',
+                    'All monument entry fees',
+                    'Guide charges',
+                    'Parking and tolls',
+                    'All applicable taxes'
+                ],
+                exclusions: [
+                    'Travel to/from Lonavala',
+                    'Personal expenses',
+                    'Additional adventure activities',
+                    'Tips and gratuities',
+                    'Shopping expenses'
+                ],
+                terms: [
+                    'Best visited during monsoon',
+                    'Advance booking required',
+                    'Weather-based itinerary changes',
+                    'Children policy applicable',
+                    'Group discounts available',
+                    'Photo ID mandatory'
+                ]
+            },
+
+            // 6. Tadoba Safari Tour
+            'Tadoba Safari Tour': {
+                title: 'Tadoba Safari Tour',
+                duration: '3N4D',
+                price: '₹22,500 per person',
+                image: "/assets/images/Tour-package/Tadoba.jpeg",
+                description: 'Wildlife adventure in Maharashtra\'s largest national park, home to Royal Bengal Tigers, leopards, sloth bears, and diverse flora and fauna. An unforgettable jungle experience.',
+                highlights: [
+                    '3 Nights / 4 Days wildlife adventure',
+                    '6 jungle safaris included',
+                    'Expert naturalist guide',
+                    'All meals (veg/non-veg) provided',
+                    'Jungle resort accommodation',
+                    'Park entry and camera fees covered',
+                    'Gypsy safari vehicle'
+                ],
+                itinerary: [
+                    {
+                        day: 'Day 1: Arrival & Evening Safari',
+                        details: 'Arrive at Tadoba. Check into jungle resort. Orientation and briefing. Evening jungle safari in Moharli zone. Dinner and overnight stay.'
+                    },
+                    {
+                        day: 'Day 2: Full Day Safari Experience',
+                        details: 'Early morning safari. Return for breakfast. Afternoon leisure. Evening safari in different zone. Wildlife documentary screening after dinner.'
+                    },
+                    {
+                        day: 'Day 3: Multiple Safari Zones',
+                        details: 'Morning and evening safaris in different zones. Visit to tribal village (optional). Night stay at resort with bonfire.'
+                    },
+                    {
+                        day: 'Day 4: Morning Safari & Departure',
+                        details: 'Early morning safari for tiger tracking. Breakfast at resort. Check-out and departure with wildlife memories.'
+                    }
+                ],
+                hotel: [
+                    '3 Nights jungle resort stay',
+                    'AC cottage accommodation',
+                    'Swimming pool facility',
+                    'Nature walks around resort',
+                    'Wildlife library available'
+                ],
+                food: [
+                    'Daily buffet meals',
+                    'Jungle-style dining experience',
+                    'Evening barbecue (weather permitting)',
+                    'Complimentary beverages',
+                    'Special wildlife-themed dinner'
+                ],
+                inclusions: [
+                    '3 nights accommodation',
+                    'All meals during stay',
+                    '6 jungle safari rides',
+                    'Naturalist guide charges',
+                    'Park entry permits and fees',
+                    'Gypsy charges with driver',
+                    'Forest guide fees'
+                ],
+                exclusions: [
+                    'Travel to/from Tadoba',
+                    'Camera/video charges',
+                    'Personal shopping',
+                    'Tips to staff and guides',
+                    'Any additional safaris'
+                ],
+                terms: [
+                    'Advance booking mandatory',
+                    'Safari timings fixed by forest department',
+                    'Wildlife sightings not guaranteed',
+                    'Safety guidelines strictly enforced',
+                    'Children below 6 not allowed in safari',
+                    'Medical fitness certificate recommended'
+                ]
+            },
+
+            // 7. Shirdi Pilgrimage Tour
+            'Shirdi Pilgrimage Tour': {
+                title: 'Shirdi Pilgrimage Tour',
+                duration: '2N3D',
+                price: '₹7,500 per person',
+                image: "/assets/images/Tour-package/Shirdi.jpeg",
+                description: 'Spiritual journey to the holy town of Shirdi, offering peaceful darshan of Sai Baba Temple, participation in rituals, and visits to other significant religious sites associated with Sai Baba.',
+                highlights: [
+                    '2 Nights / 3 Days spiritual journey',
+                    'Direct darshan arrangement',
+                    'Participation in all aartis',
+                    'All satvik meals included',
+                    'AC transport throughout',
+                    'Hotel near temple premises',
+                    'Prasad distribution included'
+                ],
+                itinerary: [
+                    {
+                        day: 'Day 1: Arrival & Evening Aarti',
+                        details: 'Arrive at Shirdi. Check into hotel. Evening darshan of Sai Baba. Participate in Shej Aarti. Dinner and overnight stay.'
+                    },
+                    {
+                        day: 'Day 2: Full Day Spiritual Activities',
+                        details: 'Early morning Kakad Aarti participation. Breakfast. Visit Dwarkamai, Chavadi, and Lendi Garden. Afternoon darshan. Evening participate in Sai Bhajans.'
+                    },
+                    {
+                        day: 'Day 3: Morning Rituals & Departure',
+                        details: 'Morning participation in Mangal Snaan and Aarti. Visit Sai Heritage Museum. After lunch, check-out and departure.'
+                    }
+                ],
+                hotel: [
+                    '2 Nights accommodation near temple',
+                    'Clean AC rooms',
+                    'Hot water facility',
+                    'Prayer hall in hotel',
+                    '24-hour security'
+                ],
+                food: [
+                    'Pure vegetarian satvik meals',
+                    'Prasad from temple included',
+                    'Evening snacks',
+                    'Morning tea/coffee',
+                    'Mineral water bottles'
+                ],
+                inclusions: [
+                    '2 nights accommodation',
+                    'All meals (satvik)',
+                    'Darshan arrangement',
+                    'AC vehicle for transfers',
+                    'Guide for temple rituals',
+                    'Prasad distribution',
+                    'All applicable taxes'
+                ],
+                exclusions: [
+                    'Travel to/from Shirdi',
+                    'Personal offerings at temple',
+                    'Shopping expenses',
+                    'Additional rituals charges',
+                    'Any personal expenses'
+                ],
+                terms: [
+                    'Advance booking required',
+                    'Dress code: modest clothing',
+                    'Mobile phones not allowed in temple',
+                    'Queue system for darshan',
+                    'Children policy applicable',
+                    'Group discounts available'
+                ]
+            },
+
+            // 8. Pachgani Retreat Tour
+            'Pachgani Retreat Tour': {
+                title: 'Pachgani Retreat Tour',
+                duration: '2N3D',
+                price: '₹10,200 per person',
+                image: "/assets/images/Tour-package/Panchgani.jpg",
+                description: 'Scenic hill station retreat known for strawberry farms, tableland, and serene environment away from tourist crowds. Perfect for nature walks and peaceful relaxation.',
+                highlights: [
+                    '2 Nights / 3 Days peaceful retreat',
+                    'Visit to Asia\'s second largest plateau',
+                    'Strawberry farm tour',
+                    'All meals included',
+                    'AC transport for sightseeing',
+                    'Hotel with mountain views',
+                    'All entry fees covered'
+                ],
+                itinerary: [
+                    {
+                        day: 'Day 1: Arrival & Local Exploration',
+                        details: 'Arrive at Pachgani. Check into hotel. Visit Table Land - Asia\'s second largest volcanic plateau. Sunset view. Dinner and overnight stay.'
+                    },
+                    {
+                        day: 'Day 2: Waterfalls & Farms',
+                        details: 'Morning visit to Dhom Dam and waterfalls. After lunch, explore strawberry farms. Evening visit to Sydney Point. Local market shopping.'
+                    },
+                    {
+                        day: 'Day 3: Parsi Point & Departure',
+                        details: 'Morning visit to Parsi Point for panoramic views. After breakfast, check-out from hotel. Depart with beautiful memories.'
+                    }
+                ],
+                hotel: [
+                    '2 Nights at hillside hotel',
+                    'Mountain view rooms',
+                    'Garden and sitting area',
+                    'Basic amenities provided',
+                    'Peaceful environment'
+                ],
+                food: [
+                    'Daily breakfast buffet',
+                    '3 vegetarian lunches',
+                    '2 special dinners',
+                    'Strawberry-based dishes',
+                    'Evening tea with snacks'
+                ],
+                inclusions: [
+                    '2 nights accommodation',
+                    'All meals as specified',
+                    'AC vehicle for transfers',
+                    'All entry fees to attractions',
+                    'Guide charges',
+                    'Parking and toll charges',
+                    'All applicable taxes'
+                ],
+                exclusions: [
+                    'Travel to/from Pachgani',
+                    'Personal shopping',
+                    'Additional activities',
+                    'Tips to driver and guide',
+                    'Any items not mentioned'
+                ],
+                terms: [
+                    'Advance booking recommended',
+                    'Best season: September to May',
+                    'Walking involved in sightseeing',
+                    'Children discounts available',
+                    'Couple packages available',
+                    'Group bookings preferred'
+                ]
+            },
+
+            // 9. Ashtvinayak Darshan Tour
+            'Ashtvinayak Darshan Tour': {
+                title: 'Ashtvinayak Darshan Tour',
+                duration: '4N5D',
+                price: '₹18,900 per person',
+                image: "/assets/images/Tour-package/Ashtvinayak.jpeg",
+                description: 'Complete spiritual pilgrimage to eight ancient Ganesha temples in Maharashtra. Each temple has unique significance and mythology associated with Lord Ganesha.',
+                highlights: [
+                    '4 Nights / 5 Days spiritual pilgrimage',
+                    'Darshan of all 8 Ashtavinayak temples',
+                    'Spiritual guide accompanying throughout',
+                    'All satvik meals included',
+                    'AC transport for entire journey',
+                    'Comfortable hotel stays',
+                    'All temple entry arrangements'
+                ],
+                itinerary: [
+                    {
+                        day: 'Day 1: Mumbai to Morgaon & Theur',
+                        details: 'Start from Mumbai. Visit Mayureshwar Temple (Morgaon) - first Ashtavinayak. Then visit Chintamani Temple (Theur). Overnight at Pune.'
+                    },
+                    {
+                        day: 'Day 2: Siddhatek & Ranjangaon',
+                        details: 'Visit Siddhatek Temple. Then proceed to Ranjangaon Mahaganapati Temple. Overnight at Ahmednagar.'
+                    },
+                    {
+                        day: 'Day 3: Ojhar & Lenyadri',
+                        details: 'Visit Vighnahar Temple (Ojhar). Then visit Girijatmaj Temple (Lenyadri). Overnight at Junnar.'
+                    },
+                    {
+                        day: 'Day 4: Mahad & Pali',
+                        details: 'Visit Varadavinayak Temple (Mahad). Then visit Ballaleshwar Temple (Pali). Overnight at Karad.'
+                    },
+                    {
+                        day: 'Day 5: Return Journey',
+                        details: 'Morning prayers and rituals. Breakfast. Return journey to Mumbai with divine blessings.'
+                    }
+                ],
+                hotel: [
+                    '4 Nights at various locations',
+                    'Comfortable AC rooms',
+                    'Clean and hygienic accommodation',
+                    'Prayer facilities available',
+                    'Basic amenities provided'
+                ],
+                food: [
+                    'Daily satvik breakfast',
+                    '5 vegetarian lunches',
+                    '4 special satvik dinners',
+                    'Temple prasad included',
+                    'Evening snacks'
+                ],
+                inclusions: [
+                    '4 nights accommodation',
+                    'All meals (satvik)',
+                    'AC vehicle throughout journey',
+                    'Spiritual guide services',
+                    'All temple entry arrangements',
+                    'Parking and toll charges',
+                    'All applicable taxes'
+                ],
+                exclusions: [
+                    'Travel to/from starting point',
+                    'Personal offerings at temples',
+                    'Shopping expenses',
+                    'Tips to guide and driver',
+                    'Any personal expenses'
+                ],
+                terms: [
+                    'Advance booking mandatory',
+                    'Strict dress code: traditional wear',
+                    'Photography restrictions at temples',
+                    'Early morning starts required',
+                    'Physical fitness recommended',
+                    'Group prayer sessions included'
+                ]
+            }
+        };
+
+        // Function to load package data from URL
+        function loadPackageData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const packageName = urlParams.get('package');
+
+            if (!packageName || !packageData[packageName]) {
+                document.getElementById('loading').innerHTML = `
+                    <div class="text-center py-12">
+                        <i class="fas fa-exclamation-triangle text-gold text-5xl mb-4"></i>
+                        <h2 class="text-2xl font-bold mb-4 text-lightText dark:text-white">Package Not Found</h2>
+                        <p class="text-gray-600 mb-6 dark:text-gray-400">The requested tour package could not be found.</p>
+                        <a href="tour-packages.html" 
+                           class="bg-gold text-primary px-6 py-3 rounded-lg font-bold hover:bg-gold/90 transition-colors">
+                            Browse All Packages
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+
+            const packageInfo = packageData[packageName];
+
+            // Update page content
+            document.title = `${packageInfo.title} | Ellora Tours & Travels`;
+            document.getElementById('packageTitle').textContent = packageInfo.title;
+            document.getElementById('packageDuration').textContent = packageInfo.duration;
+            document.getElementById('packagePrice').textContent = packageInfo.price;
+            document.getElementById('packageImage').src = packageInfo.image;
+            document.getElementById('packageImage').alt = packageInfo.title;
+            document.getElementById('packageDescription').textContent = packageInfo.description;
+
+            // Populate highlights
+            const highlightsContainer = document.getElementById('highlightsList');
+            highlightsContainer.innerHTML = packageInfo.highlights.map(highlight => `
+                <div class="flex items-start space-x-3">
+                    <i class="fas fa-check text-gold mt-1"></i>
+                    <span class="text-gray-600 dark:text-gray-300">${highlight}</span>
+                </div>
+            `).join('');
+
+            // Populate itinerary
+            const itineraryContainer = document.getElementById('itineraryList');
+            itineraryContainer.innerHTML = packageInfo.itinerary.map(day => `
+                <div class="bg-gray-100 rounded-lg p-6 dark:bg-gray-900/50">
+                    <h4 class="text-xl font-bold mb-3 text-gold">${day.day}</h4>
+                    <p class="text-gray-600 dark:text-gray-300">${day.details}</p>
+                </div>
+            `).join('');
+
+            // Populate hotel details
+            const hotelContainer = document.getElementById('hotelDetails');
+            hotelContainer.innerHTML = packageInfo.hotel.map(item => `
+                <li class="flex items-start space-x-3">
+                    <i class="fas fa-bed text-gold mt-1"></i>
+                    <span>${item}</span>
+                </li>
+            `).join('');
+
+            // Populate food details
+            const foodContainer = document.getElementById('foodDetails');
+            foodContainer.innerHTML = packageInfo.food.map(item => `
+                <li class="flex items-start space-x-3">
+                    <i class="fas fa-utensils text-gold mt-1"></i>
+                    <span>${item}</span>
+                </li>
+            `).join('');
+
+            // Populate inclusions
+            const inclusionsContainer = document.getElementById('inclusionsList');
+            inclusionsContainer.innerHTML = packageInfo.inclusions.map(item => `
+                <li class="flex items-start space-x-3">
+                    <i class="fas fa-check-circle text-green-500 dark:text-green-400 mt-1"></i>
+                    <span>${item}</span>
+                </li>
+            `).join('');
+
+            // Populate exclusions
+            const exclusionsContainer = document.getElementById('exclusionsList');
+            exclusionsContainer.innerHTML = packageInfo.exclusions.map(item => `
+                <li class="flex items-start space-x-3">
+                    <i class="fas fa-times-circle text-red-500 dark:text-red-400 mt-1"></i>
+                    <span>${item}</span>
+                </li>
+            `).join('');
+
+            // Populate terms
+            const termsContainer = document.getElementById('termsList');
+            termsContainer.innerHTML = packageInfo.terms.map(item => `
+                <li class="flex items-start space-x-3">
+                    <i class="fas fa-file-alt text-gold mt-1"></i>
+                    <span>${item}</span>
+                </li>
+            `).join('');
+
+            // Setup booking button
+            document.getElementById('bookNowBtn').addEventListener('click', function () {
+                localStorage.setItem('selectedItem', packageInfo.title);
+                localStorage.setItem('itemType', 'tour');
+                window.location.href = `booking-payment.html?package=${encodeURIComponent(packageInfo.title)}`;
+            });
+
+            // Show content and hide loading
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('content').classList.remove('hidden');
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', loadPackageData);
+    </script>
+</body>
+
+</html>

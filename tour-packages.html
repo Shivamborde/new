@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ellora Tours & Travel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a2332',
+                        secondary: '#0f1623',
+                        gold: '#d4af37',
+                        goldLight: '#f4e8c1',
+                        // Light theme colors
+                        lightBg: '#f8fafc',
+                        lightPrimary: '#ffffff',
+                        lightText: '#1e293b',
+                        lightSecondary: '#f1f5f9',
+                        lightCard: '#ffffff',
+                        lightBorder: '#e2e8f0',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for dark theme */
+        html.dark ::-webkit-scrollbar-track {
+            background: #0f1623;
+        }
+
+        html.dark ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
+
+        /* Custom scrollbar for light theme */
+        html.light ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        html.light ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        html.light ::-webkit-scrollbar-thumb {
+            background: #b5942d;
+            border-radius: 4px;
+        }
+
+        /* Background pattern - Dark */
+        .bg-pattern-dark {
+            background-color: #1a2332;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 20%);
+        }
+
+        /* Background pattern - Light */
+        .bg-pattern-light {
+            background-color: #f8fafc;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(181, 148, 45, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(181, 148, 45, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.02) 0%, transparent 20%);
+        }
+
+        /* Smooth theme transition */
+        body,
+        nav,
+        section,
+        footer,
+        div,
+        a,
+        button,
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            transition: background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        /* Theme toggle animation */
+        .theme-toggle {
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Card hover effect */
+        .tour-card {
+            transition: all 0.3s ease;
+        }
+
+        .tour-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        html.dark .tour-card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen font-sans">
+    <!-- Navigation -->
+    <nav
+        class="sticky top-0 z-50 bg-primary/95 backdrop-blur-sm border-b border-gold/30 dark:bg-primary/95 dark:border-gold/30">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="home.html" class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+                        <i class="fas fa-crown text-primary text-xl"></i>
+                    </div>
+                    <span class="text-2xl font-bold tracking-wider text-white dark:text-white">ELLORA<span
+                            class="text-gold">TAXI</span></span>
+                </a>
+
+                <div class="flex items-center space-x-6">
+                    <!-- Theme Toggle Button -->
+                    <button id="themeToggle"
+                        class="theme-toggle w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gold hover:text-primary transition-colors duration-300">
+                        <i id="themeIcon" class="fas fa-moon text-gold"></i>
+                    </button>
+
+                    <div class="hidden md:flex space-x-8">
+                        <a href="home.html"
+                            class="text-gray-300 hover:text-gold transition-colors duration-300">Home</a>
+                        <a href="tour-packages.html" class="text-gold font-semibold border-b-2 border-gold pb-1">Tour
+                            Packages</a>
+                        <a href="photogallery.html"
+                            class="text-gray-300 hover:text-gold transition-colors duration-300">Gallery</a>
+                        <a href="contact.html"
+                            class="text-gray-300 hover:text-gold transition-colors duration-300">Contact</a>
+                    </div>
+
+                    <button class="md:hidden text-gold" id="mobileMenuBtn">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-3 pb-4">
+                <a href="home.html" class="block text-gray-300 hover:text-gold transition-colors duration-300">Home</a>
+                <a href="tour-packages.html" class="block text-gold font-semibold">Tour Packages</a>
+                <a href="photogallery.html"
+                    class="block text-gray-300 hover:text-gold transition-colors duration-300">Gallery</a>
+                <a href="contact.html"
+                    class="block text-gray-300 hover:text-gold transition-colors duration-300">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+        class="relative py-20 bg-gradient-to-r from-primary to-secondary dark:bg-gradient-to-r dark:from-primary dark:to-secondary">
+        <div class="container mx-auto px-4 text-center animate-fade-in">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white dark:text-white">Maharashtra <span
+                    class="text-gold">Tour Packages</span></h1>
+            <div class="w-24 h-1 bg-gold mx-auto mb-8"></div>
+            <p class="text-lg md:text-xl text-gray-300 dark:text-gray-300 max-w-3xl mx-auto">Explore the royal heritage,
+                natural beauty, and cultural
+                diversity of Maharashtra with our curated premium tours.</p>
+        </div>
+    </section>
+
+    <!-- Tour Packages Grid -->
+    <section
+        class="py-12 md:py-20 bg-gradient-to-r from-lightSecondary to-lightBg dark:bg-gradient-to-r dark:from-gray-900 dark:to-secondary">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Package 1: Ajanta -->
+                <div
+                    class="tour-card bg-white dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 rounded-xl overflow-hidden border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <div class="relative overflow-hidden">
+                        <img src="Assets/images/Tour-package/Ajanta.jpg" alt="Ajanta Caves"
+                            class="w-full h-56 object-cover transition-transform duration-500 hover:scale-105">
+                        <div
+                            class="absolute top-4 right-4 bg-gold text-primary px-3 py-1 rounded-full text-sm font-bold">
+                            2N3D
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-lightText dark:text-white">Ajanta Caves</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 text-sm md:text-base">Ancient Buddhist rock-cut
+                            cave monuments with exquisite paintings
+                            dating back to 2nd century BCE.</p>
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div>
+                                <span class="text-gold text-2xl font-bold">₹12,500</span>
+                                <span class="text-gray-500 dark:text-gray-400 text-sm block">per person</span>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button onclick="viewPackageDetails('Ajanta Caves Tour', '₹12,500', '2N3D')"
+                                    class="border border-gold text-gold px-4 py-2 rounded-lg hover:bg-gold hover:text-primary transition-colors duration-300">
+                                    View Details
+                                </button>
+                                <button onclick="bookTour('Ajanta Caves Tour')"
+                                    class="bg-gold text-primary px-4 py-2 rounded-lg font-bold hover:bg-gold/90 transition-colors duration-300">
+                                    Book Ride
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package 2: Ellora Caves -->
+                <div
+                    class="tour-card bg-white dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 rounded-xl overflow-hidden border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <div class="relative overflow-hidden">
+                        <img src="Assets/images/Tour-package/Ellora Caves.jpg" alt="Ellora Caves"
+                            class="w-full h-56 object-cover transition-transform duration-500 hover:scale-105">
+                        <div
+                            class="absolute top-4 right-4 bg-gold text-primary px-3 py-1 rounded-full text-sm font-bold">
+                            2N3D
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-lightText dark:text-white">Ellora Caves</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 text-sm md:text-base">UNESCO World Heritage site
+                            featuring Buddhist, Hindu, and Jain
+                            rock-cut temples from 600-1000 CE.</p>
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div>
+                                <span class="text-gold text-2xl font-bold">₹11,800</span>
+                                <span class="text-gray-500 dark:text-gray-400 text-sm block">per person</span>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button onclick="viewPackageDetails('Ellora Caves Tour', '₹11,800', '2N3D')"
+                                    class="border border-gold text-gold px-4 py-2 rounded-lg hover:bg-gold hover:text-primary transition-colors duration-300">
+                                    View Details
+                                </button>
+                                <button onclick="bookTour('Ellora Caves Tour')"
+                                    class="bg-gold text-primary px-4 py-2 rounded-lg font-bold hover:bg-gold/90 transition-colors duration-300">
+                                    Book Ride
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package 3: Mahabaleshwar -->
+                <div
+                    class="tour-card bg-white dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 rounded-xl overflow-hidden border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <div class="relative overflow-hidden">
+                        <img src="Assets/images/Tour-package/Mahabaleshwar.jpg" alt="Mahabaleshwar"
+                            class="w-full h-56 object-cover transition-transform duration-500 hover:scale-105">
+                        <div
+                            class="absolute top-4 right-4 bg-gold text-primary px-3 py-1 rounded-full text-sm font-bold">
+                            3N4D
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-lightText dark:text-white">Mahabaleshwar</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 text-sm md:text-base">Queen of hill stations
+                            known for strawberries, waterfalls, and
+                            panoramic viewpoints of Western Ghats.</p>
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div>
+                                <span class="text-gold text-2xl font-bold">₹14,500</span>
+                                <span class="text-gray-500 dark:text-gray-400 text-sm block">per person</span>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button onclick="viewPackageDetails('Mahabaleshwar Tour', '₹14,500', '3N4D')"
+                                    class="border border-gold text-gold px-4 py-2 rounded-lg hover:bg-gold hover:text-primary transition-colors duration-300">
+                                    View Details
+                                </button>
+                                <button onclick="bookTour('Mahabaleshwar Tour')"
+                                    class="bg-gold text-primary px-4 py-2 rounded-lg font-bold hover:bg-gold/90 transition-colors duration-300">
+                                    Book Ride
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package 4: Mumbai -->
+                <div
+                    class="tour-card bg-white dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 rounded-xl overflow-hidden border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <div class="relative overflow-hidden">
+                        <img src="assets/images/Tour-package/Mumbai.jpeg" alt="Mumbai City Tour"
+                            class="w-full h-56 object-cover transition-transform duration-500 hover:scale-105">
+                        <div
+                            class="absolute top-4 right-4 bg-gold text-primary px-3 py-1 rounded-full text-sm font-bold">
+                            3N4D
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-lightText dark:text-white">Mumbai City Tour</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 text-sm md:text-base">Experience the Maximum
+                            City - from colonial heritage to Bollywood
+                            glamour and street food delights.</p>
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div>
+                                <span class="text-gold text-2xl font-bold">₹16,800</span>
+                                <span class="text-gray-500 dark:text-gray-400 text-sm block">per person</span>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button onclick="viewPackageDetails('Mumbai City Tour', '₹16,800', '3N4D')"
+                                    class="border border-gold text-gold px-4 py-2 rounded-lg hover:bg-gold hover:text-primary transition-colors duration-300">
+                                    View Details
+                                </button>
+                                <button onclick="bookTour('Mumbai City Tour')"
+                                    class="bg-gold text-primary px-4 py-2 rounded-lg font-bold hover:bg-gold/90 transition-colors duration-300">
+                                    Book Ride
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package 5: Lonavala -->
+                <div
+                    class="tour-card bg-white dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 rounded-xl overflow-hidden border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <div class="relative overflow-hidden">
+                        <img src="Assets/images/Tour-package/Lonavala.jpg" alt="Lonavala"
+                            class="w-full h-56 object-cover transition-transform duration-500 hover:scale-105">
+                        <div
+                            class="absolute top-4 right-4 bg-gold text-primary px-3 py-1 rounded-full text-sm font-bold">
+                            2N3D
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-lightText dark:text-white">Lonavala Getaway</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 text-sm md:text-base">Monsoon paradise with
+                            waterfalls, dams, and misty mountains -
+                            perfect weekend escape from Mumbai/Pune.</p>
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div>
+                                <span class="text-gold text-2xl font-bold">₹9,800</span>
+                                <span class="text-gray-500 dark:text-gray-400 text-sm block">per person</span>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button onclick="viewPackageDetails('Lonavala Getaway Tour', '₹9,800', '2N3D')"
+                                    class="border border-gold text-gold px-4 py-2 rounded-lg hover:bg-gold hover:text-primary transition-colors duration-300">
+                                    View Details
+                                </button>
+                                <button onclick="bookTour('Lonavala Getaway Tour')"
+                                    class="bg-gold text-primary px-4 py-2 rounded-lg font-bold hover:bg-gold/90 transition-colors duration-300">
+                                    Book Ride
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package 6: Tadoba Safari -->
+                <div
+                    class="tour-card bg-white dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 rounded-xl overflow-hidden border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <div class="relative overflow-hidden">
+                        <img src="assets/images/Tour-package/Tadoba.jpeg" alt="Tadoba Safari"
+                            class="w-full h-56 object-cover transition-transform duration-500 hover:scale-105">
+                        <div
+                            class="absolute top-4 right-4 bg-gold text-primary px-3 py-1 rounded-full text-sm font-bold">
+                            3N4D
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-lightText dark:text-white">Tadoba Safari</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 text-sm md:text-base">Maharashtra's largest
+                            tiger reserve with dense forests, diverse
+                            wildlife, and thrilling jungle safaris.</p>
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div>
+                                <span class="text-gold text-2xl font-bold">₹22,500</span>
+                                <span class="text-gray-500 dark:text-gray-400 text-sm block">per person</span>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button onclick="viewPackageDetails('Tadoba Safari Tour', '₹22,500', '3N4D')"
+                                    class="border border-gold text-gold px-4 py-2 rounded-lg hover:bg-gold hover:text-primary transition-colors duration-300">
+                                    View Details
+                                </button>
+                                <button onclick="bookTour('Tadoba Safari Tour')"
+                                    class="bg-gold text-primary px-4 py-2 rounded-lg font-bold hover:bg-gold/90 transition-colors duration-300">
+                                    Book Ride
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package 7: Shirdi -->
+                <div
+                    class="tour-card bg-white dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 rounded-xl overflow-hidden border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <div class="relative overflow-hidden">
+                        <img src="assets/images/Tour-package/Shirdi.jpeg" alt="Shirdi Temple"
+                            class="w-full h-56 object-cover transition-transform duration-500 hover:scale-105">
+                        <div
+                            class="absolute top-4 right-4 bg-gold text-primary px-3 py-1 rounded-full text-sm font-bold">
+                            2N3D
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-lightText dark:text-white">Shirdi Pilgrimage</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 text-sm md:text-base">Spiritual journey to Sai
+                            Baba Temple with darshan arrangements,
+                            temple rituals, and peaceful atmosphere.</p>
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div>
+                                <span class="text-gold text-2xl font-bold">₹7,500</span>
+                                <span class="text-gray-500 dark:text-gray-400 text-sm block">per person</span>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button onclick="viewPackageDetails('Shirdi Pilgrimage Tour', '₹7,500', '2N3D')"
+                                    class="border border-gold text-gold px-4 py-2 rounded-lg hover:bg-gold hover:text-primary transition-colors duration-300">
+                                    View Details
+                                </button>
+                                <button onclick="bookTour('Shirdi Pilgrimage Tour')"
+                                    class="bg-gold text-primary px-4 py-2 rounded-lg font-bold hover:bg-gold/90 transition-colors duration-300">
+                                    Book Ride
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package 8: Pachgani -->
+                <div
+                    class="tour-card bg-white dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 rounded-xl overflow-hidden border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <div class="relative overflow-hidden">
+                        <img src="Assets/images/Tour-package/Panchgani.jpg" alt="Pachgani"
+                            class="w-full h-56 object-cover transition-transform duration-500 hover:scale-105">
+                        <div
+                            class="absolute top-4 right-4 bg-gold text-primary px-3 py-1 rounded-full text-sm font-bold">
+                            2N3D
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-lightText dark:text-white">Pachgani Retreat</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 text-sm md:text-base">Scenic hill station known
+                            for strawberry farms, tableland, and
+                            serene environment away from crowds.</p>
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div>
+                                <span class="text-gold text-2xl font-bold">₹10,200</span>
+                                <span class="text-gray-500 dark:text-gray-400 text-sm block">per person</span>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button onclick="viewPackageDetails('Pachgani Retreat Tour', '₹10,200', '2N3D')"
+                                    class="border border-gold text-gold px-4 py-2 rounded-lg hover:bg-gold hover:text-primary transition-colors duration-300">
+                                    View Details
+                                </button>
+                                <button onclick="bookTour('Pachgani Retreat Tour')"
+                                    class="bg-gold text-primary px-4 py-2 rounded-lg font-bold hover:bg-gold/90 transition-colors duration-300">
+                                    Book Ride
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package 9: Ashtvinayak -->
+                <div
+                    class="tour-card bg-white dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 rounded-xl overflow-hidden border border-lightBorder dark:border-gray-700 hover:border-gold transition-all duration-300 shadow-lg">
+                    <div class="relative overflow-hidden">
+                        <img src="assets/images/Tour-package/Ashtvinayak.jpeg" alt="Ashtvinayak Temples"
+                            class="w-full h-56 object-cover transition-transform duration-500 hover:scale-105">
+                        <div
+                            class="absolute top-4 right-4 bg-gold text-primary px-3 py-1 rounded-full text-sm font-bold">
+                            4N5D
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-lightText dark:text-white">Ashtvinayak Darshan</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-6 text-sm md:text-base">Complete pilgrimage to
+                            eight ancient Ganesha temples in
+                            Maharashtra with spiritual guidance.</p>
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                            <div>
+                                <span class="text-gold text-2xl font-bold">₹18,900</span>
+                                <span class="text-gray-500 dark:text-gray-400 text-sm block">per person</span>
+                            </div>
+                            <div class="flex space-x-3">
+                                <button onclick="viewPackageDetails('Ashtvinayak Darshan Tour', '₹18,900', '4N5D')"
+                                    class="border border-gold text-gold px-4 py-2 rounded-lg hover:bg-gold hover:text-primary transition-colors duration-300">
+                                    View Details
+                                </button>
+                                <button onclick="bookTour('Ashtvinayak Darshan Tour')"
+                                    class="bg-gold text-primary px-4 py-2 rounded-lg font-bold hover:bg-gold/90 transition-colors duration-300">
+                                    Book Ride
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+        const bodyElement = document.body;
+
+        // Check for saved theme preference or default to dark
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+
+        // Apply saved theme
+        function applyTheme(theme) {
+            if (theme === 'light') {
+                htmlElement.classList.remove('dark');
+                htmlElement.classList.add('light');
+                bodyElement.classList.remove('bg-pattern-dark');
+                bodyElement.classList.add('bg-pattern-light');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                htmlElement.classList.remove('light');
+                htmlElement.classList.add('dark');
+                bodyElement.classList.remove('bg-pattern-light');
+                bodyElement.classList.add('bg-pattern-dark');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        }
+
+        applyTheme(savedTheme);
+
+        // Toggle theme
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                // Switch to light theme
+                localStorage.setItem('theme', 'light');
+                applyTheme('light');
+            } else {
+                // Switch to dark theme
+                localStorage.setItem('theme', 'dark');
+                applyTheme('dark');
+            }
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobileMenuBtn').addEventListener('click', function () {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Function to view package details
+        function viewPackageDetails(packageName, price, duration) {
+            // Encode parameters for URL
+            const params = new URLSearchParams({
+                package: packageName,
+                price: price,
+                duration: duration
+            });
+
+            // Redirect to details page
+            window.location.href = `tour-package-details.html?${params.toString()}`;
+        }
+
+        // Function to book tour
+        function bookTour(tourName) {
+            localStorage.setItem('selectedItem', tourName);
+            localStorage.setItem('itemType', 'tour');
+            window.location.href = 'tour-package-booking.html';
+        }
+    </script>
+</body>
+
+
+<!-- Footer -->
+<footer class="bg-lightPrimary border-t border-gold/30 mt-20 dark:bg-primary dark:border-gold/30">
+    <div class="container mx-auto px-4 py-12">
+        <div class="grid md:grid-cols-4 gap-8">
+            <div>
+                <div class="flex items-center space-x-2 mb-6">
+                    <div class="w-10 h-10 bg-gold rounded-full flex items-center justify-center">
+                        <i class="fas fa-crown text-primary text-xl dark:text-primary"></i>
+                    </div>
+                    <span class="text-2xl font-bold text-lightText dark:text-white">ELLORA<span
+                            class="text-gold">TAXI</span></span>
+                </div>
+                <p class="text-gray-600 dark:text-gray-400">Premium travel experiences across Maharashtra since 2010.
+                </p>
+            </div>
+
+            <div>
+                <h4 class="text-xl font-bold mb-6 text-gold">Quick Links</h4>
+                <ul class="space-y-3">
+                    <li><a href="home.html"
+                            class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Home</a>
+                    </li>
+                    <li><a href="tour-packages.html"
+                            class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Tour
+                            Packages</a></li>
+                    <li><a href="hotels.html"
+                            class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Hotels</a>
+                    </li>
+                    <li><a href="contact.html"
+                            class="text-gray-600 hover:text-gold transition-colors dark:text-gray-400 dark:hover:text-gold">Contact</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xl font-bold mb-6 text-gold">Contact Info</h4>
+                <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+                    <li class="flex items-start space-x-3">
+                        <i class="fas fa-map-marker-alt text-gold mt-1"></i>
+                        <span>Office in front of Ellora Heritage Resort, between Ellora Caves and Grishneshwar Temple,
+                            Chh. Sambhajinagar, Maharashtra 431102</span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <i class="fas fa-phone text-gold"></i>
+                        <span>+91 9730871481 <br> +91 9325378864 </span>
+                    </li>
+                    <li class="flex items-center space-x-3">
+                        <i class="fas fa-envelope text-gold"></i>
+                        <span>ellorataxi001@gmail.com</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-xl font-bold mb-6 text-gold">Business Hours</h4>
+                <ul class="space-y-2 text-gray-600 dark:text-gray-400">
+                    <li>Mon - Fri: 9:00 AM - 8:00 PM</li>
+                    <li>Saturday: 10:00 AM - 6:00 PM</li>
+                    <li>Sunday: 10:00 AM - 4:00 PM</li>
+                </ul>
+            </div>
+        </div>
+
+        <div
+            class="border-t border-gray-300 mt-8 pt-8 text-center text-gray-500 text-sm dark:border-gray-800 dark:text-gray-500">
+            <p>&copy; 2026 Ellora Tours & Travels. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+</html>
