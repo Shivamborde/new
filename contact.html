@@ -584,8 +584,10 @@
             const email = document.getElementById('email').value;
             const phoneError = document.getElementById('phoneError');
             const emailError = document.getElementById('emailError');
+            const phoneSuccess = document.getElementById('phoneSuccess');
+            const emailSuccess = document.getElementById('emailSuccess');
 
-            // Run validation one more time before submitting
+            // Run validation
             validatePhoneNumber();
             validateEmail();
 
@@ -594,15 +596,9 @@
             const isPhoneValid = phonePattern.test(phoneNumber);
             const isEmailValid = email.toLowerCase().endsWith('@gmail.com');
 
-            // If validation fails, don't submit
             if (!isPhoneValid || !isEmailValid) {
-                // Show error messages if they're hidden
-                if (!isPhoneValid) {
-                    phoneError.classList.remove('hidden');
-                }
-                if (!isEmailValid) {
-                    emailError.classList.remove('hidden');
-                }
+                if (!isPhoneValid && phoneError) phoneError.classList.remove('hidden');
+                if (!isEmailValid && emailError) emailError.classList.remove('hidden');
                 return;
             }
 
@@ -615,13 +611,19 @@
             };
 
             console.log('📤 Sending to backend:', data);
+            console.log('🌐 Using API URL:', window.APP_CONFIG.API_URL);
 
             try {
-                const response = await fetch('/api/enquiry', {
+                // 🔴 FIXED: Using config URL instead of relative path
+                const response = await fetch(`${window.APP_CONFIG.API_URL}/api/enquiry`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
 
                 const result = await response.json();
                 console.log('📥 Backend response:', result);
@@ -630,18 +632,21 @@
                     alert('✅ Enquiry saved successfully!');
                     this.reset();
                     // Reset validation states
-                    document.getElementById('phoneError').classList.add('hidden');
-                    document.getElementById('phoneSuccess').classList.add('hidden');
-                    document.getElementById('emailError').classList.add('hidden');
-                    document.getElementById('emailSuccess').classList.add('hidden');
-                    document.getElementById('phoneNumber').classList.remove('valid-input');
-                    document.getElementById('email').classList.remove('valid-input');
+                    if (phoneError) phoneError.classList.add('hidden');
+                    if (phoneSuccess) phoneSuccess.classList.add('hidden');
+                    if (emailError) emailError.classList.add('hidden');
+                    if (emailSuccess) emailSuccess.classList.add('hidden');
+                    document.getElementById('phoneNumber').classList.remove('valid-input', 'invalid-input');
+                    document.getElementById('email').classList.remove('valid-input', 'invalid-input');
                 } else {
-                    alert('❌ Failed to save enquiry');
+                    alert('❌ Failed to save enquiry: ' + (result.error || 'Unknown error'));
                 }
             } catch (error) {
-                console.error('Error submitting form:', error);
-                alert('❌ Network error. Please try again.');
+                console.error('❌ Error:', error);
+                alert('❌ Cannot connect to backend. Please check:\n' +
+                    '1. Backend URL: ' + window.APP_CONFIG.API_URL + '\n' +
+                    '2. Backend is running\n' +
+                    '3. Your internet connection');
             }
         });
     </script>
@@ -727,7 +732,7 @@
         // Form submission handler
         async function submitForm(formData, endpoint) {
             try {
-                const response = await fetch(`/api/${endpoint}`, {
+                const response = await fetch(`${window.APP_CONFIG.API_URL}/api/${endpoint}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -890,7 +895,7 @@
         // Check backend connection
         async function checkBackend() {
             try {
-                const response = await fetch('/api/health');
+                const response = await fetch('${window.APP_CONFIG.API_URL}/api/health');
                 const data = await response.json();
                 console.log('✅ Backend connected:', data.message);
 
