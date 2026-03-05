@@ -617,7 +617,7 @@
             console.log('📤 Sending to backend:', data);
 
             try {
-                const response = await fetch('/api/enquiry', {
+                const response = await fetch('https://ellora-1.onrender.com/api/enquiry' {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
@@ -727,7 +727,7 @@
         // Form submission handler
         async function submitForm(formData, endpoint) {
             try {
-                const response = await fetch(`/api/${endpoint}`, {
+                const response = await fetch(`https://ellora-1.onrender.com/api/${endpoint}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -931,5 +931,6 @@
 
 
 </body>
+
 
 </html>
