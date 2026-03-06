@@ -603,8 +603,8 @@
                 if (!isEmailValid) {
                     emailError.classList.remove('hidden');
                 }
-                
-                return; }
+                return;
+            };
 
             const data = {
                 fullName: document.getElementById('fullName').value,
@@ -617,7 +617,7 @@
             console.log('📤 Sending to backend:', data);
 
             try {
-                const response = await fetch('https://ellora-1.onrender.com/api/enquiry' {
+                const response = await fetch('https://ellora-1.onrender.com/api/enquiry', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
@@ -890,7 +890,7 @@
         // Check backend connection
         async function checkBackend() {
             try {
-                const response = await fetch('https://ellora-1.onrender.com/api/enquiry');
+                const response = await fetch('https://ellora-1.onrender.com/api/health');
                 const data = await response.json();
                 console.log('✅ Backend connected:', data.message);
 
@@ -932,7 +932,4 @@
 
 </body>
 
-
 </html>
-
-
