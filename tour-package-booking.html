@@ -7,6 +7,9 @@
     <title>Ellora Tours & Travel - Tour Booking</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Razorpay and Config Scripts -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="config.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -338,12 +341,12 @@
                             <select id="vehicle" required
                                 class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText dark:bg-gray-900/50 dark:border-gray-600 dark:text-white">
                                 <option value="">Select vehicle</option>
-                                <option value="Toyota Innova Crysta">Swift-Dzire</option>
-                                <option value="Mercedes S-Class">Innova Crysta</option>
-                                <option value="BMW 7 Series">Toyota-Rumion</option>
-                                <option value="Audi Q7">Kia-Carens</option>
-                                <option value="Range Rover">Tempo Traveller</option>
-                                <option value="Volvo XC90">Force-Urbania</option>
+                                <option value="Swift-Dzire">Swift-Dzire</option>
+                                <option value="Innova Crysta">Innova Crysta</option>
+                                <option value="Toyota-Rumion">Toyota-Rumion</option>
+                                <option value="Kia-Carens">Kia-Carens</option>
+                                <option value="Tempo Traveller">Tempo Traveller</option>
+                                <option value="Force-Urbania">Force-Urbania</option>
                             </select>
                             <span id="vehicleError" class="error-message hidden"></span>
                         </div>
@@ -394,7 +397,7 @@
                                 Conditions</a> and
                             <a href="privacy-policy.html" class="text-gold hover:underline">Privacy Policy</a> of Ellora
                             Taxi
-                        </label>S
+                        </label>
                     </div>
                     <span id="termsError" class="error-message hidden"></span>
 
@@ -439,6 +442,52 @@
                     class="bg-gold text-primary px-8 py-3 rounded-lg font-bold hover:bg-gold/90 transition-colors">
                     Return to Tours
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Razorpay Modals -->
+    <div id="loadingModal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-8 max-w-sm w-full mx-4 text-center dark:bg-gray-900">
+            <div class="w-20 h-20 border-4 border-gold border-t-transparent rounded-full animate-spin mx-auto mb-6">
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-lightText dark:text-white">Processing Payment</h3>
+            <p class="text-gray-600 dark:text-gray-400">Please wait while we connect to Razorpay...</p>
+        </div>
+    </div>
+
+    <div id="successModal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl border border-gold max-w-md w-full mx-4 card-hover dark:bg-gray-900">
+            <div class="p-8 text-center">
+                <div class="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-check-circle text-green-500 text-4xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 text-lightText dark:text-white">Payment Successful!</h3>
+                <p class="text-gray-600 mb-6 dark:text-gray-300">Your tour booking has been confirmed.</p>
+                <div class="space-y-3 text-left bg-gray-100 p-4 rounded-lg mb-6 dark:bg-gray-800/50">
+                    <p class="text-lightText dark:text-white"><span class="text-gold font-semibold">Payment ID:</span>
+                        <span id="paymentIdDisplay">pay_0000</span></p>
+                    <p class="text-lightText dark:text-white"><span class="text-gold font-semibold">Order ID:</span>
+                        <span id="orderIdDisplay">order_0000</span></p>
+                </div>
+                <button onclick="closeSuccessModal()"
+                    class="bg-gold text-primary px-8 py-3 rounded-lg font-bold hover:bg-gold/90 transition-colors">Return
+                    to Home</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="errorModal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl border border-red-500 max-w-md w-full mx-4 card-hover dark:bg-gray-900">
+            <div class="p-8 text-center">
+                <div class="w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-exclamation-circle text-red-500 text-4xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4 text-lightText dark:text-white">Payment Failed</h3>
+                <p class="text-gray-600 mb-6 dark:text-gray-300" id="errorMessage">Please try again.</p>
+                <button onclick="closeErrorModal()"
+                    class="bg-red-500 text-white px-8 py-3 rounded-lg font-bold hover:bg-red-600 transition-colors">Try
+                    Again</button>
             </div>
         </div>
     </div>
@@ -812,17 +861,153 @@
             return isValid;
         }
 
-        function processTourPayment() {
+        // ========================
+        // RAZORPAY INTEGRATION
+        // ========================
+
+        function getTourBookingDetails() {
+            const selectedTour = localStorage.getItem('selectedItem') || 'Tour Package';
+            const adultsCount = document.getElementById('adults').value || '1';
+            const childrenCount = document.getElementById('children').value || '0';
+
+            // Calculate amount (customize based on your pricing)
+            const basePrice = 1000; // Base price per person
+            const totalAmount = parseInt(adultsCount) * basePrice;
+
+            return {
+                fullName: document.getElementById('fullName')?.value || '',
+                phoneNumber: document.getElementById('phone')?.value || '',
+                email: document.getElementById('email')?.value || '',
+                startingPoint: document.getElementById('startPoint')?.value || '',
+                endingPoint: document.getElementById('endPoint')?.value || '',
+                startDate: document.getElementById('tourStartDate')?.value || '',
+                endDate: document.getElementById('tourEndDate')?.value || '',
+                adults: adultsCount,
+                children: childrenCount,
+                vehicleType: document.getElementById('vehicle')?.value || '',
+                specialRequests: document.getElementById('requests')?.value || '',
+                bookingType: 'tour',
+                itemName: selectedTour,
+                amount: totalAmount
+            };
+        }
+
+        async function processTourPayment() {
             if (!validateForm()) {
                 return;
             }
 
-            // Generate random booking ID
-            const bookingId = Math.floor(1000 + Math.random() * 9000);
-            document.getElementById('bookingId').textContent = bookingId;
+            // Show loading modal
+            document.getElementById('loadingModal').classList.remove('hidden');
 
-            // Show confirmation modal
-            document.getElementById('confirmationModal').classList.remove('hidden');
+            try {
+                const bookingDetails = getTourBookingDetails();
+
+                if (!window.APP_CONFIG) {
+                    throw new Error('Configuration not loaded. Please refresh the page.');
+                }
+
+                console.log('Creating order with:', bookingDetails);
+
+                const response = await fetch(`${window.APP_CONFIG.API_URL}/api/create-order`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        amount: bookingDetails.amount,
+                        bookingDetails: bookingDetails
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const orderData = await response.json();
+                console.log('Order created:', orderData);
+
+                if (!orderData.success) {
+                    throw new Error(orderData.error || 'Failed to create order');
+                }
+
+                document.getElementById('loadingModal').classList.add('hidden');
+
+                const options = {
+                    key: orderData.keyId,
+                    amount: orderData.amount,
+                    currency: 'INR',
+                    name: 'Ellora Tours & Travels',
+                    description: bookingDetails.itemName,
+                    image: 'assets/images/logo.png',
+                    order_id: orderData.orderId,
+                    handler: function (response) {
+                        verifyTourPayment(response, bookingDetails);
+                    },
+                    prefill: {
+                        name: bookingDetails.fullName,
+                        email: bookingDetails.email,
+                        contact: bookingDetails.phoneNumber
+                    },
+                    theme: { color: '#d4af37' }
+                };
+
+                const razorpay = new Razorpay(options);
+                razorpay.open();
+
+            } catch (error) {
+                console.error('Payment initiation failed:', error);
+                document.getElementById('loadingModal').classList.add('hidden');
+                document.getElementById('errorMessage').textContent = error.message;
+                document.getElementById('errorModal').classList.remove('hidden');
+            }
+        }
+
+        async function verifyTourPayment(response, bookingDetails) {
+            document.getElementById('loadingModal').classList.remove('hidden');
+
+            try {
+                const verifyResponse = await fetch(`${window.APP_CONFIG.API_URL}/api/verify-payment`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        razorpay_order_id: response.razorpay_order_id,
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        razorpay_signature: response.razorpay_signature,
+                        bookingDetails: bookingDetails
+                    })
+                });
+
+                const verifyData = await verifyResponse.json();
+                document.getElementById('loadingModal').classList.add('hidden');
+
+                if (verifyData.success) {
+                    document.getElementById('paymentIdDisplay').textContent = response.razorpay_payment_id;
+                    document.getElementById('orderIdDisplay').textContent = response.razorpay_order_id;
+                    document.getElementById('successModal').classList.remove('hidden');
+
+                    localStorage.removeItem('selectedItem');
+                    localStorage.removeItem('itemType');
+
+                    setTimeout(() => {
+                        window.location.href = 'tour-packages.html';
+                    }, 3000);
+                } else {
+                    throw new Error('Payment verification failed');
+                }
+            } catch (error) {
+                console.error('Verification failed:', error);
+                document.getElementById('loadingModal').classList.add('hidden');
+                document.getElementById('errorMessage').textContent = 'Payment verification failed. Please contact support.';
+                document.getElementById('errorModal').classList.remove('hidden');
+            }
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.add('hidden');
+            window.location.href = 'tour-packages.html';
+        }
+
+        function closeErrorModal() {
+            document.getElementById('errorModal').classList.add('hidden');
         }
 
         function closeModal() {
@@ -852,7 +1037,6 @@
                         behavior: 'smooth'
                     });
 
-                    // Close mobile menu if open
                     const mobileMenu = document.getElementById('mobileMenu');
                     if (!mobileMenu.classList.contains('hidden')) {
                         mobileMenu.classList.add('hidden');
