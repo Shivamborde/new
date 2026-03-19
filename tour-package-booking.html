@@ -273,6 +273,15 @@
                     </div>
                 </div>
 
+                <!-- 🔴 NEW: Price Display Section -->
+                <div class="mb-6 p-4 bg-gold/10 rounded-lg border border-gold/30">
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-semibold text-gray-700 dark:text-gray-300">Total Package Price:</span>
+                        <span id="totalPriceDisplay" class="text-2xl font-bold text-gold">₹0</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-1 dark:text-gray-400">Final amount to be paid</p>
+                </div>
+
                 <form id="tourBookingForm" class="space-y-6">
                     <!-- Tour Details -->
                     <div class="grid md:grid-cols-2 gap-6">
@@ -466,9 +475,11 @@
                 <p class="text-gray-600 mb-6 dark:text-gray-300">Your tour booking has been confirmed.</p>
                 <div class="space-y-3 text-left bg-gray-100 p-4 rounded-lg mb-6 dark:bg-gray-800/50">
                     <p class="text-lightText dark:text-white"><span class="text-gold font-semibold">Payment ID:</span>
-                        <span id="paymentIdDisplay">pay_0000</span></p>
+                        <span id="paymentIdDisplay">pay_0000</span>
+                    </p>
                     <p class="text-lightText dark:text-white"><span class="text-gold font-semibold">Order ID:</span>
-                        <span id="orderIdDisplay">order_0000</span></p>
+                        <span id="orderIdDisplay">order_0000</span>
+                    </p>
                 </div>
                 <button onclick="closeSuccessModal()"
                     class="bg-gold text-primary px-8 py-3 rounded-lg font-bold hover:bg-gold/90 transition-colors">Return
@@ -625,6 +636,108 @@
             'Ashtvinayak Darshan Tour': { price: '₹18,900', duration: '4N5D' }
         };
 
+        // ========================
+        // TOUR PACKAGE PRICES BY VEHICLE (NEW)
+        // ========================
+        const tourPrices = {
+            'Ajanta Caves Tour': {
+                'Swift-Dzire': 10800,
+                'Innova Crysta': 16200,
+                'Toyota-Rumion': 16200,
+                'Kia-Carens': 13500,
+                'Tempo Traveller': 24900,
+                'Force-Urbania': 31500
+            },
+            'Ellora Caves Tour': {
+                'Swift-Dzire': 10800,
+                'Innova Crysta': 16200,
+                'Toyota-Rumion': 16200,
+                'Kia-Carens': 13500,
+                'Tempo Traveller': 24900,
+                'Force-Urbania': 31500
+            },
+            'Mahabaleshwar Tour': {
+                'Swift-Dzire': 14400,
+                'Innova Crysta': 21600,
+                'Toyota-Rumion': 21600,
+                'Kia-Carens': 18000,
+                'Tempo Traveller': 33200,
+                'Force-Urbania': 42000
+            },
+            'Mumbai City Tour': {
+                'Swift-Dzire': 14400,
+                'Innova Crysta': 21600,
+                'Toyota-Rumion': 21600,
+                'Kia-Carens': 18000,
+                'Tempo Traveller': 33200,
+                'Force-Urbania': 42000
+            },
+            'Lonavala Getaway Tour': {
+                'Swift-Dzire': 10800,
+                'Innova Crysta': 16200,
+                'Toyota-Rumion': 16200,
+                'Kia-Carens': 13500,
+                'Tempo Traveller': 24900,
+                'Force-Urbania': 31500
+            },
+            'Tadoba Safari Tour': {
+                'Swift-Dzire': 14400,
+                'Innova Crysta': 21600,
+                'Toyota-Rumion': 21600,
+                'Kia-Carens': 18000,
+                'Tempo Traveller': 33200,
+                'Force-Urbania': 42000
+            },
+            'Shirdi Pilgrimage Tour': {
+                'Swift-Dzire': 10800,
+                'Innova Crysta': 16200,
+                'Toyota-Rumion': 16200,
+                'Kia-Carens': 13500,
+                'Tempo Traveller': 24900,
+                'Force-Urbania': 31500
+            },
+            'Pachgani Retreat Tour': {
+                'Swift-Dzire': 10800,
+                'Innova Crysta': 16200,
+                'Toyota-Rumion': 16200,
+                'Kia-Carens': 13500,
+                'Tempo Traveller': 24900,
+                'Force-Urbania': 31500
+            },
+            'Ashtvinayak Darshan Tour': {
+                'Swift-Dzire': 18000,
+                'Innova Crysta': 27000,
+                'Toyota-Rumion': 27000,
+                'Kia-Carens': 22500,
+                'Tempo Traveller': 41500,
+                'Force-Urbania': 52500
+            }
+        };
+
+        // ========================
+        // UPDATE PRICE BASED ON TOUR AND VEHICLE (NEW)
+        // ========================
+        function updateTourPrice() {
+            const selectedTour = localStorage.getItem('selectedItem');
+            const selectedVehicle = document.getElementById('vehicle').value;
+            const priceDisplay = document.getElementById('totalPriceDisplay');
+            const packagePriceDisplay = document.getElementById('packagePrice');
+
+            if (selectedTour && selectedVehicle && tourPrices[selectedTour] && tourPrices[selectedTour][selectedVehicle]) {
+                const price = tourPrices[selectedTour][selectedVehicle];
+                priceDisplay.textContent = `₹${price.toLocaleString()}`;
+
+                // Update package price display if it exists
+                if (packagePriceDisplay) {
+                    packagePriceDisplay.textContent = `₹${price.toLocaleString()}`;
+                }
+                return price;
+            } else {
+                priceDisplay.textContent = `₹0`;
+                return 0;
+            }
+        }
+
         // Set date constraints: today and max 6 months from today
         const today = new Date();
         const sixMonthsLater = new Date(today);
@@ -654,7 +767,7 @@
                 document.getElementById('bookedTourText').textContent = selectedTour;
 
                 const packageDetails = tourPackages[selectedTour];
-                document.getElementById('packagePrice').textContent = packageDetails.price + ' per person';
+                document.getElementById('packagePrice').textContent = packageDetails.price;
                 document.getElementById('packageDuration').textContent = packageDetails.duration;
 
                 // Auto-set end date based on duration when start date changes
@@ -676,6 +789,15 @@
                     }
                 });
             }
+
+            // Add vehicle change listener to update price
+            const vehicleSelect = document.getElementById('vehicle');
+            if (vehicleSelect) {
+                vehicleSelect.addEventListener('change', updateTourPrice);
+            }
+
+            // Initial price update
+            updateTourPrice();
         });
 
         // Phone number validation on input
@@ -862,17 +984,20 @@
         }
 
         // ========================
-        // RAZORPAY INTEGRATION
+        // UPDATED RAZORPAY INTEGRATION
         // ========================
 
         function getTourBookingDetails() {
             const selectedTour = localStorage.getItem('selectedItem') || 'Tour Package';
             const adultsCount = document.getElementById('adults').value || '1';
             const childrenCount = document.getElementById('children').value || '0';
+            const vehicle = document.getElementById('vehicle')?.value || '';
 
-            // Calculate amount (customize based on your pricing)
-            const basePrice = 1000; // Base price per person
-            const totalAmount = parseInt(adultsCount) * basePrice;
+            // Get the correct price from tourPrices
+            let totalAmount = 0;
+            if (selectedTour && vehicle && tourPrices[selectedTour] && tourPrices[selectedTour][vehicle]) {
+                totalAmount = tourPrices[selectedTour][vehicle];
+            }
 
             return {
                 fullName: document.getElementById('fullName')?.value || '',
@@ -884,7 +1009,7 @@
                 endDate: document.getElementById('tourEndDate')?.value || '',
                 adults: adultsCount,
                 children: childrenCount,
-                vehicleType: document.getElementById('vehicle')?.value || '',
+                vehicleType: vehicle,
                 specialRequests: document.getElementById('requests')?.value || '',
                 bookingType: 'tour',
                 itemName: selectedTour,
@@ -936,7 +1061,7 @@
                     amount: orderData.amount,
                     currency: 'INR',
                     name: 'Ellora Tours & Travels',
-                    description: bookingDetails.itemName,
+                    description: `${bookingDetails.itemName} - ${bookingDetails.vehicleType}`,
                     image: 'assets/images/logo.png',
                     order_id: orderData.orderId,
                     handler: function (response) {
