@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Admin - Ellora Tours</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body class="bg-gray-100 min-h-screen p-6">
     <div class="max-w-7xl mx-auto">
         <h1 class="text-3xl font-bold text-gray-800 mb-6">📊 Enquiry Data</h1>
-        
+
         <!-- Stats Cards -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <div class="bg-white p-4 rounded-lg shadow">
@@ -28,21 +30,23 @@
                 <p id="convertedCount" class="text-3xl font-bold text-purple-600">0</p>
             </div>
         </div>
-        
+
         <!-- Filter Buttons -->
         <div class="mb-4 space-x-2">
             <button onclick="loadEnquiries('all')" class="bg-blue-500 text-white px-4 py-2 rounded">All</button>
             <button onclick="loadEnquiries('new')" class="bg-yellow-500 text-white px-4 py-2 rounded">New</button>
-            <button onclick="loadEnquiries('contacted')" class="bg-green-500 text-white px-4 py-2 rounded">Contacted</button>
-            <button onclick="loadEnquiries('converted')" class="bg-purple-500 text-white px-4 py-2 rounded">Converted</button>
+            <button onclick="loadEnquiries('contacted')"
+                class="bg-green-500 text-white px-4 py-2 rounded">Contacted</button>
+            <button onclick="loadEnquiries('converted')"
+                class="bg-purple-500 text-white px-4 py-2 rounded">Converted</button>
         </div>
-        
+
         <!-- Search -->
         <div class="mb-4">
-            <input type="text" id="searchInput" placeholder="Search by name, email, or phone..." 
-                   class="w-full p-2 border rounded" onkeyup="searchEnquiries()">
+            <input type="text" id="searchInput" placeholder="Search by name, email, or phone..."
+                class="w-full p-2 border rounded" onkeyup="searchEnquiries()">
         </div>
-        
+
         <!-- Enquiries Table -->
         <div class="bg-white rounded-lg shadow overflow-hidden">
             <table class="min-w-full divide-y divide-gray-200">
@@ -63,12 +67,12 @@
                 </tbody>
             </table>
         </div>
-        
+
         <!-- Loading -->
         <div id="loading" class="text-center py-4">
             <i class="fas fa-spinner fa-spin text-blue-500"></i> Loading...
         </div>
-        
+
         <!-- No Data -->
         <div id="noData" class="text-center py-8 hidden">
             <p class="text-gray-500">No enquiries found</p>
@@ -77,19 +81,19 @@
 
     <script>
         let allEnquiries = [];
-        
+
         // Load all enquiries
         async function loadEnquiries(filter = 'all') {
             showLoading(true);
-            
+
             try {
-                const url = filter === 'all' 
-                    ? '/api/enquiries' 
+                const url = filter === 'all'
+                    ? '/api/enquiries'
                     : `/api/enquiries?status=${filter}`;
-                
+
                 const response = await fetch(url);
                 const result = await response.json();
-                
+
                 if (result.success) {
                     allEnquiries = result.data;
                     displayEnquiries(result.data);
@@ -102,20 +106,20 @@
                 showLoading(false);
             }
         }
-        
+
         // Display enquiries in table
         function displayEnquiries(enquiries) {
             const tbody = document.getElementById('enquiriesTable');
             const noData = document.getElementById('noData');
-            
+
             if (enquiries.length === 0) {
                 tbody.innerHTML = '';
                 noData.classList.remove('hidden');
                 return;
             }
-            
+
             noData.classList.add('hidden');
-            
+
             tbody.innerHTML = enquiries.map(enquiry => `
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -154,20 +158,20 @@
                 </tr>
             `).join('');
         }
-        
+
         // Update statistics
         function updateStats(enquiries) {
             const total = enquiries.length;
             const newCount = enquiries.filter(e => e.status === 'new').length;
             const contactedCount = enquiries.filter(e => e.status === 'contacted').length;
             const convertedCount = enquiries.filter(e => e.status === 'converted').length;
-            
+
             document.getElementById('totalCount').textContent = total;
             document.getElementById('newCount').textContent = newCount;
             document.getElementById('contactedCount').textContent = contactedCount;
             document.getElementById('convertedCount').textContent = convertedCount;
         }
-        
+
         // Get status CSS class
         function getStatusClass(status) {
             const classes = {
@@ -178,31 +182,31 @@
             };
             return classes[status] || 'bg-gray-100 text-gray-800';
         }
-        
+
         // Search enquiries
         function searchEnquiries() {
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            
+
             if (!searchTerm) {
                 displayEnquiries(allEnquiries);
                 return;
             }
-            
-            const filtered = allEnquiries.filter(enquiry => 
+
+            const filtered = allEnquiries.filter(enquiry =>
                 enquiry.fullName.toLowerCase().includes(searchTerm) ||
                 enquiry.email.toLowerCase().includes(searchTerm) ||
                 enquiry.phoneNumber.includes(searchTerm)
             );
-            
+
             displayEnquiries(filtered);
         }
-        
+
         // View single enquiry details
         async function viewEnquiry(id) {
             try {
-                const response = await fetch(`/api/enquiries/${id}`);
+                const response = await fetch(`https://ellora-1.onrender.com/api/enquiries/${id}`);
                 const result = await response.json();
-                
+
                 if (result.success) {
                     const enquiry = result.data;
                     alert(`
@@ -222,7 +226,7 @@ Message: ${enquiry.message}
                 console.error('Error viewing enquiry:', error);
             }
         }
-        
+
         // Update enquiry status
         async function updateStatus(id, newStatus) {
             if (confirm('Mark as contacted?')) {
@@ -232,9 +236,9 @@ Message: ${enquiry.message}
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ status: newStatus })
                     });
-                    
+
                     const result = await response.json();
-                    
+
                     if (result.success) {
                         alert('Status updated successfully!');
                         loadEnquiries('all'); // Refresh
@@ -244,16 +248,17 @@ Message: ${enquiry.message}
                 }
             }
         }
-        
+
         // Show/hide loading
         function showLoading(show) {
             document.getElementById('loading').style.display = show ? 'block' : 'none';
         }
-        
+
         // Load data on page load
         document.addEventListener('DOMContentLoaded', () => {
             loadEnquiries('all');
         });
     </script>
 </body>
+
 </html>

@@ -1,17 +1,15 @@
-// config.js - Create this in VS Code
+// config.js
 const CONFIG = {
     development: {
         API_URL: 'http://localhost:3000',
         ENV: 'development'
     },
     production: {
-        // IMPORTANT: Change this to your actual Netlify URL after uploading
-        API_URL: 'https://ellora-1.onrender.com',
+        API_URL: 'https://ellora-1.onrender.com', // Your Render URL
         ENV: 'production'
     }
 };
 
-// Auto-detect environment
 const ENV = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
     ? 'development' 
     : 'production';

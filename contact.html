@@ -17,12 +17,11 @@
                         secondary: '#0f1623',
                         gold: '#d4af37',
                         goldLight: '#f4e8c1',
-                        // Light theme colors
                         lightBg: '#f8fafc',
                         lightPrimary: '#ffffff',
                         lightText: '#1e293b',
                         lightSecondary: '#f1f5f9',
-                        lightCard: '#1e293b', // Dark color for cards in light theme
+                        lightCard: '#1e293b',
                         lightBorder: '#e2e8f0',
                     },
                     backgroundImage: {
@@ -259,7 +258,7 @@
                             <label class="block text-gray-700 mb-2 dark:text-gray-300">Full Name *</label>
                             <input id="fullName" name="fullName" type="text" required
                                 class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText placeholder-gray-500 dark:bg-gray-900/50 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
-                                placeholder="Enter your full name" oninput="validateName()">
+                                placeholder="Enter your full name">
                             <p id="nameerror" class="text-red-500 text-sm mt-1 hidden">
                                 <i class="fas fa-exclamation-circle mr-1"></i>
                                 Invalid Name
@@ -271,22 +270,18 @@
                                 <label class="block text-gray-700 mb-2 dark:text-gray-300">Phone Number *</label>
                                 <input id="phoneNumber" name="phoneNumber" type="text" required
                                     class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText placeholder-gray-500 dark:bg-gray-900/50 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
-                                    placeholder="Enter Your Phone Number" oninput="validatePhoneNumber()">
+                                    placeholder="Enter Your Phone Number">
                                 <p id="phoneError" class="text-red-500 text-sm mt-1 hidden">
                                     <i class="fas fa-exclamation-circle mr-1"></i>
                                     Invalid Phone Number
                                 </p>
-                                <!-- <p id="phoneSuccess" class="text-green-500 text-sm mt-1 hidden">
-                                    <i class="fas fa-check-circle mr-1"></i>
-                                    Valid phone number format
-                                </p> -->
                             </div>
 
                             <div>
                                 <label class="block text-gray-700 mb-2 dark:text-gray-300">Email Address *</label>
                                 <input id="email" name="email" type="email" required
                                     class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText placeholder-gray-500 dark:bg-gray-900/50 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
-                                    placeholder="Enter Your Email Address" oninput="validateEmail()">
+                                    placeholder="Enter Your Email Address">
                                 <p id="emailError" class="text-red-500 text-sm mt-1 hidden">
                                     <i class="fas fa-exclamation-circle mr-1"></i>
                                     Invalid Email Address
@@ -299,10 +294,13 @@
                             <select id="subject" name="subject" required
                                 class="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 focus:border-gold focus:outline-none transition-colors text-lightText dark:bg-gray-900/50 dark:border-gray-600 dark:text-white">
                                 <option value="" class="text-gray-500 dark:text-gray-400">Select a subject</option>
-                                <option class="text-lightText dark:text-white">Booking Inquiry</option>
-                                <option class="text-lightText dark:text-white">Hotel Partnership</option>
-                                <option class="text-lightText dark:text-white">Corporate Travel</option>
-                                <option class="text-lightText dark:text-white">Other</option>
+                                <option value="Booking Inquiry" class="text-lightText dark:text-white">Booking Inquiry
+                                </option>
+                                <option value="Hotel Partnership" class="text-lightText dark:text-white">Hotel
+                                    Partnership</option>
+                                <option value="Corporate Travel" class="text-lightText dark:text-white">Corporate Travel
+                                </option>
+                                <option value="Other" class="text-lightText dark:text-white">Other</option>
                             </select>
                             <p id="subjectError" class="text-red-500 text-sm mt-1 hidden">
                                 <i class="fas fa-exclamation-circle mr-1"></i>
@@ -364,7 +362,7 @@
                                     <i class="fas fa-envelope text-gold text-xl"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-lg font-bold mb-1 text-lightText dark:text-white">Email Addresses
+                                    <h3 class="text-lg font-bold mb-1 text-lightText dark:text-white">Gmail Addresses
                                     </h3>
                                     <p class="text-gray-600 dark:text-gray-400">
                                         <span class="block">ellorataxi001@gmail.com</span>
@@ -394,17 +392,20 @@
 
                     <!-- Map -->
                     <div
-                        class="bg-white rounded-xl border border-lightBorder p-6 card-hover dark:bg-gray-800/30 dark:border-gray-700">
+                        class="bg-white rounded-xl border border-lightBorder p-4 sm:p-6 card-hover dark:bg-gray-800/30 dark:border-gray-700">
                         <h3 class="text-xl font-bold mb-4 text-gold">Find Us</h3>
 
                         <div class="rounded-lg overflow-hidden border border-gray-300 dark:border-gray-700">
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6762.912606839791!2d75.1683993807404!3d20.020625326186117!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdb926583782a17%3A0xf260d914fb2ad87c!2sEllora%20Heritage%20Resort!5e0!3m2!1sen!2sin!4v1773131088012!5m2!1sen!2sin"
-                                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                                referrerpolicy="no-referrer-when-downgrade"></iframe>"
+                                class="w-full h-64 sm:h-80 md:h-96" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
                             </iframe>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Footer -->
@@ -508,465 +509,308 @@
         <i class="fab fa-whatsapp text-2xl"></i>
     </a>
 
+    <!-- SINGLE CONSOLIDATED SCRIPT SECTION -->
     <script>
-        // Real-time validation functions
+        // Wait for DOM to be fully loaded before running any code
+        document.addEventListener('DOMContentLoaded', function () {
 
-        function validateName() {
-            const nameInput = document.getElementById('fullName');
-            const nameError = document.getElementById('nameerror');
-            let nameValue = nameInput.value;
+            // ========== THEME TOGGLE ==========
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const htmlElement = document.documentElement;
+            const bodyElement = document.body;
 
-            // Show validation after user has typed at least 1 character
-            if (nameValue.length === 0) {
-                nameError.classList.add('hidden');
-                nameInput.classList.remove('invalid-input', 'valid-input');
-                return;
-            }
+            // Check for saved theme preference or default to dark
+            const savedTheme = localStorage.getItem('theme') || 'dark';
 
-            // Check if name contains only letters and spaces (no numbers or special symbols)
-            const namePattern = /^[A-Za-z\s]+$/;
-            const isValid = namePattern.test(nameValue);
-
-            if (isValid) {
-                // Capitalize first letter of each word
-                nameValue = nameValue.toLowerCase().replace(/\b\w/g, function (char) {
-                    return char.toUpperCase();
-                });
-
-                // Update the input field with capitalized text
-                nameInput.value = nameValue;
-
-                nameError.classList.add('hidden');
-                nameInput.classList.remove('invalid-input');
-                nameInput.classList.add('valid-input');
-            } else {
-                nameError.classList.remove('hidden');
-                nameInput.classList.remove('valid-input');
-                nameInput.classList.add('invalid-input');
-            }
-        }
-
-
-        function validatePhoneNumber() {
-            const phoneInput = document.getElementById('phoneNumber');
-            const phoneError = document.getElementById('phoneError');
-            const phoneSuccess = document.getElementById('phoneSuccess');
-            const phoneValue = phoneInput.value;
-
-            // Remove non-digits and limit to 10 characters
-            let cleanedValue = phoneValue.replace(/[^0-9]/g, '').slice(0, 10);
-            phoneInput.value = cleanedValue;
-
-            // Show validation after user has typed at least 1 character
-            if (cleanedValue.length === 0) {
-                phoneError.classList.add('hidden');
-                phoneSuccess.classList.add('hidden');
-                phoneInput.classList.remove('invalid-input', 'valid-input');
-                return;
-            }
-
-            // Check if valid: starts with 7, 8, or 9 and exactly 10 digits
-            const phonePattern = /^[7-9][0-9]{9}$/;
-            const isValid = phonePattern.test(cleanedValue);
-
-            if (isValid) {
-                phoneError.classList.add('hidden');
-                phoneSuccess.classList.remove('hidden');
-                phoneInput.classList.remove('invalid-input');
-                phoneInput.classList.add('valid-input');
-            } else {
-                phoneError.classList.remove('hidden');
-                phoneSuccess.classList.add('hidden');
-                phoneInput.classList.remove('valid-input');
-                phoneInput.classList.add('invalid-input');
-            }
-        }
-
-        function validateEmail() {
-            const emailInput = document.getElementById('email');
-            const emailError = document.getElementById('emailError');
-            const emailSuccess = document.getElementById('emailSuccess');
-            const emailValue = emailInput.value;
-
-            // Show validation after user has typed at least 1 character
-            if (emailValue.length === 0) {
-                emailError.classList.add('hidden');
-                emailSuccess.classList.add('hidden');
-                emailInput.classList.remove('invalid-input', 'valid-input');
-                return;
-            }
-
-            // Check if email ends with @gmail.com
-            const isValid = emailValue.toLowerCase().endsWith('@gmail.com');
-
-            if (isValid) {
-                emailError.classList.add('hidden');
-                emailSuccess.classList.remove('hidden');
-                emailInput.classList.remove('invalid-input');
-                emailInput.classList.add('valid-input');
-            } else {
-                emailError.classList.remove('hidden');
-                emailSuccess.classList.add('hidden');
-                emailInput.classList.remove('valid-input');
-                emailInput.classList.add('invalid-input');
-            }
-        }
-
-        // Form submission handler
-        document.getElementById('enquiryForm').addEventListener('submit', async function (e) {
-            e.preventDefault();
-
-            // Get form values
-            const phoneNumber = document.getElementById('phoneNumber').value;
-            const email = document.getElementById('email').value;
-            const phoneError = document.getElementById('phoneError');
-            const emailError = document.getElementById('emailError');
-
-            // Run validation one more time before submitting
-            validatename();
-            validatePhoneNumber();
-            validateEmail();
-
-            // Check if validation passes
-            const phonePattern = /^[7-9][0-9]{9}$/;
-            const isPhoneValid = phonePattern.test(phoneNumber);
-            const isEmailValid = email.toLowerCase().endsWith('@gmail.com');
-
-            // If validation fails, don't submit
-            if (!isPhoneValid || !isEmailValid) {
-                // Show error messages if they're hidden
-                if (!isPhoneValid) {
-                    phoneError.classList.remove('hidden');
-                }
-                if (!isEmailValid) {
-                    emailError.classList.remove('hidden');
-                }
-                return;
-            };
-
-            const data = {
-                fullName: document.getElementById('fullName').value,
-                phoneNumber: phoneNumber,
-                email: email,
-                enquiryType: 'general',
-                message: document.getElementById('message').value
-            };
-
-            console.log('📤 Sending to backend:', data);
-
-            try {
-                const response = await fetch('https://ellora-1.onrender.com/api/enquiry', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-
-                const result = await response.json();
-                console.log('📥 Backend response:', result);
-
-                if (result.success) {
-                    alert('✅ Enquiry saved successfully!');
-                    this.reset();
-                    // Reset validation states
-                    document.getElementById('phoneError').classList.add('hidden');
-                    document.getElementById('phoneSuccess').classList.add('hidden');
-                    document.getElementById('emailError').classList.add('hidden');
-                    document.getElementById('emailSuccess').classList.add('hidden');
-                    document.getElementById('phoneNumber').classList.remove('valid-input');
-                    document.getElementById('email').classList.remove('valid-input');
+            // Apply saved theme
+            function applyTheme(theme) {
+                if (theme === 'light') {
+                    htmlElement.classList.remove('dark');
+                    htmlElement.classList.add('light');
+                    bodyElement.classList.remove('bg-pattern-dark');
+                    bodyElement.classList.add('bg-pattern-light');
+                    bodyElement.classList.add('bg-lightBg');
+                    if (themeIcon) {
+                        themeIcon.classList.remove('fa-moon');
+                        themeIcon.classList.add('fa-sun');
+                    }
                 } else {
-                    alert('❌ Failed to save enquiry');
-                }
-            } catch (error) {
-                console.error('Error submitting form:', error);
-                alert('❌ Network error. Please try again.');
-            }
-        });
-    </script>
-
-    <script>
-        // Theme toggle functionality
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const htmlElement = document.documentElement;
-        const bodyElement = document.body;
-
-        // Check for saved theme preference or default to dark
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-
-        // Apply saved theme
-        function applyTheme(theme) {
-            if (theme === 'light') {
-                htmlElement.classList.remove('dark');
-                htmlElement.classList.add('light');
-                bodyElement.classList.remove('bg-pattern-dark');
-                bodyElement.classList.add('bg-pattern-light');
-                bodyElement.classList.add('bg-lightBg');
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-            } else {
-                htmlElement.classList.remove('light');
-                htmlElement.classList.add('dark');
-                bodyElement.classList.remove('bg-pattern-light');
-                bodyElement.classList.add('bg-pattern-dark');
-                bodyElement.classList.remove('bg-lightBg');
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-            }
-        }
-
-        applyTheme(savedTheme);
-
-        // Toggle theme
-        themeToggle.addEventListener('click', () => {
-            if (htmlElement.classList.contains('dark')) {
-                // Switch to light theme
-                localStorage.setItem('theme', 'light');
-                applyTheme('light');
-            } else {
-                // Switch to dark theme
-                localStorage.setItem('theme', 'dark');
-                applyTheme('dark');
-            }
-        });
-
-        // Mobile menu toggle
-        document.getElementById('mobileMenuBtn').addEventListener('click', function () {
-            const mobileMenu = document.getElementById('mobileMenu');
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-
-                    // Close mobile menu if open
-                    const mobileMenu = document.getElementById('mobileMenu');
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
+                    htmlElement.classList.remove('light');
+                    htmlElement.classList.add('dark');
+                    bodyElement.classList.remove('bg-pattern-light');
+                    bodyElement.classList.add('bg-pattern-dark');
+                    bodyElement.classList.remove('bg-lightBg');
+                    if (themeIcon) {
+                        themeIcon.classList.remove('fa-sun');
+                        themeIcon.classList.add('fa-moon');
                     }
                 }
-            });
-        });
-    </script>
-
-    <script>
-        // Form submission handler
-        async function submitForm(formData, endpoint) {
-            try {
-                const response = await fetch(`https://ellora-1.onrender.com/api/${endpoint}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
-
-                return await response.json();
-            } catch (error) {
-                console.error('Network error:', error);
-                return {
-                    success: false,
-                    error: 'Network error. Please check if backend is running.'
-                };
             }
-        }
 
-        // Show notification
-        function showNotification(message, type = 'success') {
-            // Remove existing notifications
-            document.querySelectorAll('.notification').forEach(n => n.remove());
+            applyTheme(savedTheme);
 
-            // Create notification
-            const notification = document.createElement('div');
-            notification.className = `notification fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 transform ${type === 'success'
-                ? 'bg-green-500 text-white border-l-4 border-green-700'
-                : 'bg-red-500 text-white border-l-4 border-red-700'
-                }`;
-            notification.innerHTML = `
-        <div class="flex items-center space-x-3">
-            <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'} text-xl"></i>
-            <div>
-                <p class="font-bold">${type === 'success' ? 'Success!' : 'Error!'}</p>
-                <p>${message}</p>
-            </div>
-            <button onclick="this.parentElement.parentElement.remove()" class="ml-4 hover:opacity-80">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    `;
+            // Toggle theme
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    if (htmlElement.classList.contains('dark')) {
+                        localStorage.setItem('theme', 'light');
+                        applyTheme('light');
+                    } else {
+                        localStorage.setItem('theme', 'dark');
+                        applyTheme('dark');
+                    }
+                });
+            }
 
-            document.body.appendChild(notification);
+            // ========== MOBILE MENU ==========
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
 
-            // Auto-remove after 5 seconds
-            setTimeout(() => {
-                if (notification.parentElement) {
-                    notification.style.opacity = '0';
-                    setTimeout(() => notification.remove(), 500);
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function () {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // ========== BACKEND HEALTH CHECK ==========
+            async function checkBackend() {
+                try {
+                    const response = await fetch('https://ellora-1.onrender.com/api/health');
+                    const data = await response.json();
+                    console.log('✅ Backend connected:', data.message);
+                } catch (error) {
+                    console.warn('⚠️ Backend not connected:', error.message);
                 }
-            }, 5000);
-        }
-
-        // Contact form handler
-        document.addEventListener('DOMContentLoaded', function () {
-            // Check if backend is running
+            }
             checkBackend();
 
-            // Contact Form
-            const contactForm = document.getElementById('contactForm');
-            if (contactForm) {
-                contactForm.addEventListener('submit', async function (e) {
-                    e.preventDefault();
-
-                    const submitBtn = this.querySelector('button[type="submit"]');
-                    const originalText = submitBtn.innerHTML;
-
-                    try {
-                        // Show loading state
-                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Sending...';
-                        submitBtn.disabled = true;
-
-                        // Collect form data
-                        const formData = {
-                            fullName: document.getElementById('fullName')?.value || '',
-                            phoneNumber: document.getElementById('phoneNumber')?.value || '',
-                            email: document.getElementById('email')?.value || '',
-                            subject: document.getElementById('subject')?.value || 'Contact Form',
-                            message: document.getElementById('message')?.value || ''
-                        };
-
-                        // Basic validation
-                        if (!formData.fullName || !formData.email || !formData.message) {
-                            showNotification('Please fill in all required fields.', 'error');
-                            return;
-                        }
-
-                        // Submit to backend
-                        const result = await submitForm(formData, 'contact');
-
-                        if (result.success) {
-                            showNotification(result.message || 'Message sent successfully!');
-                            contactForm.reset();
-
-                            // Show additional info
-                            console.log('✅ Form submitted successfully:', result);
-
-                        } else {
-                            showNotification(result.error || 'Failed to send message.', 'error');
-                        }
-                    } catch (error) {
-                        showNotification('An error occurred. Please try again.', 'error');
-                        console.error('Form error:', error);
-                    } finally {
-                        // Reset button
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
-                    }
-                });
-            }
-
-            // Enquiry form handler (if you have enquiry form)
+            // ========== FORM VALIDATION AND SUBMISSION ==========
             const enquiryForm = document.getElementById('enquiryForm');
+
             if (enquiryForm) {
+                // Get all input elements
+                const fullName = document.getElementById('fullName');
+                const phoneNumber = document.getElementById('phoneNumber');
+                const email = document.getElementById('email');
+                const subject = document.getElementById('subject');
+                const message = document.getElementById('message');
+
+                // Get error elements
+                const nameError = document.getElementById('nameerror');
+                const phoneError = document.getElementById('phoneError');
+                const emailError = document.getElementById('emailError');
+                const subjectError = document.getElementById('subjectError');
+
+                // Add input event listeners for real-time validation
+                if (fullName) {
+                    fullName.addEventListener('input', function () {
+                        validateName(this, nameError);
+                    });
+                }
+
+                if (phoneNumber) {
+                    phoneNumber.addEventListener('input', function () {
+                        validatePhoneNumber(this, phoneError);
+                    });
+                }
+
+                if (email) {
+                    email.addEventListener('input', function () {
+                        validateEmail(this, emailError);
+                    });
+                }
+
+                // Validation functions
+                function validateName(input, errorElement) {
+                    if (!input || !errorElement) return;
+
+                    let value = input.value;
+
+                    if (value.length === 0) {
+                        errorElement.classList.add('hidden');
+                        input.classList.remove('invalid-input', 'valid-input');
+                        return false;
+                    }
+
+                    const namePattern = /^[A-Za-z\s]+$/;
+                    const isValid = namePattern.test(value);
+
+                    if (isValid) {
+                        // Capitalize first letter of each word
+                        value = value.toLowerCase().replace(/\b\w/g, function (char) {
+                            return char.toUpperCase();
+                        });
+                        input.value = value;
+
+                        errorElement.classList.add('hidden');
+                        input.classList.remove('invalid-input');
+                        input.classList.add('valid-input');
+                        return true;
+                    } else {
+                        errorElement.classList.remove('hidden');
+                        input.classList.remove('valid-input');
+                        input.classList.add('invalid-input');
+                        return false;
+                    }
+                }
+
+                function validatePhoneNumber(input, errorElement) {
+                    if (!input || !errorElement) return;
+
+                    let value = input.value;
+
+                    // Remove non-digits and limit to 10 characters
+                    let cleanedValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+                    input.value = cleanedValue;
+
+                    if (cleanedValue.length === 0) {
+                        errorElement.classList.add('hidden');
+                        input.classList.remove('invalid-input', 'valid-input');
+                        return false;
+                    }
+
+                    const phonePattern = /^[7-9][0-9]{9}$/;
+                    const isValid = phonePattern.test(cleanedValue);
+
+                    if (isValid) {
+                        errorElement.classList.add('hidden');
+                        input.classList.remove('invalid-input');
+                        input.classList.add('valid-input');
+                        return true;
+                    } else {
+                        errorElement.classList.remove('hidden');
+                        input.classList.remove('valid-input');
+                        input.classList.add('invalid-input');
+                        return false;
+                    }
+                }
+
+                function validateEmail(input, errorElement) {
+                    if (!input || !errorElement) return;
+
+                    const value = input.value;
+
+                    if (value.length === 0) {
+                        errorElement.classList.add('hidden');
+                        input.classList.remove('invalid-input', 'valid-input');
+                        return false;
+                    }
+
+                    const isValid = value.toLowerCase().endsWith('@gmail.com');
+
+                    if (isValid) {
+                        errorElement.classList.add('hidden');
+                        input.classList.remove('invalid-input');
+                        input.classList.add('valid-input');
+                        return true;
+                    } else {
+                        errorElement.classList.remove('hidden');
+                        input.classList.remove('valid-input');
+                        input.classList.add('invalid-input');
+                        return false;
+                    }
+                }
+
+                // Form submission handler
                 enquiryForm.addEventListener('submit', async function (e) {
                     e.preventDefault();
 
-                    const submitBtn = this.querySelector('button[type="submit"]');
-                    const originalText = submitBtn.innerHTML;
+                    // Validate all fields
+                    const isNameValid = fullName ? validateName(fullName, nameError) : false;
+                    const isPhoneValid = phoneNumber ? validatePhoneNumber(phoneNumber, phoneError) : false;
+                    const isEmailValid = email ? validateEmail(email, emailError) : false;
+
+                    // Validate subject
+                    let isSubjectValid = true;
+                    if (subject && subjectError) {
+                        if (!subject.value) {
+                            subjectError.classList.remove('hidden');
+                            subject.classList.add('invalid-input');
+                            isSubjectValid = false;
+                        } else {
+                            subjectError.classList.add('hidden');
+                            subject.classList.remove('invalid-input');
+                        }
+                    }
+
+                    if (!isNameValid || !isPhoneValid || !isEmailValid || !isSubjectValid) {
+                        alert('Please fill all required fields correctly.');
+                        return;
+                    }
+
+                    // Prepare data for backend
+                    const data = {
+                        fullName: fullName ? fullName.value : '',
+                        phoneNumber: phoneNumber ? phoneNumber.value : '',
+                        email: email ? email.value : '',
+                        subject: subject ? subject.value : '',
+                        message: message ? message.value : '',
+                        enquiryType: 'general'
+                    };
+
+                    console.log('📤 Sending to backend:', data);
 
                     try {
-                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Submitting...';
-                        submitBtn.disabled = true;
+                        const response = await fetch('https://ellora-1.onrender.com/api/enquiry', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data)
+                        });
 
-                        const formData = {
-                            enquiryType: document.getElementById('enquiryType')?.value || 'general',
-                            fullName: document.getElementById('fullName')?.value || '',
-                            phoneNumber: document.getElementById('phoneNumber')?.value || '',
-                            email: document.getElementById('email')?.value || '',
-                            preferredDate: document.getElementById('preferredDate')?.value || '',
-                            numberOfPersons: document.getElementById('numberOfPersons')?.value || 1,
-                            vehicleType: document.getElementById('vehicleType')?.value || '',
-                            tourPackage: document.getElementById('tourPackage')?.value || '',
-                            message: document.getElementById('message')?.value || ''
-                        };
-
-                        if (!formData.fullName || !formData.email || !formData.phoneNumber) {
-                            showNotification('Please fill in all required fields.', 'error');
-                            return;
-                        }
-
-                        const result = await submitForm(formData, 'enquiry');
+                        const result = await response.json();
+                        console.log('📥 Backend response:', result);
 
                         if (result.success) {
-                            showNotification(result.message || 'Enquiry submitted successfully!');
+                            alert('✅ Enquiry saved successfully! Check your email for confirmation.');
                             enquiryForm.reset();
+
+                            // Reset validation states
+                            [fullName, phoneNumber, email, subject, message].forEach(field => {
+                                if (field) {
+                                    field.classList.remove('valid-input', 'invalid-input');
+                                }
+                            });
+
+                            [nameError, phoneError, emailError, subjectError].forEach(error => {
+                                if (error) {
+                                    error.classList.add('hidden');
+                                }
+                            });
                         } else {
-                            showNotification(result.error || 'Failed to submit enquiry.', 'error');
+                            alert('❌ Failed to save enquiry: ' + (result.error || 'Unknown error'));
                         }
                     } catch (error) {
-                        showNotification('An error occurred. Please try again.', 'error');
-                        console.error('Enquiry error:', error);
-                    } finally {
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
+                        console.error('Error submitting form:', error);
+                        alert('❌ Network error. Please try again.');
                     }
                 });
             }
+
+            // ========== SMOOTH SCROLLING ==========
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+
+                        // Close mobile menu if open
+                        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                        }
+                    }
+                });
+            });
         });
-
-        // Check backend connection
-        async function checkBackend() {
-            try {
-                const response = await fetch('https://ellora-1.onrender.com/api/health');
-                const data = await response.json();
-                console.log('✅ Backend connected:', data.message);
-
-                // Optional: Show small indicator
-                showBackendStatus(true);
-            } catch (error) {
-                console.warn('⚠️ Backend not connected:', error.message);
-                showBackendStatus(false);
-            }
-        }
-
-        // Show backend status indicator
-        function showBackendStatus(connected) {
-            const existingIndicator = document.querySelector('#backendStatus');
-            if (existingIndicator) existingIndicator.remove();
-
-            const indicator = document.createElement('div');
-            indicator.id = 'backendStatus';
-            indicator.className = `fixed bottom-4 right-4 z-40 px-3 py-1 rounded-full text-sm font-bold ${connected ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
-                }`;
-            indicator.innerHTML = `
-        <i class="fas ${connected ? 'fa-check' : 'fa-exclamation-triangle'} mr-1"></i>
-        Backend ${connected ? 'Connected' : 'Not Connected'}
-    `;
-            indicator.title = connected ? 'Server is running properly' : 'Backend server may not be running';
-
-            document.body.appendChild(indicator);
-
-            // Auto-hide after 10 seconds if connected
-            if (connected) {
-                setTimeout(() => {
-                    indicator.style.opacity = '0.5';
-                }, 10000);
-            }
-        }
     </script>
-
-
 
 </body>
 
